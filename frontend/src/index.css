@@ -1,0 +1,39 @@
+/* Import Custom Styles */
+@import './styles/Auth.css'; /* Import our specific auth styles */
+
+/* Global Reset and Variables */
+:root {
+  --primary-color: #007bff; /* CLICKSY Blue/Primary Action */
+  --secondary-color: #6c757d;
+  --background-color: #f0f2f5;
+  --text-color: #333;
+  --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Basic CSS Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Container for Centering/Limiting Width */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
