@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // We will create these pages in the next steps
 import HomePage from './pages/HomePage';
 import Auth from './pages/LoginPage';
+import Booking from './pages/Booking';
 // import AuthPage from './pages/AuthPage';
 // import PortfolioPage from './pages/PortfolioPage';
 // import BookingPage from './pages/BookingPage';
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/booking" element={<Booking />} /> 
           {/* We can add the routes for the other pages as we create them.
             For example:
             <Route path="/auth" element={<AuthPage />} />
