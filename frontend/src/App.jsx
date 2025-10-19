@@ -1,28 +1,43 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import LoginPage from './pages/LoginPage';
-import RegisterPages from './pages/RegisterPages';
+// We will create these pages in the next steps
 import HomePage from './pages/HomePage';
-import DashboardPage from './pages/DashboardPage'; // Placeholder
+// import AuthPage from './pages/AuthPage';
+// import PortfolioPage from './pages/PortfolioPage';
+// import BookingPage from './pages/BookingPage';
+// import CommunityPage from './pages/CommunityPage';
+// import LearnPage from './pages/LearnPage';
+// import MarketplacePage from './pages/MarketplacePage';
+// import AboutPage from './pages/AboutPage';
+// import ContactPage from './pages/ContactPage';
+// import NotFoundPage from './pages/NotFoundPage';
+
+// The original project used QueryClient, Toasters, etc.
+// We can add those back in later when we need them.
+// For now, let's keep it simple.
 
 function App() {
-    return (
-        <Router>
-            <Routes>
-                {/* User Management Module Routes */}
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPages />} />
-                
-                {/* Protected Routes (Placeholder) */}
-                <Route path="/dashboard" element={<DashboardPage />} /> 
-
-                {/* Catch-all Route for 404 (optional) */}
-                {/* <Route path="*" element={<NotFoundPage />} /> */}
-            </Routes>
-        </Router>
-    );
+  return (
+    <Router>
+      {/* The Navbar and Footer can be placed here, outside the <Routes>, 
+        so they appear on every page. This is a common and good practice.
+      */}
+      {/* <Navbar /> */}
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          {/* We can add the routes for the other pages as we create them.
+            For example:
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+          */}
+          {/* <Route path="*" element={<NotFoundPage />} /> */}
+        </Routes>
+      </main>
+      {/* <Footer /> */}
+    </Router>
+  );
 }
 
 export default App;
