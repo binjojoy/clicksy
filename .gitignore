@@ -1,7 +1,3 @@
-# ------------------------------------
-# Global Ignores
-# ------------------------------------
-# Logs
 logs
 *.log
 npm-debug.log*
@@ -15,20 +11,18 @@ lerna-debug.log*
 .idea/
 Thumbs.db
 
-# ------------------------------------
-# Backend Ignores (Node/Express)
-# ------------------------------------
+
 **/backend/node_modules
 **/backend/dist
-**/backend/.env               # CRUCIAL: Do NOT commit environment variables (like Supabase Service Key)
+**/backend/.env               
 
 # ------------------------------------
 # Frontend Ignores (React/Vite)
 # ------------------------------------
 /frontend/node_modules
-/frontend/dist              # Build output directory
+/frontend/dist              
 /frontend/build
-/frontend/.vite             # Vite cache directory
+/frontend/.vite             
 
 # NPM & Yarn files
 /frontend/package-lock.json
