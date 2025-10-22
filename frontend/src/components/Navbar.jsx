@@ -49,8 +49,8 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Link to="/auth" className="btn btn-primary btn-sm">
-            Sign In
+          <Link to="/" className="btn btn-primary btn-sm">
+            Log Out
           </Link>
         </div>
 
@@ -89,7 +89,7 @@ const Navbar = () => {
           className="btn btn-primary w-full"
           onClick={() => setMobileMenuOpen(false)}
         >
-          Sign In
+          Log Out
         </Link>
       </div>
     </nav>
