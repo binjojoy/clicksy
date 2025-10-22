@@ -1,53 +1,63 @@
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
+import './Portfolio.css'; // 💡 Make sure you import the CSS here
+
+// Import your images (assuming .jpg extension)
+import image1 from "../assets/image1.jpg"; 
+import image2 from "../assets/image2.jpg";
+import image3 from "../assets/image3.jpg";
 
 const Portfolio = () => {
-  const portfolioItems = [
-    { id: 1, title: "Sunset Landscape", category: "Nature" },
-    { id: 2, title: "Urban Architecture", category: "Architecture" },
-    { id: 3, title: "Portrait Session", category: "Portrait" },
-    { id: 4, title: "Wildlife Safari", category: "Wildlife" },
-    { id: 5, title: "Street Photography", category: "Street" },
-    { id: 6, title: "Food Styling", category: "Food" },
-  ];
+  // Using 3 images and repeating them to fill 6 slots
+  const portfolioItems = [
+    { id: 1, title: "Sunset Landscape", category: "Nature", image: image1 },
+    { id: 2, title: "Urban Architecture", category: "Architecture", image: image2 },
+    { id: 3, title: "Portrait Session", category: "Portrait", image: image3 },
+    { id: 4, title: "Wildlife Safari", category: "Wildlife", image: image2 }, 
+    { id: 5, title: "Street Photography", category: "Street", image: image1 }, 
+    { id: 6, title: "Food Styling", category: "Food", image: image3 }, 
+  ];
 
-  return (
-    <div className="min-h-screen">
-      <Navbar />
+  return (
+    <div className="page-wrapper">
+      <Navbar />
 
-      <section className="pt-32 pb-20 px-4">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Featured Portfolios
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Discover amazing work from talented photographers
-            </p>
-          </div>
+      <section className="portfolio-section">
+        <div className="container">
+          <div className="section-header">
+            <h1 className="main-title">
+              Featured Portfolios
+            </h1>
+            <p className="subtitle">
+              Discover amazing work from talented photographers
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolioItems.map((item) => (
-              <div key={item.id} className="card card-hover overflow-hidden group cursor-pointer">
-                <div className="card-content p-0">
-                  <div className="image-overlay aspect-square flex items-center justify-center" style={{
-                    background: 'linear-gradient(to bottom right, hsl(263, 70%, 50%, 0.2), hsl(14, 100%, 65%, 0.2))'
-                  }}>
-                    <div className="text-center p-6">
-                      <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
-                      <p className="text-muted-foreground">{item.category}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          {/* 🚀 Grid Container for the 2x3 Layout */}
+          <div className="portfolio-grid-2x3"> 
+            {portfolioItems.map((item) => (
+              <div key={item.id} className="portfolio-card">
+                  <img 
+                        src={item.image} 
+                        alt={item.title} 
+                        className="portfolio-image" 
+                    />
+                  {/* Overlay for text and hover effect */}
+                  <div className="portfolio-overlay"> 
+                    <div className="portfolio-text">
+                      <h3 className="overlay-title">{item.title}</h3>
+                      <p className="overlay-category">{item.category}</p>
+                    </div>
+                  </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <Footer />
-    </div>
-  );
+      <Footer />
+    </div>
+  );
 };
 
 export default Portfolio;

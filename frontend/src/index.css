@@ -112,3 +112,82 @@
   .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
+/* Example Global CSS file */
+
+/* --- Avatar Styles --- */
+.avatar {
+    position: relative;
+    display: flex;
+    height: 40px; /* h-10 */
+    width: 40px;  /* w-10 */
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 50%; /* rounded-full */
+}
+.avatar-image {
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    width: 100%;
+}
+.avatar-fallback {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /* You must define 'bg-muted' color here */
+    background-color: lightgray; 
+}
+
+/* --- Badge Styles --- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px; /* rounded-full */
+    border: 1px solid currentColor;
+    padding: 0.25rem 0.625rem; /* px-2.5 py-0.5 */
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 600;
+    transition: background-color 0.15s ease-in-out;
+}
+.badge-default {
+    border-color: transparent;
+    background-color: var(--primary-color);
+    color: var(--primary-foreground-color);
+}
+.badge-secondary {
+    border-color: transparent;
+    background-color: var(--secondary-color);
+    color: var(--secondary-foreground-color);
+}
+/* ... define other variants ... */
+
+/* --- Tabs Styles --- */
+.tabs-list {
+    display: inline-flex;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.375rem;
+    /* You must define 'bg-muted' and 'text-muted-foreground' */
+    background-color: #e2e8f0; 
+    color: #64748b;
+    padding: 4px;
+}
+.tabs-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border-radius: 0.125rem;
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.15s ease-in-out;
+}
+.tabs-trigger[data-state="active"] {
+    background-color: white; /* bg-background */
+    color: black; /* text-foreground */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+}
