@@ -1,6 +1,11 @@
+// src/pages/Home.jsx 
 import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar.jsx";
+// 🚀 UPDATED: Importing the new component name and path
+import NavbarHome from "../components/NavbarHome.jsx"; 
 import Footer from "../components/Footer.jsx";
+// 💡 MOCK FUNCTIONS: Needed to prevent the Navbar from crashing if it expects these props
+const mockLogout = () => console.log('Mock user logged out from Home page.');
+
 
 const Home = () => {
   const features = [
@@ -50,13 +55,14 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      <Navbar />
+      {/* 🚀 PASSING REQUIRED PROPS to the new Navbar component */}
+      <NavbarHome isAuthenticated={false} onLogout={mockLogout} /> 
 
       {/* *** INLINE SPACING FIX: Hero Section *** */}
       <section 
-          className="hero-gradient hero-section px-4" 
-          style={{ paddingTop: '160px', paddingBottom: '160px' }}
-      >
+          className="hero-gradient hero-section px-4" 
+          style={{ paddingTop: '160px', paddingBottom: '160px' }}
+      >
         <div className="container text-center">
           <h1 className="hero-title">
             One Click,{" "}
@@ -73,14 +79,14 @@ const Home = () => {
               Explore Portfolios
             </Link>
           </div>
-        </div>
+          </div>
       </section>
 
       {/* *** INLINE SPACING FIX: Features Section *** */}
       <section 
-          className="px-4" 
-          style={{ paddingTop: '60px', paddingBottom: '60px' }}
-      >
+          className="px-4" 
+          style={{ paddingTop: '60px', paddingBottom: '60px' }}
+      >
         <div className="container">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -92,13 +98,13 @@ const Home = () => {
           </div>
 
           <div 
-              className="features-grid"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '2.5rem'
-              }}
-          >
+              className="features-grid"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '2.5rem'
+              }}
+          >
             {features.map((feature, index) => (
               <div key={index} className="card card-hover feature-card card-container">
                 <div className="feature-icon">
@@ -126,9 +132,9 @@ const Home = () => {
 
       {/* *** INLINE SPACING FIX: CTA Section *** */}
       <section 
-          className="px-4 bg-card" 
-          style={{ paddingTop: '120px', paddingBottom: '120px' }}
-      >
+          className="px-4 bg-card" 
+          style={{ paddingTop: '120px', paddingBottom: '120px' }}
+      >
         <div className="container text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-8">
             Ready to Transform Your Photography Business?
