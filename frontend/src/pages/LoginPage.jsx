@@ -46,40 +46,46 @@ const Auth = () => {
     };
 
     const handleSignIn = async (e) => {
-        e.preventDefault();
-        setLoading(true);
+        e.preventDefault();
+        setLoading(true);
 
-        const formData = new FormData(e.currentTarget);
-        const email = formData.get("signin-email");
-        const password = formData.get("signin-password");
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get("signin-email");
+        const password = formData.get("signin-password");
 
-        try {
-            // API call to the login endpoint
-            const response = await axios.post(`${API_BASE_URL}/login`, {
-                email,
-                password,
-            });
+        try {
+            // API call to the login endpoint
+            const response = await axios.post(`${API_BASE_URL}/login`, {
+                email,
+                password,
+            });
 
-            const user = response.data.user;
-            
-            // 🔑 CRITICAL: Save the token to local storage for subsequent API calls
-            if (user.token) {
-                localStorage.setItem('userToken', user.token);
+            const user = response.data.user;
+            
+            // 1. Save Token (Existing)
+            if (user.token) {
+                localStorage.setItem('userToken', user.token);
+            }
+
+            // 👇 2. NEW: Save the Name (This is what the Dashboard needs) 👇
+            if (user.fullName) {
+                localStorage.setItem('userName', user.fullName);
             }
-            
-            toast.success(`Welcome back, ${user.email}! Logged in as ${user.userType}.`);
-            
-            // 🚀 CRITICAL: Redirect to the dashboard page
-            navigate("/dashboard");
+            // 👆 End of new code 👆
+            
+            toast.success(`Welcome back, ${user.fullName || user.email}!`);
+            
+            // Redirect to the dashboard page
+            navigate("/dashboard");
 
-        } catch (error) {
-            console.error("Login Error:", error.response?.data);
-            const errorMessage = error.response?.data?.error || "Login failed. Invalid credentials or user not verified.";
-            toast.error(errorMessage);
-        } finally {
-            setLoading(false);
-        }
-    };
+        } catch (error) {
+            console.error("Login Error:", error.response?.data);
+            const errorMessage = error.response?.data?.error || "Login failed.";
+            toast.error(errorMessage);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--gradient-hero)' }}>
