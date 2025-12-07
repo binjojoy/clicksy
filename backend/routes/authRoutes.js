@@ -11,13 +11,13 @@ const supabase = require('../config/supabase'); // Import our Supabase client
 router.post('/register', async (req, res) => {
     // 💡 LOG: Start of Request
     console.log("--- REGISTER REQUEST RECEIVED ---");
-    const { email, password, userType } = req.body;
+    const { email, password, userType, fullName } = req.body;
     // 💡 LOG: Input data
-    console.log(`Input: Email: ${email}, User Type: ${userType}`);
+    console.log(`Input: Email: ${email}, User Type: ${userType}, Full Name: ${fullName}`);
 
-    if (!email || !password || !userType) {
+    if (!email || !password || !userType || !fullName) {
         console.error("REGISTER FAILED: Missing required fields.");
-        return res.status(400).json({ error: 'Email, password, and user type are required.' });
+        return res.status(400).json({ error: 'Email, password, user type, and full name are required.' });
     }
 
     try {
@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
         const { error: profileError } = await supabase
             .from('profiles')
             .insert([
-                { user_id: userId, user_type: userType, email: email }
+                { user_id: userId, user_type: userType, email: email,full_name: fullName }
             ]);
         
         if (profileError) {
@@ -69,67 +69,72 @@ router.post('/register', async (req, res) => {
 // ---------------------------------------------------------------------
 // --- POST /api/v1/auth/login ---
 // ---------------------------------------------------------------------
+// ---------------------------------------------------------------------
+// --- POST /api/v1/auth/login ---
+// ---------------------------------------------------------------------
 router.post('/login', async (req, res) => {
-    // 💡 LOG: Start of Request
     console.log("--- LOGIN REQUEST RECEIVED ---");
     const { email, password } = req.body;
-    // 💡 LOG: Input data
-    console.log(`Input: Attempting login for email: ${email}`);
 
     if (!email || !password) {
-        console.error("LOGIN FAILED: Missing email or password.");
         return res.status(400).json({ error: 'Email and password are required.' });
     }
 
     try {
-        // 1. Supabase Login (returns session and user info)
+        // 1. Authenticate with Supabase Auth
         const { data: loginData, error: signInError } = await supabase.auth.signInWithPassword({
             email,
             password,
         });
 
         if (signInError) {
-            // 💡 LOG: Sign-In Failure
             console.error("Supabase Sign-In Error:", signInError.message);
-            return res.status(401).json({ error: 'Invalid credentials or user not verified.' });
+            return res.status(401).json({ error: 'Invalid credentials.' });
         }
         
         const userId = loginData.user.id;
-        // 💡 LOG: Supabase Auth Success
-        console.log(`[SUCCESS] Supabase Sign-In. User ID: ${userId}`);
         
-        // 2. Fetch the custom profile (to get userType)
+        // 2. Fetch the Full Name from the 'profiles' table
+        // We specifically select 'full_name' here
         const { data: profileData, error: profileError } = await supabase
             .from('profiles')
-            .select('user_type')
+            .select('full_name, user_type') // We fetch both so you have them, but Name is the priority
             .eq('user_id', userId)
             .single();
 
         if (profileError || !profileData) {
-            // 💡 LOG: Profile Fetch Failure
             console.error("Profile Fetch Error:", profileError);
-            return res.status(500).json({ error: 'Could not retrieve user profile.' });
+            // Fallback: If no profile exists yet, we don't block login, but return null for name
+            return res.status(200).json({
+                message: 'Login successful (Profile missing)',
+                user: { 
+                    id: userId, 
+                    email: loginData.user.email,
+                    fullName: "User", // Default fallback
+                    token: loginData.session.access_token 
+                },
+            });
         }
-        
-        // 💡 LOG: Profile Fetch Success
-        console.log(`[SUCCESS] Profile Fetched. User Type: ${profileData.user_type}`);
+
+        // 3. Send back the extracted Full Name
+        console.log(`[SUCCESS] User logged in: ${profileData.full_name}`);
 
         res.status(200).json({
             message: 'Login successful',
             user: { 
                 id: userId, 
                 email: loginData.user.email,
+                // 👇 THIS IS THE KEY EXTRACTED VALUE FOR YOUR DASHBOARD 👇
+                fullName: profileData.full_name, 
+                // We keep userType just in case you need it for permissions later
                 userType: profileData.user_type,
                 token: loginData.session.access_token 
             },
         });
 
     } catch (err) {
-        // 💡 LOG: Unexpected Server Error
         console.error('Server error during login:', err);
         res.status(500).json({ error: 'Internal Server Error' });
-    } finally {
-        console.log("--- LOGIN REQUEST END ---\n"); // 💡 LOG: End of Request
     }
 });
 

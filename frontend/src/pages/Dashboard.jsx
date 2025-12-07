@@ -72,12 +72,20 @@ const Dashboard = () => {
   const totalPhotos = 0; 
   const followersCount = 0; 
 
-  useEffect(() => {
-    // Mocking data fetch for quick testing
-    setProfile({ full_name: "titan ax", total_photos: 0, followers_count: 0 });
-    setLoading(false);
-  }, []);
-
+useEffect(() => {
+    // 1. Fetch the name from Local Storage (Saved during login)
+    const storedName = localStorage.getItem('userName');
+    
+    // 2. Update the profile state
+    // If storedName exists, use it. If not, fallback to "Photographer".
+    setProfile({ 
+      full_name: storedName || "Photographer", 
+      total_photos: 0, 
+      followers_count: 0 
+    });
+    
+    setLoading(false);
+  }, []);
 
   if (loading) {
     return (
