@@ -11,13 +11,13 @@ const supabase = require('../config/supabase'); // Import our Supabase client
 router.post('/register', async (req, res) => {
     // 💡 LOG: Start of Request
     console.log("--- REGISTER REQUEST RECEIVED ---");
-    const { email, password, userType } = req.body;
+    const { email, password, userType, fullName } = req.body;
     // 💡 LOG: Input data
-    console.log(`Input: Email: ${email}, User Type: ${userType}`);
+    console.log(`Input: Email: ${email}, User Type: ${userType}, Full Name: ${fullName}`);
 
-    if (!email || !password || !userType) {
+    if (!email || !password || !userType || !fullName) {
         console.error("REGISTER FAILED: Missing required fields.");
-        return res.status(400).json({ error: 'Email, password, and user type are required.' });
+        return res.status(400).json({ error: 'Email, password, user type, and full name are required.' });
     }
 
     try {
@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
         const { error: profileError } = await supabase
             .from('profiles')
             .insert([
-                { user_id: userId, user_type: userType, email: email }
+                { user_id: userId, user_type: userType, email: email,full_name: fullName }
             ]);
         
         if (profileError) {

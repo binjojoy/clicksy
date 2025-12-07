@@ -21,13 +21,15 @@ const Auth = () => {
         const email = formData.get("signup-email");
         const password = formData.get("signup-password");
         // const fullName = formData.get("full-name"); 
+        const fullName = formData.get("full-name");
         const userType = formData.get("user-type"); 
 
         try {
             const response = await axios.post(`${API_BASE_URL}/register`, {
                 email,
                 password,
-                userType, 
+                userType,
+                fullName 
             });
 
             // Successfully registered (status 201 from backend)
