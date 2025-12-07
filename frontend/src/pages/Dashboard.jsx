@@ -189,7 +189,7 @@ useEffect(() => {
               <ActionButton 
                 icon={Camera} 
                 label="Edit Profile"
-                onClick={() => console.log('Edit Profile clicked')}
+                onClick={() => navigate("/profile")}
               />
             </div>
           </div>
