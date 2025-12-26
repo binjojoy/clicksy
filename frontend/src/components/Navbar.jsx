@@ -6,7 +6,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { path: "/", label: "Home" },
+    { path: "/dashboard", label: "Home" },
     { path: "/portfolio", label: "Portfolio" },
     { path: "/booking", label: "Booking" },
     { path: "/community", label: "Community" },
