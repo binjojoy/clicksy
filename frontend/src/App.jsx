@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import UploadPortfolio from './pages/UploadPortfolio';
+import ManageBookings from './pages/ManageBooking';
 // import AuthPage from './pages/AuthPage';
 // import PortfolioPage from './pages/PortfolioPage';
 // import BookingPage from './pages/BookingPage';
@@ -49,6 +50,7 @@ function App() {
           <Route path='/dashboard' element={<Dashboard/>} /> 
           <Route path='/profile' element={<Profile/>} />
           <Route path='/upload-portfolio' element={<UploadPortfolio/>} />
+          <Route path='/manage-bookings' element={<ManageBookings/>} />
           {/* We can add the routes for the other pages as we create them.
             For example:
             <Route path="/auth" element={<AuthPage />} />

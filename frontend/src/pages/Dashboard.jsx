@@ -184,7 +184,7 @@ useEffect(() => {
               <ActionButton 
                 icon={Calendar} 
                 label="Manage Bookings"
-                onClick={() => console.log('Manage Bookings clicked')}
+                onClick={() => navigate("/manage-bookings")}
               />
               <ActionButton 
                 icon={Camera} 
