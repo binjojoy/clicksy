@@ -179,7 +179,7 @@ useEffect(() => {
                 icon={Upload} 
                 label="Upload Photos"
                 isPrimary={true}
-                onClick={() => console.log('Upload clicked')}
+                onClick={() => navigate("/upload-portfolio")}
               />
               <ActionButton 
                 icon={Calendar} 
