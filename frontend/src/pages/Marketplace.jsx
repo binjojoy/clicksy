@@ -77,7 +77,7 @@ const Marketplace = () => {
       </section>
 
       {/* Floating Add Button */}
-      <Link to="/marketplace/sell" className="fab-add-item" title="Sell Item">
+      <Link to="/marketplace/sell-item" className="fab-add-item" title="Sell Item">
         <svg className="fab-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
         </svg>
