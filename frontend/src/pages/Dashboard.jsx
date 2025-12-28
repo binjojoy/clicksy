@@ -110,7 +110,7 @@ const Dashboard = () => {
             <div className="actions-grid">
               <ActionButton icon={Upload} label="Upload Photos" isPrimary={true} onClick={() => navigate("/upload-portfolio")} />
               <ActionButton icon={Calendar} label="Manage Bookings" onClick={() => navigate("/manage-bookings")} />
-              <ActionButton icon={Camera} label="Edit Profile" onClick={() => navigate("/profile")} />
+              <ActionButton icon={Camera} label="Edit Profile" onClick={() => navigate("/edit-profile")} />
             </div>
           </div>
           <div className="content-section">
