@@ -1,18 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '../config/supabaseClient';
 import './SellItem.css';
 
 const SellItem = () => {
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [file, setFile] = useState(null);
+    
+    // Form State
     const [formData, setFormData] = useState({
-        name: '',        // Changed from 'title' to match DB 'name'
+        name: '',        
         price: '',
         location: '',
         description: '',
-        listing_type: 'sale', // Changed from 'type' to match DB 'listing_type'
-        rent_period: 'day'    // NEW: Needed because your DB has this column
+        // 🔴 FIX 1: Must match DB Enum exactly ("For Sale")
+        listing_type: 'For Sale', 
+        rent_period: 'Day' // Check if DB expects 'Day' or 'day'. Usually Capitalized if Enum.
     });
-    
-    const [file, setFile] = useState(null);
+
+    // 1. CHECK LOCAL STORAGE
+    useEffect(() => {
+        const user = localStorage.getItem('userName');
+        if (!user) {
+            alert("You must be logged in to list an item.");
+            navigate('/login');
+        }
+    }, [navigate]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,31 +46,77 @@ const SellItem = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // ---------------------------------------------------------
-        // 🔮 FUTURE BACKEND CONNECTION LOGIC
-        // ---------------------------------------------------------
-        // 1. Upload 'file' to Supabase Storage -> Get 'publicUrl'
-        // 2. Send 'formData' + 'publicUrl' to your backend
-        
-        // Simulating the data payload that matches your Schema:
-        const payload = {
-            name: formData.name,
-            price: parseFloat(formData.price),
-            listing_type: formData.listing_type, // 'sale' or 'rent'
-            rent_period: formData.listing_type === 'rent' ? formData.rent_period : null,
-            location: formData.location,
-            description: formData.description,
-            // image_url: publicUrl 
-        };
+        if (!file || !formData.name || !formData.price) {
+            alert("Please provide an image, name, and price.");
+            return;
+        }
 
-        console.log("Ready to send to DB:", payload);
-        alert(`Listing Ready!\nName: ${payload.name}\nPrice: ${payload.price}\nType: ${payload.listing_type}`);
+        try {
+            setLoading(true);
+
+            // 2. SMART USER ID LOGIC
+            let finalUserId;
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (user) {
+                finalUserId = user.id;
+            } else {
+                // Guest ID fallback
+                finalUserId = "00000000-0000-0000-0000-000000000000"; 
+            }
+
+            // 3. UPLOAD IMAGE
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Date.now()}.${fileExt}`;
+            const filePath = `listings/${fileName}`;
+
+            const { error: uploadError } = await supabase.storage
+                .from('marketplace')
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = supabase.storage
+                .from('marketplace')
+                .getPublicUrl(filePath);
+
+            // 4. INSERT INTO DB
+            // 🔴 FIX 2: check for 'For Rent' string
+            const rentPeriodValue = formData.listing_type === 'For Rent' ? formData.rent_period : null;
+
+            const { error: dbError } = await supabase
+                .from('listings')
+                .insert([
+                    {
+                        user_id: finalUserId, 
+                        name: formData.name,
+                        description: formData.description,
+                        price: parseFloat(formData.price),
+                        location: formData.location,
+                        listing_type: formData.listing_type, // Now sends "For Sale" or "For Rent"
+                        rent_period: rentPeriodValue,       
+                        image_url: publicUrl,
+                        currency: 'USD',
+                        status: 'active'
+                    }
+                ]);
+
+            if (dbError) throw dbError;
+
+            alert("Item listed successfully!");
+            navigate('/dashboard'); 
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert("Listing failed: " + error.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className="sell-page">
             <Navbar />
-            
             <div className="sell-container">
                 <div className="sell-card">
                     <div className="sell-header">
@@ -65,112 +126,79 @@ const SellItem = () => {
 
                     <form onSubmit={handleSubmit}>
                         
-                        {/* 1. Item Name */}
+                        {/* Name */}
                         <div className="form-group">
                             <label className="form-label">Item Name</label>
-                            <input 
-                                type="text" name="name" required
-                                className="form-input" 
-                                placeholder="e.g. Sony A7 III Body"
-                                onChange={handleChange}
-                            />
+                            <input name="name" type="text" className="form-input" placeholder="e.g. Sony A7 III Body" onChange={handleChange} required disabled={loading} />
                         </div>
 
-                        {/* 2. Type & Price */}
+                        {/* Type & Price */}
                         <div className="form-grid">
-                            
-                            {/* Sale vs Rent Toggle */}
                             <div className="form-group">
                                 <label className="form-label">Listing Type</label>
                                 <div className="type-toggle">
+                                    {/* 🔴 FIX 3: Updated Buttons to send "For Sale" / "For Rent" */}
                                     <button 
-                                        type="button"
-                                        className={`toggle-btn ${formData.listing_type === 'sale' ? 'active' : ''}`}
-                                        onClick={() => handleTypeChange('sale')}
+                                        type="button" 
+                                        className={`toggle-btn ${formData.listing_type === 'For Sale' ? 'active' : ''}`} 
+                                        onClick={() => handleTypeChange('For Sale')} 
+                                        disabled={loading}
                                     >
                                         For Sale
                                     </button>
                                     <button 
-                                        type="button"
-                                        className={`toggle-btn ${formData.listing_type === 'rent' ? 'active' : ''}`}
-                                        onClick={() => handleTypeChange('rent')}
+                                        type="button" 
+                                        className={`toggle-btn ${formData.listing_type === 'For Rent' ? 'active' : ''}`} 
+                                        onClick={() => handleTypeChange('For Rent')} 
+                                        disabled={loading}
                                     >
                                         For Rent
                                     </button>
                                 </div>
                             </div>
 
-                            {/* Price Input */}
                             <div className="form-group">
-                                <label className="form-label">
-                                    {formData.listing_type === 'sale' ? 'Selling Price ($)' : 'Rent Price ($)'}
-                                </label>
+                                <label className="form-label">Price ($)</label>
                                 <div style={{ display: 'flex', gap: '10px' }}>
-                                    <input 
-                                        type="number" name="price" required
-                                        className="form-input" 
-                                        placeholder="0.00"
-                                        onChange={handleChange}
-                                    />
-                                    {/* Show Period dropdown only if Renting */}
-                                    {formData.listing_type === 'rent' && (
-                                        <select 
-                                            name="rent_period" 
-                                            className="form-select" 
-                                            style={{ width: '100px' }}
-                                            onChange={handleChange}
-                                        >
-                                            <option value="day">/ Day</option>
-                                            <option value="week">/ Week</option>
-                                            <option value="hour">/ Hour</option>
+                                    <input name="price" type="number" className="form-input" placeholder="0.00" onChange={handleChange} required disabled={loading} />
+                                    {/* 🔴 FIX 4: Updated Conditional Check */}
+                                    {formData.listing_type === 'For Rent' && (
+                                        <select name="rent_period" className="form-select" style={{ width: '100px' }} onChange={handleChange} value={formData.rent_period} disabled={loading}>
+                                            <option value="Day">/ Day</option>
+                                            <option value="Week">/ Week</option>
+                                            <option value="Hour">/ Hour</option>
                                         </select>
                                     )}
                                 </div>
                             </div>
                         </div>
 
-                        {/* 3. Location */}
+                        {/* Location */}
                         <div className="form-group">
                             <label className="form-label">Location</label>
-                            <input 
-                                type="text" name="location" required
-                                className="form-input" 
-                                placeholder="e.g. Downtown, New York"
-                                onChange={handleChange}
-                            />
+                            <input name="location" type="text" className="form-input" placeholder="e.g. New York" onChange={handleChange} required disabled={loading} />
                         </div>
 
-                        {/* 4. Image Upload */}
+                        {/* Image */}
                         <div className="form-group">
-                            <label className="form-label">Photos</label>
+                            <label className="form-label">Photo</label>
                             <div className="image-upload-area">
-                                <input type="file" accept="image/*" className="hidden-input" onChange={handleFileChange} />
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#a1a1aa', marginBottom: '10px' }}>
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                    <polyline points="17 8 12 3 7 8" />
-                                    <line x1="12" y1="3" x2="12" y2="15" />
-                                </svg>
-                                <p style={{ color: '#a1a1aa', fontSize: '0.9rem' }}>
+                                <input type="file" accept="image/*" className="hidden-input" onChange={handleFileChange} disabled={loading} />
+                                <p style={{ color: '#a1a1aa', fontSize: '0.9rem', textAlign: 'center', marginTop: '10px' }}>
                                     {file ? `Selected: ${file.name}` : "Click to upload photos"}
                                 </p>
                             </div>
                         </div>
 
-                        {/* 5. Description */}
+                        {/* Description */}
                         <div className="form-group">
                             <label className="form-label">Description</label>
-                            <textarea 
-                                name="description" rows="4" 
-                                className="form-textarea" 
-                                placeholder="Like new condition. Includes battery and charger..."
-                                onChange={handleChange}
-                            ></textarea>
+                            <textarea name="description" rows="4" className="form-textarea" placeholder="Details..." onChange={handleChange} disabled={loading}></textarea>
                         </div>
 
-                        <button type="submit" className="btn-submit">
-                            Post Listing
+                        <button type="submit" className="btn-submit" disabled={loading}>
+                            {loading ? 'Publishing...' : 'Post Listing'}
                         </button>
-
                     </form>
                 </div>
             </div>
