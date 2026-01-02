@@ -17,7 +17,7 @@ const SellItem = () => {
         description: '',
         // 🔴 FIX 1: Must match DB Enum exactly ("For Sale")
         listing_type: 'For Sale', 
-        rent_period: 'Day' // Check if DB expects 'Day' or 'day'. Usually Capitalized if Enum.
+        rent_period: 'daily' // Check if DB expects 'Day' or 'day'. Usually Capitalized if Enum.
     });
 
     // 1. CHECK LOCAL STORAGE
@@ -164,9 +164,10 @@ const SellItem = () => {
                                     {/* 🔴 FIX 4: Updated Conditional Check */}
                                     {formData.listing_type === 'For Rent' && (
                                         <select name="rent_period" className="form-select" style={{ width: '100px' }} onChange={handleChange} value={formData.rent_period} disabled={loading}>
-                                            <option value="Day">/ Day</option>
-                                            <option value="Week">/ Week</option>
-                                            <option value="Hour">/ Hour</option>
+                                            <option value="daily">/ Day</option>
+                                            <option value="weekly">/ Week</option>
+                                            <option value="hourly">/ Hour</option>
+                                            <option value="monthly">/ Month</option>
                                         </select>
                                     )}
                                 </div>

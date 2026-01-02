@@ -18,6 +18,7 @@ import ManageBookings from './pages/ManageBooking';
 import SellItem from './pages/SellItem';
 import EditProfile from './pages/Profile';
 import CategoryGallery from './pages/CategoryGallery';
+import ItemDetails from './pages/ItemDetails';
 // import AuthPage from './pages/AuthPage';
 // import PortfolioPage from './pages/PortfolioPage';
 // import BookingPage from './pages/BookingPage';
@@ -57,6 +58,7 @@ function App() {
           <Route path='/marketplace/sell-item' element={<SellItem/>} />
           <Route path='/edit-profile' element={<EditProfile/>} />
           <Route path='/portfolio/:category' element={<CategoryGallery/>} />
+          <Route path='/marketplace/item/:id' element={<ItemDetails/>} />
           {/* We can add the routes for the other pages as we create them.
             For example:
             <Route path="/auth" element={<AuthPage />} />
