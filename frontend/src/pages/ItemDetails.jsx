@@ -6,7 +6,7 @@ import { supabase } from '../config/supabaseClient';
 import './ItemDetails.css';
 
 const ItemDetails = () => {
-  const { id } = useParams(); // Get ID from URL
+  const { id } = useParams();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -20,7 +20,7 @@ const ItemDetails = () => {
         .from('listings')
         .select('*')
         .eq('id', id)
-        .single(); // We expect exactly one result
+        .single();
 
       if (error) throw error;
       setItem(data);
@@ -31,13 +31,44 @@ const ItemDetails = () => {
     }
   };
 
+  // --- THE NEW CONTACT LOGIC ---
   const handleContact = () => {
-    // You can replace this with a real email feature or chat later
-    alert(`Contact feature coming soon! User ID: ${item.user_id}`);
+    if (!item) return;
+
+    // 1. Define the Seller's Email
+    // ideally, you'd fetch this from the 'profiles' table using item.user_id.
+    // For now, we use a placeholder or the user_id to simulate it.
+    const sellerEmail = "seller@example.com"; 
+    
+    // 2. Create a professional Subject Line
+    const subject = encodeURIComponent(`Inquiry regarding: ${item.name}`);
+    
+    // 3. Create a polite Body Message
+    const body = encodeURIComponent(
+      `Hi,\n\nI am interested in your listing for "${item.name}" listed on the Marketplace.\n\nIs it still available?\n\nBest regards,`
+    );
+
+    // 4. Open the User's Email Client
+    window.location.href = `mailto:${sellerEmail}?subject=${subject}&body=${body}`;
   };
 
-  if (loading) return <div className="details-loading">Loading details...</div>;
-  if (!item) return <div className="details-loading">Item not found.</div>;
+  if (loading) return (
+    <div className="details-loading">
+      <Navbar />
+      <div className="flex h-screen items-center justify-center text-gray-500">
+          Loading details...
+      </div>
+    </div>
+  );
+
+  if (!item) return (
+    <div className="details-loading">
+        <Navbar />
+        <div className="flex h-screen items-center justify-center text-gray-500">
+            Item not found.
+        </div>
+    </div>
+  );
 
   return (
     <div className="details-page">
@@ -45,14 +76,13 @@ const ItemDetails = () => {
 
       <div className="container mx-auto px-4 pt-32 pb-20">
         
-        {/* Back Button */}
         <Link to="/marketplace" className="back-link">
            ← Back to Marketplace
         </Link>
 
         <div className="details-grid">
           
-          {/* LEFT: Image Section */}
+          {/* LEFT: Image */}
           <div className="details-image-container">
             <img 
               src={item.image_url || "https://via.placeholder.com/600x400?text=No+Image"} 
@@ -64,7 +94,7 @@ const ItemDetails = () => {
             </div>
           </div>
 
-          {/* RIGHT: Info Section */}
+          {/* RIGHT: Info */}
           <div className="details-info">
             
             <h1 className="details-title">{item.name}</h1>
@@ -92,17 +122,15 @@ const ItemDetails = () => {
               <p>{item.description || "No description provided."}</p>
             </div>
 
+            {/* --- SINGLE ACTION BUTTON --- */}
             <div className="details-actions">
-              <button onClick={handleContact} className="btn-primary-action">
-                {item.listing_type === 'For Sale' ? 'Contact Seller' : 'Book Now'}
-              </button>
-              <button className="btn-secondary-action">
-                Save for Later
+              <button onClick={handleContact} className="btn-primary-action full-width">
+                {item.listing_type === 'For Sale' ? 'Contact Seller' : 'Request Booking'}
               </button>
             </div>
 
             <div className="seller-info">
-               <p className="text-sm text-gray-500">Listed by User ID: {item.user_id.substring(0,8)}...</p>
+               <p className="text-sm text-gray-500">Seller ID: {item.user_id.substring(0,8)}...</p>
                <p className="text-xs text-gray-600 mt-1">Posted on: {new Date(item.created_at).toLocaleDateString()}</p>
             </div>
 
