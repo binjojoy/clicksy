@@ -1,18 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
+import { supabase } from '../config/supabaseClient'; 
 import './Marketplace.css';
 
 const Marketplace = () => {
-  const items = [
-    { id: 1, name: "Canon EOS R5", price: "$3,899", type: "sale", location: "New York, NY" },
-    { id: 2, name: "Sony A7 III Kit", price: "$150/day", type: "rent", location: "Los Angeles, CA" },
-    { id: 3, name: "Studio Lights", price: "$899", type: "sale", location: "Chicago, IL" },
-    { id: 4, name: "DJI Ronin RS3", price: "$75/day", type: "rent", location: "Miami, FL" },
-    { id: 5, name: "FujiFilm XT-5", price: "$1,699", type: "sale", location: "Seattle, WA" },
-    { id: 6, name: "Godox AD200", price: "$299", type: "sale", location: "Austin, TX" },
-  ];
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchListings();
+  }, []);
+
+  const fetchListings = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('listings')
+        .select('*')
+        .eq('status', 'active')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setItems(data);
+    } catch (error) {
+      console.error('Error fetching listings:', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatPrice = (item) => {
+    if (item.listing_type === 'For Rent' && item.rent_period) {
+      return `$${item.price}/${item.rent_period}`;
+    }
+    return `$${item.price.toLocaleString()}`;
+  };
 
   return (
     <div className="marketplace-page">
@@ -21,11 +45,12 @@ const Marketplace = () => {
       <section className="pt-32 pb-20 px-4">
         <div className="container mx-auto max-w-6xl">
           
-          {/* Header */}
+          {/* --- HEADER (Fixed Logo Color) --- */}
           <div className="text-center mb-12">
             <svg
               width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-              className="mx-auto mb-4" style={{ color: 'var(--primary)' }}
+              className="mx-auto mb-4" 
+              style={{ color: '#7c3aed' }} /* Explicit Purple Color */
             >
               <circle cx="9" cy="21" r="1" />
               <circle cx="20" cy="21" r="1" />
@@ -39,40 +64,56 @@ const Marketplace = () => {
             </p>
           </div>
 
-          {/* New CSS Grid Layout */}
-          <div className="marketplace-grid">
-            {items.map((item) => (
-              <div key={item.id} className="market-card">
-                
-                {/* Card Top: Badges & Price */}
-                <div className="card-top">
-                  <span className={`badge-${item.type}`}>
-                      {item.type === 'sale' ? 'FOR SALE' : 'FOR RENT'}
-                  </span>
-                  <span className="item-price">{item.price}</span>
-                </div>
-                
-                {/* Item Details */}
-                <div>
-                  <h3 className="item-name">{item.name}</h3>
-                  <p className="item-location">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    {item.location}
-                  </p>
-                </div>
+          {loading ? (
+             <div className="text-center text-white py-20">Loading marketplace...</div>
+          ) : (
+            <div className="marketplace-grid">
+              {items.length === 0 ? (
+                 <p className="text-center text-gray-400 col-span-full">No items listed yet.</p>
+              ) : (
+                items.map((item) => (
+                  <div key={item.id} className="market-card">
+                    
+                    {/* Image Section */}
+                    <div className="card-image-container">
+                        <img 
+                            src={item.image_url || "https://via.placeholder.com/400x300?text=No+Image"} 
+                            alt={item.name} 
+                            className="card-image"
+                        />
+                        {/* Badges */}
+                        <span className={`badge-overlay ${item.listing_type === 'For Sale' ? 'bg-sale' : 'bg-rent'}`}>
+                            {item.listing_type === 'For Sale' ? 'SALE' : 'RENT'}
+                        </span>
+                    </div>
 
-                {/* Smaller, cleaner button */}
-                <Link to={`/marketplace/item/${item.id}`} className="btn-details">
-                  View Details →
-                </Link>
+                    {/* Content Section */}
+                    <div className="card-content">
+                        <div className="flex justify-between items-start mb-2">
+                             <h3 className="item-name">{item.name}</h3>
+                             <span className="item-price">
+                                {formatPrice(item)}
+                             </span>
+                        </div>
 
-              </div>
-            ))}
-          </div>
+                        <p className="item-location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                              <circle cx="12" cy="10" r="3" />
+                            </svg>
+                            {item.location}
+                        </p>
 
+                        <Link to={`/marketplace/item/${item.id}`} className="btn-details">
+                            View Details
+                        </Link>
+                    </div>
+
+                  </div>
+                ))
+              )}
+            </div>
+          )}
         </div>
       </section>
 
