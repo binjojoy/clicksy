@@ -73,6 +73,10 @@ const Auth = () => {
             if (user.fullName) {
                 localStorage.setItem('userName', user.fullName);
             }
+
+            if (user.id) {
+                localStorage.setItem('user_id', user.id);
+            }
             // 👆 End of new code 👆
             
             toast.success(`Welcome back, ${user.fullName || user.email}!`);
