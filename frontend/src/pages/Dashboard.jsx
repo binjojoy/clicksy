@@ -5,7 +5,10 @@ import './Dashboard.css';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { 
-  Camera, Calendar, Users, DollarSign, Image as ImageIcon, Upload, X, Clock, MapPin, ArrowRight, Search, Heart, Star 
+  // Standard Icons
+  Camera, Calendar, Users, DollarSign, Image as ImageIcon, Upload, X, Clock, MapPin, ArrowRight, Search, Heart, Star,
+  // Widget Icons
+  MoreVertical, MessageSquare, CheckCircle, AlertCircle, Sparkles
 } from "lucide-react";
 
 // --- SHARED UTILITIES ---
@@ -30,15 +33,15 @@ const ActionButton = ({ icon: Icon, label, isPrimary = false, onClick }) => (
 );
 
 // ==========================================
-// 📸 PHOTOGRAPHER DASHBOARD (Your Original Code)
+// 📸 PHOTOGRAPHER DASHBOARD
 // ==========================================
 const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollowers, showBookings, setShowBookings }) => {
     const [activeTab, setActiveTab] = useState('Overview');
     
     // Mock Data
     const totalPhotos = 0; 
-    const upcomingBookingsCount = 3; // Mock
-    const followersCount = 4; // Mock
+    const upcomingBookingsCount = 3; 
+    const followersCount = 4; 
     const totalRevenue = 0;
 
     const mockFollowers = [
@@ -150,140 +153,152 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
 
 
 // ==========================================
-// 👤 CLIENT DASHBOARD (New Simplified UI)
-// ==========================================
-// src/pages/Dashboard.jsx (Replace ONLY the ClientDashboard component)
-
-// ... (Keep shared components like StatCard, ActionButton above this)
-
-// ==========================================
-// 👤 CLIENT DASHBOARD (UPGRADED UI)
+// 🌟 CLIENT DASHBOARD (WIDGET STYLE)
 // ==========================================
 const ClientDashboard = ({ profile, navigate }) => {
-    // Mock Data for Client
-    const activeBooking = {
-        id: 201, photographer: "Elena Fisher", category: "Wedding Shoot", 
-        date: "Oct 24, 2025", time: "10:00 AM", location: "Grand Hyatt, Kochi",
-        status: "confirmed", avatar: "EF"
+    // Mock Data
+    const nextBooking = {
+        id: "BK-201", photographer: "Elena Fisher", date: "Tomorrow, 10:00 AM", 
+        location: "Grand Hyatt, Kochi", avatar: "EF", status: "confirmed"
     };
 
-    const categories = ["Wedding", "Fashion", "Portrait", "Product", "Events", "Food"];
-
-    const featuredPhotographers = [
-        { id: 101, name: "Elena Fisher", category: "Wedding", rating: 4.9, price: "$200/hr", location: "Kochi", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400&h=400" },
-        { id: 102, name: "Arjun Kapoor", category: "Portrait", rating: 4.8, price: "$150/hr", location: "Bangalore", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=400" },
-        { id: 103, name: "LensCrafters", category: "Product", rating: 5.0, price: "$300/project", location: "Mumbai", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400&h=400" },
-        { id: 104, name: "Sarah Jenkins", category: "Fashion", rating: 4.7, price: "$180/hr", location: "Delhi", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400&h=400" },
+    const notifications = [
+        { id: 1, text: "Elena accepted your request", time: "2h ago", icon: <CheckCircle size={14} className="text-green-400"/> },
+        { id: 2, text: "New 'Wedding' collection available", time: "5h ago", icon: <Sparkles size={14} className="text-yellow-400"/> },
+        { id: 3, text: "Complete your profile", time: "1d ago", icon: <AlertCircle size={14} className="text-blue-400"/> },
     ];
 
+    const spotlightPhotographer = {
+        id: 104, name: "Sarah Jenkins", category: "Fashion & Editorial", 
+        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=500&h=300",
+        rating: 4.9
+    };
+
     return (
-        <>
-            {/* 1. HERO SEARCH SECTION */}
-            <div className="client-header-section">
-                <div className="search-wrapper">
-                    <Search className="search-icon" size={20} />
-                    <input type="text" placeholder="Search for photographers, styles, or locations..." className="search-input" />
+        <div className="client-dashboard-wrapper">
+            
+            {/* 1. HERO WIDGET SECTION */}
+            <div className="dashboard-hero-row">
+                {/* Welcome Widget */}
+                <div className="hero-widget welcome-widget">
+                    <div className="widget-content">
+                        <h2>Ready for your close-up?</h2>
+                        <p>You have <strong>1 upcoming shoot</strong> and <strong>3 unread messages</strong>.</p>
+                        <div className="hero-search-pill">
+                            <Search size={18} className="text-muted"/>
+                            <input type="text" placeholder="Find a photographer..." />
+                        </div>
+                    </div>
+                    <div className="hero-decoration">
+                        <Camera size={120} strokeWidth={1} className="deco-icon" />
+                    </div>
                 </div>
-                <div className="category-pills">
-                    {categories.map(cat => (
-                        <button key={cat} className="cat-pill" onClick={() => navigate('/explore')}>{cat}</button>
-                    ))}
+
+                {/* Quick Stats Widget */}
+                <div className="hero-widget stats-widget-vertical">
+                    <div className="mini-stat-row" onClick={() => navigate('/saved')}>
+                        <div className="icon-box pink"><Heart size={20} /></div>
+                        <div>
+                            <span className="stat-num">12</span>
+                            <span className="stat-label">Favorites</span>
+                        </div>
+                    </div>
+                    <div className="divider"></div>
+                    <div className="mini-stat-row" onClick={() => navigate('/my-bookings')}>
+                        <div className="icon-box purple"><Calendar size={20} /></div>
+                        <div>
+                            <span className="stat-num">02</span>
+                            <span className="stat-label">Bookings</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div className="dashboard-grid-layout">
-                {/* LEFT COLUMN: UPCOMING & STATS */}
-                <div className="left-column">
+            {/* 2. MAIN CONTENT GRID */}
+            <div className="dashboard-widgets-grid">
+                
+                {/* LEFT COLUMN: STATUS & ALERTS */}
+                <div className="widget-column left">
                     
-                    {/* Active Booking Card */}
-                    <div className="section-header">
-                        <h3 className="section-title-sm">Your Next Shoot</h3>
-                        <button className="btn-link-sm" onClick={() => navigate('/my-bookings')}>View All</button>
-                    </div>
-                    
-                    <div className="active-booking-card">
-                        <div className="booking-status-strip confirmed"></div>
-                        <div className="abc-content">
-                            <div className="abc-header">
-                                <div className="abc-photographer">
-                                    <div className="abc-avatar">{activeBooking.avatar}</div>
-                                    <div>
-                                        <h4>{activeBooking.photographer}</h4>
-                                        <p>{activeBooking.category}</p>
-                                    </div>
-                                </div>
-                                <span className="status-pill confirmed">Confirmed</span>
+                    {/* "Up Next" Widget */}
+                    <div className="dashboard-card next-up-card">
+                        <div className="card-header-row">
+                            <h3>Up Next</h3>
+                            <button className="btn-icon-only"><MoreVertical size={16}/></button>
+                        </div>
+                        <div className="next-booking-display">
+                            <div className="nb-date-circle">
+                                <span className="nb-day">24</span>
+                                <span className="nb-month">OCT</span>
                             </div>
-                            <div className="abc-details">
-                                <div className="detail-item"><Calendar size={14}/> {activeBooking.date}</div>
-                                <div className="detail-item"><Clock size={14}/> {activeBooking.time}</div>
-                                <div className="detail-item"><MapPin size={14}/> {activeBooking.location}</div>
+                            <div className="nb-info">
+                                <h4>{nextBooking.photographer}</h4>
+                                <p className="nb-time"><Clock size={12}/> {nextBooking.date}</p>
+                                <p className="nb-loc"><MapPin size={12}/> {nextBooking.location}</p>
                             </div>
-                            <button className="btn-manage-booking" onClick={() => navigate('/my-bookings')}>Manage Booking</button>
+                        </div>
+                        <div className="nb-actions">
+                            <button className="btn-glass" onClick={() => navigate('/my-bookings')}>View Ticket</button>
+                            <button className="btn-glass-icon"><MessageSquare size={16}/></button>
                         </div>
                     </div>
 
-                    {/* Mini Stats Grid */}
-                    <div className="mini-stats-grid">
-                        <div className="mini-stat" onClick={() => navigate('/saved')}>
-                            <Heart size={20} className="text-pink" />
-                            <div>
-                                <span className="ms-value">12</span>
-                                <span className="ms-label">Saved</span>
-                            </div>
-                        </div>
-                        <div className="mini-stat">
-                            <Clock size={20} className="text-blue" />
-                            <div>
-                                <span className="ms-value">2</span>
-                                <span className="ms-label">Past</span>
-                            </div>
+                    {/* Notification Feed Widget */}
+                    <div className="dashboard-card feed-card">
+                        <h3>Activity Feed</h3>
+                        <div className="feed-list">
+                            {notifications.map(notif => (
+                                <div key={notif.id} className="feed-item">
+                                    <div className="feed-icon">{notif.icon}</div>
+                                    <div className="feed-text">
+                                        <p>{notif.text}</p>
+                                        <span>{notif.time}</span>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
 
-                {/* RIGHT COLUMN: DISCOVERY */}
-                <div className="right-column">
-                    <div className="section-header">
-                        <h3 className="section-title-sm">Top Rated Photographers</h3>
-                        <button className="btn-link-sm" onClick={() => navigate('/explore')}>See All</button>
-                    </div>
-
-                    <div className="photographer-grid-compact">
-                        {featuredPhotographers.map(pg => (
-                            <div key={pg.id} className="pg-card-compact" onClick={() => navigate(`/profile/${pg.id}`)}>
-                                <div className="pg-img-wrapper">
-                                    <img src={pg.image} alt={pg.name} />
-                                    <button className="btn-save-icon"><Heart size={14} /></button>
-                                </div>
-                                <div className="pg-content">
-                                    <div className="pg-row">
-                                        <h4>{pg.name}</h4>
-                                        <span className="pg-rating"><Star size={10} fill="#eab308" color="#eab308"/> {pg.rating}</span>
-                                    </div>
-                                    <p className="pg-cat">{pg.category} • {pg.location}</p>
-                                    <div className="pg-footer">
-                                        <span className="pg-price">{pg.price}</span>
-                                        <button className="btn-view-mini">View</button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Promo / Call to Action */}
-                    <div className="promo-banner" onClick={() => navigate('/explore')}>
-                        <div className="promo-text">
-                            <h4>Not sure what you need?</h4>
-                            <p>Browse our curated collections for inspiration.</p>
+                {/* RIGHT COLUMN: INSPIRATION & DISCOVERY */}
+                <div className="widget-column right">
+                    
+                    {/* "Spotlight" Widget */}
+                    <div className="dashboard-card spotlight-card" onClick={() => navigate(`/profile/${spotlightPhotographer.id}`)}>
+                        <div className="spotlight-image">
+                            <img src={spotlightPhotographer.image} alt={spotlightPhotographer.name} />
+                            <div className="spotlight-badge">Trending</div>
                         </div>
-                        <ArrowRight className="promo-icon" />
+                        <div className="spotlight-content">
+                            <div className="spotlight-info">
+                                <h4>{spotlightPhotographer.name}</h4>
+                                <p>{spotlightPhotographer.category}</p>
+                            </div>
+                            <div className="spotlight-rating">
+                                <Star size={14} fill="white" color="white" /> {spotlightPhotographer.rating}
+                            </div>
+                        </div>
                     </div>
+
+                    {/* Quick Categories Widget */}
+                    <div className="dashboard-card categories-widget">
+                        <h3>Browse</h3>
+                        <div className="cat-grid-mini">
+                            {['Wedding', 'Portrait', 'Fashion', 'Product'].map(cat => (
+                                <button key={cat} className="cat-box" onClick={() => navigate('/explore')}>
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </>
+        </div>
     );
 };
+
+
 // ==========================================
 // 🚀 MAIN DASHBOARD CONTAINER
 // ==========================================
@@ -299,7 +314,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const storedName = localStorage.getItem('userName');
-    const storedRole = localStorage.getItem('userRole') || 'client'; // Default to client if missing
+    const storedRole = localStorage.getItem('userRole') || 'client'; 
     
     setProfile({ 
         full_name: storedName || "User",
@@ -321,7 +336,7 @@ const Dashboard = () => {
       <main className="dashboard-main-content">
         <div className="content-wrapper">
           
-          {/* Shared Welcome Section */}
+          {/* SHARED WELCOME SECTION (Enabled for BOTH, customized text) */}
           <div className="welcome-section">
             <div className="welcome-inner">
               <div className="avatar-badge">{welcomeEmailInitial}</div>
@@ -330,7 +345,7 @@ const Dashboard = () => {
                 <p className="text-muted">
                     {isPhotographer 
                         ? "Here's what's happening with your photography business"
-                        : "Ready to capture your next memory?"}
+                        : "Explore top-rated photographers and manage your bookings."}
                 </p>
               </div>
             </div>

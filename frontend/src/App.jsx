@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom'; // Removed BrowserRouter here
+import { AnimatePresence } from 'framer-motion';
 
-// We will create these pages in the next steps
+// Component Imports
 import HomePage from './pages/HomePage';
 import Auth from './pages/LoginPage';
 import Booking from './pages/Booking';
@@ -16,59 +17,119 @@ import Profile from './pages/Profile';
 import UploadPortfolio from './pages/UploadPortfolio';
 import ManageBookings from './pages/ManageBooking';
 import SellItem from './pages/SellItem';
-import EditProfile from './pages/Profile';
+import EditProfile from './pages/Profile'; // Note: You had Profile imported as EditProfile
 import CategoryGallery from './pages/CategoryGallery';
 import ItemDetails from './pages/ItemDetails';
-// import AuthPage from './pages/AuthPage';
-// import PortfolioPage from './pages/PortfolioPage';
-// import BookingPage from './pages/BookingPage';
-// import CommunityPage from './pages/CommunityPage';
-// import LearnPage from './pages/LearnPage';
-// import MarketplacePage from './pages/MarketplacePage';
-// import AboutPage from './pages/AboutPage';
-// import ContactPage from './pages/ContactPage';
-// import NotFoundPage from './pages/NotFoundPage';
+import ExplorePage from "./pages/ExplorePage";
+import SavedPage from "./pages/SavedPage";
+import ClientBooking from "./pages/ClientBooking";
 
-// The original project used QueryClient, Toasters, etc.
-// We can add those back in later when we need them.
-// For now, let's keep it simple.
+// Transition Wrapper
+import PageTransition from './components/PageTransition';
 
 function App() {
+  // We need the location to identify unique pages for the animation
+  const location = useLocation();
+
   return (
-    <Router>
-      {/* The Navbar and Footer can be placed here, outside the <Routes>, 
-        so they appear on every page. This is a common and good practice.
+    <>
+      {/* Navbar can go here if you want it to stay visible 
+         while the page content animates underneath it.
+         <Navbar /> 
       */}
-      {/* <Navbar /> */}
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/booking" element={<Booking />} /> 
-          <Route path="/community" element={<Community />} />
-          <Route path="/learn" element={<Learn />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path='/dashboard' element={<Dashboard/>} /> 
-          <Route path='/profile' element={<Profile/>} />
-          <Route path='/upload-portfolio' element={<UploadPortfolio/>} />
-          <Route path='/manage-bookings' element={<ManageBookings/>} />
-          <Route path='/marketplace/sell-item' element={<SellItem/>} />
-          <Route path='/edit-profile' element={<EditProfile/>} />
-          <Route path='/portfolio/:category' element={<CategoryGallery/>} />
-          <Route path='/marketplace/item/:id' element={<ItemDetails/>} />
-          {/* We can add the routes for the other pages as we create them.
-            For example:
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/portfolio" element={<PortfolioPage />} />
-          */}
-          {/* <Route path="*" element={<NotFoundPage />} /> */}
-        </Routes>
+
+      <main className="w-full h-full">
+        {/* mode="wait" ensures the old page fades out BEFORE the new one fades in */}
+        <AnimatePresence mode="wait">
+          
+          <Routes location={location} key={location.pathname}>
+            
+            <Route path="/" element={
+              <PageTransition><HomePage /></PageTransition>
+            } />
+            
+            <Route path="/auth" element={
+              <PageTransition><Auth /></PageTransition>
+            } />
+            
+            <Route path="/booking" element={
+              <PageTransition><Booking /></PageTransition>
+            } />
+            
+            <Route path="/community" element={
+              <PageTransition><Community /></PageTransition>
+            } />
+            
+            <Route path="/learn" element={
+              <PageTransition><Learn /></PageTransition>
+            } />
+            
+            <Route path="/about" element={
+              <PageTransition><About /></PageTransition>
+            } />
+            
+            <Route path="/marketplace" element={
+              <PageTransition><Marketplace /></PageTransition>
+            } />
+            
+            <Route path="/portfolio" element={
+              <PageTransition><Portfolio /></PageTransition>
+            } />
+            
+            <Route path="/contact" element={
+              <PageTransition><Contact /></PageTransition>
+            } />
+            
+            <Route path="/dashboard" element={
+              <PageTransition><Dashboard /></PageTransition>
+            } />
+            
+            <Route path="/profile" element={
+              <PageTransition><Profile /></PageTransition>
+            } />
+            
+            <Route path="/upload-portfolio" element={
+              <PageTransition><UploadPortfolio /></PageTransition>
+            } />
+            
+            <Route path="/manage-bookings" element={
+              <PageTransition><ManageBookings /></PageTransition>
+            } />
+            
+            <Route path="/marketplace/sell-item" element={
+              <PageTransition><SellItem /></PageTransition>
+            } />
+            
+            <Route path="/edit-profile" element={
+              <PageTransition><EditProfile /></PageTransition>
+            } />
+            
+            <Route path="/portfolio/:category" element={
+              <PageTransition><CategoryGallery /></PageTransition>
+            } />
+            
+            <Route path="/marketplace/item/:id" element={
+              <PageTransition><ItemDetails /></PageTransition>
+            } />
+            
+            <Route path="/explore" element={
+              <PageTransition><ExplorePage /></PageTransition>
+            } />
+            
+            <Route path="/saved" element={
+              <PageTransition><SavedPage /></PageTransition>
+            } />
+            
+            <Route path="/my-bookings" element={
+              <PageTransition><ClientBooking /></PageTransition>
+            } />
+
+          </Routes>
+        </AnimatePresence>
       </main>
+      
       {/* <Footer /> */}
-    </Router>
+    </>
   );
 }
 
