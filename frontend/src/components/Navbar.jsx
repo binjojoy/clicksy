@@ -1,25 +1,66 @@
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+// src/components/Navbar.jsx
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navLinks = [
-    { path: "/dashboard", label: "Home" },
-    { path: "/portfolio", label: "Portfolio" },
-    { path: "/booking", label: "Booking" },
+  // ⚡ INSTANT CHECK: Read role directly from storage. 
+  // This prevents the "flicker" because it happens before the component renders.
+  const [userRole, setUserRole] = useState(() => {
+    return localStorage.getItem("userRole") || "client"; 
+  });
+
+  // Optional: Listen for storage changes (helpful if you have multiple tabs open)
+  useEffect(() => {
+    const handleStorageChange = () => {
+        setUserRole(localStorage.getItem("userRole"));
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  // --- MENU DEFINITIONS ---
+
+  // Menu for PHOTOGRAPHERS (Business Owners)
+  const photographerLinks = [
+    { path: "/dashboard", label: "Dashboard" },
+    { path: "/portfolio", label: "Portfolio" }, 
+    { path: "/booking", label: "Bookings" },    
     { path: "/community", label: "Community" },
-    { path: "/learn", label: "Learn" },
     { path: "/marketplace", label: "Marketplace" },
   ];
 
+  // Menu for CLIENTS (Customers)
+  const clientLinks = [
+    { path: "/dashboard", label: "Home" },
+    { path: "/explore", label: "Explore" },      
+    { path: "/my-bookings", label: "My Bookings" }, 
+    { path: "/saved", label: "Saved" },          
+  ];
+
+  // Select the correct menu immediately based on the state
+  const navLinks = userRole === "photographer" ? photographerLinks : clientLinks;
+
   const isActive = (path) => location.pathname === path;
+
+  const handleLogout = () => {
+    // 🧹 CLEANUP: Remove all user data
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userRole"); 
+    localStorage.removeItem("userName");
+    localStorage.removeItem("user_id");
+    
+    navigate("/auth");
+  };
 
   return (
     <nav className="navbar">
       <div className="container navbar-container">
-        <Link to="/" className="navbar-logo">
+        {/* Logo */}
+        <Link to="/dashboard" className="navbar-logo">
           <div className="navbar-logo-icon">
             <svg
               width="24"
@@ -30,7 +71,7 @@ const Navbar = () => {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              style={{ color: 'var(--primary-foreground)' }}
+              style={{ color: "var(--primary-foreground)" }}
             >
               <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
               <circle cx="12" cy="13" r="3" />
@@ -39,21 +80,23 @@ const Navbar = () => {
           <span className="navbar-logo-text">CLICKSY</span>
         </Link>
 
-        <div className="navbar-links">
+        {/* Desktop Links */}
+        <div className="navbar-links hidden md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`navbar-link ${isActive(link.path) ? 'active' : ''}`}
+              className={`navbar-link ${isActive(link.path) ? "active" : ""}`}
             >
               {link.label}
             </Link>
           ))}
-          <Link to="/" className="btn btn-primary btn-sm">
+          <button onClick={handleLogout} className="btn btn-primary btn-sm ml-4">
             Log Out
-          </Link>
+          </button>
         </div>
 
+        {/* Mobile Menu Button */}
         <button
           className="mobile-menu-button md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -73,24 +116,27 @@ const Navbar = () => {
         </button>
       </div>
 
-      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+      {/* Mobile Menu Dropdown */}
+      <div className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
         {navLinks.map((link) => (
           <Link
             key={link.path}
             to={link.path}
-            className={`mobile-menu-link ${isActive(link.path) ? 'active' : ''}`}
+            className={`mobile-menu-link ${isActive(link.path) ? "active" : ""}`}
             onClick={() => setMobileMenuOpen(false)}
           >
             {link.label}
           </Link>
         ))}
-        <Link
-          to="/auth"
-          className="btn btn-primary w-full"
-          onClick={() => setMobileMenuOpen(false)}
+        <button
+          onClick={() => {
+            setMobileMenuOpen(false);
+            handleLogout();
+          }}
+          className="btn btn-primary w-full mt-4"
         >
           Log Out
-        </Link>
+        </button>
       </div>
     </nav>
   );

@@ -525,3 +525,325 @@ body {
 
 /* Empty State */
 .empty-state { text-align: center; color: #71717a; padding: 2rem 0; font-size: 0.9rem; }
+
+/* --- ADD TO THE BOTTOM OF Dashboard.css --- */
+
+/* ========================================= */
+/* CLIENT DASHBOARD SPECIFIC STYLES          */
+/* ========================================= */
+
+/* 1. Client Hero Card */
+.client-hero-card {
+    background: linear-gradient(135deg, #1e1b4b, #312e81); /* Dark Indigo Gradient */
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    text-align: center;
+    border: 1px solid #4338ca;
+    position: relative;
+    overflow: hidden;
+}
+
+.client-hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.client-hero-content h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.client-hero-content p {
+    color: #a5b4fc; /* Light Indigo Text */
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.btn-explore-hero {
+    background-color: #ffffff;
+    color: #4f46e5; /* Indigo-600 */
+    padding: 0.8rem 2rem;
+    border-radius: 2rem; /* Pill shape */
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-explore-hero:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.3);
+}
+
+/* 2. Photographer Grid (Client View) */
+.photographer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.photographer-card {
+    background-color: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.photographer-card:hover {
+    transform: translateY(-4px);
+    border-color: #7c3aed;
+}
+
+.pg-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.pg-info {
+    padding: 1rem;
+}
+
+.pg-info h4 {
+    color: white;
+    font-weight: 700;
+    margin: 0;
+}
+
+.rating {
+    font-size: 0.85rem;
+    color: #eab308; /* Yellow-500 */
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.pg-category {
+    color: #a1a1aa;
+    font-size: 0.85rem;
+    margin: 0.25rem 0 1rem 0;
+}
+
+.btn-book-mini {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #27272a;
+    color: white;
+    border: 1px solid #3f3f46;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.btn-book-mini:hover {
+    background-color: #7c3aed;
+    border-color: #7c3aed;
+}
+
+/* 3. Notification Item */
+.notification-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #e4e4e7;
+    font-size: 0.95rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #10b981; /* Green dot for new activity */
+}
+
+/* Link Button Utility */
+.btn-link {
+    background: none;
+    border: none;
+    color: #a78bfa;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+.btn-link:hover { color: #c4b5fd; }
+
+/* --- UPGRADED CLIENT DASHBOARD STYLES --- */
+
+/* 1. Search & Filter Header */
+.client-header-section {
+    margin-bottom: 2rem;
+}
+
+.search-wrapper {
+    background-color: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 0.75rem;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+}
+
+.search-wrapper:focus-within {
+    border-color: #7c3aed;
+}
+
+.search-icon { color: #a1a1aa; }
+.search-input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    width: 100%;
+    outline: none;
+}
+
+.category-pills {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.cat-pill {
+    background-color: #18181b;
+    border: 1px solid #27272a;
+    color: #a1a1aa;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.cat-pill:hover {
+    background-color: #27272a;
+    color: white;
+    border-color: #7c3aed;
+}
+
+/* 2. Grid Layout (2 Columns) */
+.dashboard-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Left column smaller than Right */
+    gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .dashboard-grid-layout { grid-template-columns: 1fr; }
+}
+
+.section-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1rem;
+}
+.section-title-sm { font-size: 1.1rem; color: white; margin: 0; }
+.btn-link-sm { background: none; border: none; color: #a78bfa; cursor: pointer; font-size: 0.85rem; }
+
+/* 3. Active Booking Card */
+.active-booking-card {
+    background-color: #18181b;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid #27272a;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.booking-status-strip {
+    height: 4px;
+    width: 100%;
+}
+.booking-status-strip.confirmed { background-color: #10b981; }
+
+.abc-content { padding: 1.5rem; }
+
+.abc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+.abc-photographer { display: flex; gap: 0.75rem; }
+.abc-avatar { 
+    width: 40px; height: 40px; background: #7c3aed; border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center; font-weight: bold; 
+}
+.abc-photographer h4 { margin: 0; color: white; font-size: 1rem; }
+.abc-photographer p { margin: 0; color: #a1a1aa; font-size: 0.8rem; }
+
+.status-pill { font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 1rem; font-weight: 700; text-transform: uppercase; }
+.status-pill.confirmed { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+
+.abc-details { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
+.detail-item { display: flex; align-items: center; gap: 0.6rem; color: #e4e4e7; font-size: 0.9rem; }
+
+.btn-manage-booking {
+    width: 100%; padding: 0.75rem; background: #27272a; color: white; 
+    border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.btn-manage-booking:hover { background: #3f3f46; }
+
+/* 4. Mini Stats */
+.mini-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.mini-stat { 
+    background: #18181b; border: 1px solid #27272a; border-radius: 0.75rem; padding: 1rem; 
+    display: flex; align-items: center; gap: 1rem; cursor: pointer; transition: border-color 0.2s;
+}
+.mini-stat:hover { border-color: #7c3aed; }
+.text-pink { color: #ec4899; }
+.text-blue { color: #3b82f6; }
+.ms-value { font-size: 1.25rem; font-weight: 700; color: white; display: block; line-height: 1; }
+.ms-label { font-size: 0.8rem; color: #a1a1aa; }
+
+/* 5. Compact Photographer Grid */
+.photographer-grid-compact {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.pg-card-compact {
+    background: #18181b; border: 1px solid #27272a; border-radius: 0.75rem; overflow: hidden; cursor: pointer;
+    transition: transform 0.2s;
+}
+.pg-card-compact:hover { transform: translateY(-3px); border-color: #52525b; }
+
+.pg-img-wrapper { position: relative; height: 140px; }
+.pg-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+.btn-save-icon { 
+    position: absolute; top: 0.5rem; right: 0.5rem; background: rgba(0,0,0,0.6); 
+    border: none; color: white; padding: 0.3rem; border-radius: 50%; cursor: pointer;
+}
+
+.pg-content { padding: 0.8rem; }
+.pg-row { display: flex; justify-content: space-between; margin-bottom: 0.2rem; }
+.pg-row h4 { margin: 0; color: white; font-size: 0.95rem; }
+.pg-cat { margin: 0 0 0.8rem 0; font-size: 0.75rem; color: #a1a1aa; }
+
+.pg-footer { display: flex; justify-content: space-between; align-items: center; }
+.pg-price { color: #e4e4e7; font-weight: 600; font-size: 0.85rem; }
+.btn-view-mini { 
+    background: #27272a; border: none; color: white; font-size: 0.75rem; 
+    padding: 0.3rem 0.8rem; border-radius: 0.3rem; cursor: pointer; 
+}
+
+/* 6. Promo Banner */
+.promo-banner {
+    background: linear-gradient(to right, #2e1065, #1e1b4b);
+    border-radius: 1rem; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid #5b21b6; cursor: pointer;
+}
+.promo-text h4 { color: white; margin: 0 0 0.2rem 0; }
+.promo-text p { color: #c4b5fd; margin: 0; font-size: 0.9rem; }
+.promo-icon { color: #a78bfa; }

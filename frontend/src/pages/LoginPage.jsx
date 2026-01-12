@@ -1,11 +1,9 @@
 // frontend/src/pages/Auth.jsx
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-// NOTE: toast import is assumed to be correct
 import { toast } from "../components/Toaster.jsx"; 
 import axios from 'axios'; 
 
-// Define the base API URL prefix (adjust port if necessary)
 const API_BASE_URL = 'http://localhost:5000/api/v1/auth';
 
 const Auth = () => {
@@ -20,7 +18,6 @@ const Auth = () => {
         const formData = new FormData(e.currentTarget);
         const email = formData.get("signup-email");
         const password = formData.get("signup-password");
-        // const fullName = formData.get("full-name"); 
         const fullName = formData.get("full-name");
         const userType = formData.get("user-type"); 
 
@@ -32,10 +29,7 @@ const Auth = () => {
                 fullName 
             });
 
-            // Successfully registered (status 201 from backend)
             toast.success(response.data.message || "Registration successful! Check your email for verification.");
-            
-            // Switch to the sign-in tab
             setActiveTab("signin");
 
         } catch (error) {
@@ -48,50 +42,70 @@ const Auth = () => {
     };
 
     const handleSignIn = async (e) => {
-        e.preventDefault();
-        setLoading(true);
+        e.preventDefault();
+        setLoading(true);
 
-        const formData = new FormData(e.currentTarget);
-        const email = formData.get("signin-email");
-        const password = formData.get("signin-password");
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get("signin-email");
+        const password = formData.get("signin-password");
 
-        try {
-            // API call to the login endpoint
-            const response = await axios.post(`${API_BASE_URL}/login`, {
-                email,
-                password,
-            });
+        try {
+            // 0. CLEAR OLD DATA FIRST (Fixes the "stale data" glitch)
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userName');
 
-            const user = response.data.user;
-            
-            // 1. Save Token (Existing)
-            if (user.token) {
-                localStorage.setItem('userToken', user.token);
-            }
+            // 1. API Call
+            const response = await axios.post(`${API_BASE_URL}/login`, {
+                email,
+                password,
+            });
 
-            // 👇 2. NEW: Save the Name (This is what the Dashboard needs) 👇
+            // Log response to verify (check console)
+            console.log("Login Response:", response.data);
+
+            const user = response.data.user;
+            
+            // 2. Save Token
+            if (user.token) {
+                localStorage.setItem('userToken', user.token);
+            }
+
+            // 3. Save Name
             if (user.fullName) {
                 localStorage.setItem('userName', user.fullName);
             }
 
             if (user.id) {
-                localStorage.setItem('user_id', user.id);
-            }
-            // 👆 End of new code 👆
-            
-            toast.success(`Welcome back, ${user.fullName || user.email}!`);
-            
-            // Redirect to the dashboard page
-            navigate("/dashboard");
+                localStorage.setItem('user_id', user.id);
+            }
 
-        } catch (error) {
-            console.error("Login Error:", error.response?.data);
-            const errorMessage = error.response?.data?.error || "Login failed.";
-            toast.error(errorMessage);
-        } finally {
-            setLoading(false);
-        }
-    };
+            // 👇 4. CRITICAL FIX: Use 'userType' (from your JSON) 👇
+            if (user.userType) {
+                const normalizedRole = user.userType.toLowerCase(); 
+                localStorage.setItem('userRole', normalizedRole);
+                console.log("Role saved as:", normalizedRole);
+            } else {
+                // Only default to client if strictly necessary
+                console.warn("No userType found in response, defaulting to client");
+                localStorage.setItem('userRole', 'client'); 
+            }
+            
+            toast.success(`Welcome back, ${user.fullName || user.email}!`);
+            
+            // 👇 5. FORCE REFRESH TO UPDATE NAVBAR 👇
+            // Instead of navigate(), we use window.location.href.
+            // This forces the whole page to reload, ensuring Navbar reads the new role.
+            window.location.href = "/dashboard";
+
+        } catch (error) {
+            console.error("Login Error:", error.response?.data);
+            const errorMessage = error.response?.data?.error || "Login failed.";
+            toast.error(errorMessage);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--gradient-hero)' }}>
@@ -202,7 +216,7 @@ const Auth = () => {
                                                 className="input"
                                             />
                                         </div>
-                                        {/* USER TYPE: Selector to match backend's requirement */}
+                                        {/* USER TYPE: Selector */}
                                         <div className="input-group">
                                             <label htmlFor="user-type" className="label">Account Type</label>
                                             <select
@@ -216,7 +230,6 @@ const Auth = () => {
                                                 <option value="photographer">Photographer</option>
                                             </select>
                                         </div>
-                                        {/* End Modification */}
                                         <div className="input-group">
                                             <label htmlFor="signup-password" className="label">Password</label>
                                             <input
