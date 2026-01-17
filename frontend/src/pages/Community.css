@@ -220,3 +220,245 @@
     background: linear-gradient(135deg, hsl(263, 70%, 50%), hsl(250, 70%, 55%));
     color: white; font-weight: 700; border: none; border-radius: 0.5rem; cursor: pointer;
 }
+
+
+
+/* --- EXISTING STYLES ... --- */
+
+/* Helper for spacing */
+.mb-6 { margin-bottom: 1.5rem; }
+
+/* --- SUGGESTION WIDGET STYLES --- */
+.suggestion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid hsl(240, 6%, 14%);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+/* Avatar Circle */
+.sugg-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* Info Section */
+.sugg-info {
+    flex-grow: 1;
+}
+
+.sugg-name {
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 0.2rem 0;
+}
+
+.sugg-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sugg-role {
+    font-size: 0.75rem;
+    color: #a1a1aa;
+}
+
+/* THE ALGORITHM MATCH BADGE */
+.sugg-match {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #4ade80; /* Green color for high match */
+    background: rgba(74, 222, 128, 0.1);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+}
+
+/* Connect Button */
+.btn-connect {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #3f3f46;
+    background: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.btn-connect:hover {
+    border-color: #7c3aed;
+    color: #7c3aed;
+}
+
+.btn-connect.connected {
+    background: #7c3aed;
+    border-color: #7c3aed;
+    color: white;
+    font-size: 0.9rem;
+}
+
+/* View All Link */
+.btn-view-all {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #a1a1aa;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.btn-view-all:hover {
+    color: white;
+}
+
+
+/* --- EXISTING STYLES (Keep everything above) --- */
+
+/* ... (Your previous CSS) ... */
+
+/* --- MODAL STYLES (Add to bottom) --- */
+.comm-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.85); /* Dark dimmed background */
+    backdrop-filter: blur(5px); /* Classic modern blur */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.comm-modal-content {
+    background-color: hsl(240, 8%, 8%);
+    border: 1px solid hsl(240, 6%, 20%);
+    width: 90%;
+    max-width: 600px;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    animation: slideUp 0.3s ease-out;
+}
+
+.comm-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid hsl(240, 6%, 14%);
+    padding-bottom: 1rem;
+}
+
+.comm-modal-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.comm-close-btn {
+    background: none;
+    border: none;
+    color: #a1a1aa;
+    cursor: pointer;
+}
+.comm-close-btn:hover { color: white; }
+
+.comm-modal-subtitle {
+    color: #a1a1aa;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.comm-modal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 400px;
+    overflow-y: auto; /* Scrollable list */
+    padding-right: 0.5rem;
+}
+
+/* Modal Item Styles */
+.comm-modal-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: hsl(240, 6%, 12%);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+.comm-modal-item:hover {
+    border-color: hsl(263, 70%, 50%);
+}
+
+.comm-item-left {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.sugg-avatar.large {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+}
+
+.sugg-name.large {
+    font-size: 1.1rem;
+    margin-bottom: 0.1rem;
+}
+
+.sugg-match.large {
+    font-size: 0.75rem;
+    margin-top: 0.3rem;
+    display: inline-block;
+}
+
+.btn-connect-large {
+    background-color: transparent;
+    border: 1px solid hsl(263, 70%, 50%);
+    color: hsl(263, 70%, 50%);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-connect-large:hover {
+    background-color: hsl(263, 70%, 50%);
+    color: white;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
