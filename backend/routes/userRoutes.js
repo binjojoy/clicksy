@@ -8,7 +8,7 @@ const supabase = require('../config/supabase');
 router.get('/me', async (req, res) => {
     
     // 1. Check for Authorization Header
-    const authHeader = req.headers.authorization;
+    const authHeader = req.headers.authorization; 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         console.error("GET /me FAILED: Missing or malformed Authorization header.");
         return res.status(401).json({ error: 'Authorization token is required.' });
