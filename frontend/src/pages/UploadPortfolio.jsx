@@ -36,6 +36,15 @@ const UploadPortfolio = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
+        // 1. GET REAL USER ID FROM LOCAL STORAGE
+        const userId = localStorage.getItem('user_id');
+
+        if (!userId) {
+            alert("User ID not found. Please log in again.");
+            navigate('/login');
+            return;
+        }
+        
         if (!file || !formData.title) {
             alert("Please select an image and enter a title.");
             return;
@@ -44,11 +53,7 @@ const UploadPortfolio = () => {
         try {
             setLoading(true);
 
-            // 2. GENERATE A FAKE USER ID (Since we aren't using real Auth)
-            // We use a consistent "Guest ID" or generate a random one
-            const fakeUserId = "11111111-1111-1111-1111-111111111111"; 
-
-            // 3. UPLOAD IMAGE
+            // 2. UPLOAD IMAGE (Standard Supabase Upload)
             const fileExt = file.name.split('.').pop();
             const fileName = `${Date.now()}.${fileExt}`;
             const filePath = `uploads/${fileName}`;
@@ -59,17 +64,17 @@ const UploadPortfolio = () => {
 
             if (uploadError) throw uploadError;
 
-            // 4. GET PUBLIC URL
+            // 3. GET PUBLIC URL
             const { data: { publicUrl } } = supabase.storage
                 .from('portfolio')
                 .getPublicUrl(filePath);
 
-            // 5. INSERT INTO DB (Using the Fake User ID)
+            // 4. INSERT INTO DB (Using the REAL userId)
             const { error: dbError } = await supabase
                 .from('portfolio_items')
                 .insert([
                     {
-                        user_id: fakeUserId, // Now accepted because we dropped the constraint
+                        user_id: userId, // <--- NOW USES THE ID FROM LOCAL STORAGE
                         title: formData.title,
                         description: formData.description,
                         category: formData.category,

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import './Dashboard.css'; 
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
+import api from "../services/api.js"; // Ensure your API service is imported
 import { 
   // Standard Icons
   Camera, Calendar, Users, DollarSign, Image as ImageIcon, Upload, X, Clock, MapPin, ArrowRight, Search, Heart, Star,
@@ -33,17 +34,68 @@ const ActionButton = ({ icon: Icon, label, isPrimary = false, onClick }) => (
 );
 
 // ==========================================
-// 📸 PHOTOGRAPHER DASHBOARD
+// 📸 PHOTOGRAPHER DASHBOARD (Updated with Real Data)
 // ==========================================
 const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollowers, showBookings, setShowBookings }) => {
     const [activeTab, setActiveTab] = useState('Overview');
     
-    // Mock Data
-    const totalPhotos = 0; 
-    const upcomingBookingsCount = 3; 
+    // --- STATE FOR REAL DATA ---
+    const [photoCount, setPhotoCount] = useState(0); 
+    const [bookings, setBookings] = useState([]); // Real bookings from DB
+    
+    // --- HELPER: Format Date for UI ---
+    // Converts DB Date (ISO) -> { day: "24", month: "OCT", time: "10:00 AM" }
+    const formatDate = (isoString) => {
+        if (!isoString) return { day: '--', month: '---', time: '--:--' };
+        const date = new Date(isoString);
+        return {
+            day: date.getDate().toString().padStart(2, '0'),
+            month: date.toLocaleString('default', { month: 'short' }).toUpperCase(),
+            time: date.toLocaleString('default', { hour: '2-digit', minute: '2-digit' })
+        };
+    };
+
+    // --- FETCH DATA FROM BACKEND ---
+    useEffect(() => {
+        const fetchData = async () => {
+            const userId = localStorage.getItem('user_id');
+            if (!userId) return;
+
+            try {
+                // 1. Get Photo Count
+                const statsRes = await api.get(`/user/stats/${userId}`);
+                setPhotoCount(statsRes.data.photoCount);
+
+                // 2. Get Upcoming Bookings
+                const bookingRes = await api.get(`/bookings/user/${userId}`);
+                
+                // Map Database fields to UI structure
+                const formattedBookings = bookingRes.data.map(b => {
+                    const { day, month, time } = formatDate(b.start_time);
+                    return {
+                        id: b.id,
+                        title: b.booking_title,
+                        day, 
+                        month, 
+                        time,
+                        // Use special_requirements as location fallback since schema has no location col yet
+                        location: b.special_requirements || "On Location", 
+                        status: b.status
+                    };
+                });
+                setBookings(formattedBookings);
+
+            } catch (error) {
+                console.error("Error fetching dashboard data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    // Static Data (Placeholders for now)
     const followersCount = 4; 
     const totalRevenue = 0;
-
     const mockFollowers = [
         { id: 1, name: "Sarah Jenkins", role: "Wedding Photographer", initials: "SJ" },
         { id: 2, name: "Mike Chen", role: "Studio Owner", initials: "MC" },
@@ -51,17 +103,20 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
         { id: 4, name: "David Rose", role: "Model", initials: "DR" },
     ];
 
-    const mockBookings = [
-        { id: 1, title: "Wedding - Alice & Bob", day: "24", month: "OCT", time: "10:00 AM", location: "Grand Hyatt", status: "confirmed" },
-        { id: 2, title: "Product Shoot - Nike", day: "02", month: "NOV", time: "02:00 PM", location: "Studio 54", status: "pending" },
-        { id: 3, title: "Portrait Session", day: "15", month: "NOV", time: "09:00 AM", location: "Marine Drive", status: "confirmed" },
-    ];
-
     return (
         <>
             <div className="stats-container-fixed">
-                <StatCard title="Total Photos" icon={ImageIcon} value={totalPhotos} footerText="In your portfolio" />
-                <StatCard title="Upcoming Bookings" icon={Calendar} value={upcomingBookingsCount} footerText="Click to view schedule" onClick={() => setShowBookings(true)} />
+                <StatCard title="Total Photos" icon={ImageIcon} value={photoCount} footerText="In your portfolio" />
+                
+                {/* DYNAMIC BOOKING CARD */}
+                <StatCard 
+                    title="Upcoming Bookings" 
+                    icon={Calendar} 
+                    value={bookings.length} 
+                    footerText="Click to view schedule" 
+                    onClick={() => setShowBookings(true)} 
+                />
+                
                 <StatCard title="Followers" icon={Users} value={followersCount} footerText="Click to view details" onClick={() => setShowFollowers(true)}/>
                 <StatCard title="Total Revenue" icon={DollarSign} value={totalRevenue.toFixed(2)} valuePrefix="$" footerText="From completed bookings"/>
             </div>
@@ -87,10 +142,24 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
             <div className="content-section">
                 <h3 className="section-title">Recent Activity</h3>
                 <p className="text-muted section-subtitle">Your latest bookings and uploads</p>
-                <div className="activity-card"><p className="activity-placeholder">No bookings yet</p></div>
+                
+                {/* DYNAMIC RECENT ACTIVITY */}
+                {bookings.length > 0 ? (
+                    <div className="activity-card" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <div>
+                            <h4 style={{color: 'white', marginBottom: '4px'}}>New Booking: {bookings[0].title}</h4>
+                            <p className="text-muted" style={{fontSize: '0.9rem'}}>
+                                {bookings[0].day} {bookings[0].month} at {bookings[0].time}
+                            </p>
+                        </div>
+                        <span className={`status-badge status-${bookings[0].status}`}>{bookings[0].status}</span>
+                    </div>
+                ) : (
+                    <div className="activity-card"><p className="activity-placeholder">No upcoming bookings</p></div>
+                )}
             </div>
 
-            {/* MODAL 1: FOLLOWERS */}
+            {/* MODAL 1: FOLLOWERS (Static) */}
             {showFollowers && (
                 <div className="modal-overlay" onClick={() => setShowFollowers(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -116,7 +185,7 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                 </div>
             )}
 
-            {/* MODAL 2: BOOKINGS */}
+            {/* MODAL 2: BOOKINGS (Dynamic) */}
             {showBookings && (
                 <div className="modal-overlay" onClick={() => setShowBookings(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -124,23 +193,33 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                             <h2 className="modal-title">Upcoming Schedule</h2>
                             <button className="close-btn" onClick={() => setShowBookings(false)}><X size={24} /></button>
                         </div>
+                        
                         <div className="booking-list">
-                            {mockBookings.map((booking) => (
-                                <div key={booking.id} className="booking-item">
-                                    <div className="booking-left">
-                                        <div className="date-box">
-                                            <span className="date-day">{booking.day}</span>
-                                            <span className="date-month">{booking.month}</span>
+                            {bookings.length === 0 ? (
+                                <p className="text-muted text-center py-4">No upcoming bookings found.</p>
+                            ) : (
+                                bookings.map((booking) => (
+                                    <div key={booking.id} className="booking-item">
+                                        <div className="booking-left">
+                                            <div className="date-box">
+                                                <span className="date-day">{booking.day}</span>
+                                                <span className="date-month">{booking.month}</span>
+                                            </div>
+                                            <div className="booking-info">
+                                                <h4>{booking.title}</h4>
+                                                <p>
+                                                    <Clock size={12} /> {booking.time} 
+                                                    <span className="mx-1">•</span> 
+                                                    <MapPin size={12} /> {booking.location}
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div className="booking-info">
-                                            <h4>{booking.title}</h4>
-                                            <p><Clock size={12} /> {booking.time} <span className="mx-1">•</span> <MapPin size={12} /> {booking.location}</p>
-                                        </div>
+                                        <span className={`status-badge status-${booking.status}`}>{booking.status}</span>
                                     </div>
-                                    <span className={`status-badge status-${booking.status}`}>{booking.status}</span>
-                                </div>
-                            ))}
+                                ))
+                            )}
                         </div>
+                        
                         <button className="btn-view-all" onClick={() => navigate('/manage-bookings')}>
                             View Full Calendar <ArrowRight size={16} />
                         </button>
@@ -153,7 +232,7 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
 
 
 // ==========================================
-// 🌟 CLIENT DASHBOARD (WIDGET STYLE)
+// 🌟 CLIENT DASHBOARD (WIDGET STYLE - Unchanged)
 // ==========================================
 const ClientDashboard = ({ profile, navigate }) => {
     // Mock Data
@@ -336,7 +415,7 @@ const Dashboard = () => {
       <main className="dashboard-main-content">
         <div className="content-wrapper">
           
-          {/* SHARED WELCOME SECTION (Enabled for BOTH, customized text) */}
+          {/* SHARED WELCOME SECTION */}
           <div className="welcome-section">
             <div className="welcome-inner">
               <div className="avatar-badge">{welcomeEmailInitial}</div>

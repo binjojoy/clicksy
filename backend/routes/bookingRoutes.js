@@ -96,4 +96,30 @@ router.patch('/:id/status', async (req, res) => {
     }
 });
 
+// --- GET UPCOMING BOOKINGS FOR DASHBOARD (User as Client OR Provider) ---
+// Usage: GET /api/v1/bookings/user/:userId
+router.get('/user/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // Fetch bookings where user is EITHER client OR provider
+        // AND start_time is in the future (Upcoming)
+        const { data: bookings, error } = await supabase
+            .from('bookings')
+            .select('*')
+            .or(`client_id.eq.${userId},provider_id.eq.${userId}`) // OR logic
+            .gte('start_time', new Date().toISOString()) // Future bookings only
+            .order('start_time', { ascending: true }) // Soonest first
+            .limit(5); // Only get top 5 for the dashboard
+
+        if (error) throw error;
+
+        res.status(200).json(bookings);
+
+    } catch (err) {
+        console.error('Error fetching dashboard bookings:', err.message);
+        res.status(500).json({ error: 'Server Error' });
+    }
+});
+
 module.exports = router;

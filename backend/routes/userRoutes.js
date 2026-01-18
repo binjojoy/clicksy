@@ -58,4 +58,29 @@ router.get('/me', async (req, res) => {
     }
 });
 
+router.get('/stats/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // 1. Get Photo Count (Head request only counts rows, doesn't fetch data)
+        const { count: photoCount, error: photoError } = await supabase
+            .from('portfolio_items')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', userId);
+
+        if (photoError) throw photoError;
+
+        // 2. (Optional) You could also fetch booking counts here if you wanted
+        // const { count: bookingCount } = ...
+
+        res.status(200).json({ 
+            photoCount: photoCount || 0 
+        });
+
+    } catch (err) {
+        console.error('Error fetching user stats:', err.message);
+        res.status(500).json({ error: 'Server Error' });
+    }
+});
+
 module.exports = router;
