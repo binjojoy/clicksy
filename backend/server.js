@@ -6,6 +6,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes'); 
 const userRoutes = require('./routes/userRoutes'); 
 const bookingRoutes = require('./routes/bookingRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000; 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/bookings', bookingRoutes);
+app.use('/api/v1/profile',profileRoutes);
 
 
 app.get('/', (req, res) => {

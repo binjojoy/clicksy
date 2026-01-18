@@ -1,63 +1,100 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-import { toast } from "../components/Toaster.jsx";
-import { Camera, MapPin, Globe, Instagram, Twitter, Mail, DollarSign, User, Briefcase } from "lucide-react";
+import { toast } from "../components/Toaster.jsx"; // Assuming you have a toaster component
+import api from '../services/api'; // Your Axios Instance (connected to backend)
+import { supabase } from '../config/supabaseClient'; // ONLY for Image Upload
+import { Camera, MapPin, Globe, Instagram, Twitter, User, Briefcase, Link as LinkIcon, Save, Loader2 } from "lucide-react";
 import './EditProfile.css';
 
 const EditProfile = () => {
-    // 1. STATE: Matches your 'public.profiles' schema
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [uploading, setUploading] = useState(false);
+
+    // Initial State
     const [profile, setProfile] = useState({
+        user_id: null,
         full_name: "",
-        email: "user@example.com", // Read-only from Auth
-        user_type: "Photographer", // "Client" or "Photographer"
+        email: "",
+        user_type: "Client", 
         avatar_url: null,
         bio: "",
         location: "",
         phone_number: "",
-        
-        // Professional Fields
-        skills: [], // Array in DB, handled as string in UI then split
+        skills: [], 
         hourly_rate: "",
         portfolio_intro: "",
-        
-        // Social Links (JSONB in DB)
-        social_links: {
-            instagram: "",
-            twitter: "",
-            portfolio: ""
-        }
+        social_links: { instagram: "", twitter: "", website: "" }, 
+        is_verified: false
     });
 
-    // Temp state for the skills input string (comma separated)
     const [skillsInput, setSkillsInput] = useState("");
 
-    // 2. MOCK FETCH (Simulate loading existing data)
+    // 1. FETCH PROFILE (Via Backend API)
+    // 1. FETCH PROFILE (Improved & Debugged)
+    // 1. FETCH PROFILE (Using YOUR Local Storage Keys)
     useEffect(() => {
-        // In the future: const { data } = await supabase.from('profiles').select('*').single();
-        // For now, load dummy data
-        setProfile({
-            full_name: "John Doe",
-            email: "john@clicksy.com",
-            user_type: "Photographer",
-            avatar_url: null,
-            bio: "Passionate about capturing the raw emotions of life.",
-            location: "Kochi, Kerala",
-            phone_number: "+91 9876543210",
-            skills: ["Wedding", "Portrait"],
-            hourly_rate: "50.00",
-            portfolio_intro: "I specialize in candid wedding photography.",
-            social_links: {
-                instagram: "john_clicks",
-                twitter: "johnny_p",
-                portfolio: "www.johndoe.com"
+        const fetchProfile = async () => {
+            try {
+                // A. READ FROM YOUR SPECIFIC KEYS
+                const localUserId = localStorage.getItem('user_id'); 
+                const localUserName = localStorage.getItem('userName');
+                const localUserRole = localStorage.getItem('userRole');
+
+                console.log("1. Local Storage Check:", { localUserId, localUserName });
+
+                if (!localUserId) {
+                    toast.error("Please login first.");
+                    // navigate('/login'); // Uncomment if using react-router
+                    return; 
+                }
+
+                // B. Fetch Profile Data from Backend
+                // We use the ID found in your local storage
+                const response = await api.get(`/profile/${localUserId}`);
+                const dbData = response.data;
+
+                console.log("2. Data from Backend:", dbData);
+
+                if (dbData) {
+                    setProfile(prev => ({
+                        ...prev, 
+                        ...dbData, // This fills the form with DB data
+                        user_id: localUserId, 
+                        
+                        // Fallbacks: Use Local Storage if DB is empty
+                        full_name: dbData.full_name || localUserName || "",
+                        user_type: dbData.user_type || localUserRole || "Client",
+                        
+                        // Safe defaults
+                        social_links: dbData.social_links || { instagram: "", twitter: "", website: "" },
+                        skills: dbData.skills || [],
+                        hourly_rate: dbData.hourly_rate ? String(dbData.hourly_rate) : ""
+                    }));
+
+                    // C. Handle Skills Input for the UI
+                    if (dbData.skills && Array.isArray(dbData.skills)) {
+                        setSkillsInput(dbData.skills.join(", "));
+                    }
+                }
+
+            } catch (error) {
+                console.error("Error fetching profile:", error);
+                // Even if backend fails, at least show the name from local storage
+                const localUserName = localStorage.getItem('userName');
+                if (localUserName) {
+                     setProfile(prev => ({ ...prev, full_name: localUserName }));
+                }
+            } finally {
+                setLoading(false);
             }
-        });
-        setSkillsInput("Wedding, Portrait");
+        };
+
+        fetchProfile();
     }, []);
 
-    // 3. HANDLERS
+    // 2. INPUT HANDLERS
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProfile(prev => ({ ...prev, [name]: value }));
@@ -71,243 +108,274 @@ const EditProfile = () => {
         }));
     };
 
-    const handleAvatarChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
-            const previewUrl = URL.createObjectURL(file);
-            setProfile(prev => ({ ...prev, avatar_url: previewUrl }));
-            // Note: In backend integration, you will upload to bucket here
-            toast.success("Avatar updated (Preview mode)");
+    // 3. AVATAR UPLOAD (Direct to Supabase Storage)
+    // We keep this direct because sending binary files via simple JSON API routes is complex
+    const handleAvatarUpload = async (event) => {
+        try {
+            setUploading(true);
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${profile.user_id}-${Date.now()}.${fileExt}`;
+            const filePath = `avatars/${fileName}`;
+
+            // Upload
+            const { error: uploadError } = await supabase.storage
+                .from('avatars') 
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            // Get URL
+            const { data: { publicUrl } } = supabase.storage
+                .from('avatars')
+                .getPublicUrl(filePath);
+
+            // Update local state immediately so user sees the change
+            setProfile(prev => ({ ...prev, avatar_url: publicUrl }));
+            toast.success("Avatar uploaded!");
+
+        } catch (error) {
+            console.error("Avatar upload failed:", error);
+            toast.error("Failed to upload image.");
+        } finally {
+            setUploading(false);
         }
     };
 
-    const handleSubmit = (e) => {
+    // 4. SUBMIT UPDATE (Via Backend API)
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
+        setSaving(true);
 
-        // Convert skills string back to array
-        const skillsArray = skillsInput.split(',').map(s => s.trim()).filter(s => s);
+        try {
+            const skillsArray = skillsInput.split(',').map(s => s.trim()).filter(s => s);
 
-        const payload = {
-            ...profile,
-            skills: skillsArray
-        };
+            // Prepare payload
+            const payload = {
+                ...profile,
+                skills: skillsArray
+            };
 
-        console.log("Saving to DB:", payload);
-        
-        setTimeout(() => {
-            setLoading(false);
-            toast.success("Profile saved successfully!");
-        }, 1000);
+            // Call your new route: PUT /api/v1/profile
+            const response = await api.put('/profile', payload);
+
+            if (response.status === 200) {
+                toast.success("Profile saved successfully!");
+            }
+
+        } catch (error) {
+            console.error("Error updating profile:", error);
+            toast.error("Could not save changes.");
+        } finally {
+            setSaving(false);
+        }
     };
+
+    if (loading) return (
+        <div className="min-h-screen bg-black flex items-center justify-center">
+            <Loader2 className="animate-spin text-purple-500" size={40} />
+        </div>
+    );
 
     return (
         <div className="edit-profile-page">
             <Navbar />
             
             <div className="edit-layout">
-                {/* --- LEFT SIDEBAR: AVATAR & NAV --- */}
-                <aside className="profile-sidebar">
+                {/* --- LEFT SIDEBAR: IDENTITY --- */}
+                <aside>
                     <div className="sidebar-card">
-                        <div className="avatar-upload-wrapper">
-                            <div className="avatar-preview">
+                        <div className="avatar-section">
+                            <div className="avatar-wrapper">
                                 {profile.avatar_url ? (
-                                    <img src={profile.avatar_url} alt="Profile" />
+                                    <img src={profile.avatar_url} alt="Avatar" className="avatar-img" />
                                 ) : (
                                     <div className="avatar-placeholder">{profile.full_name?.charAt(0) || "U"}</div>
                                 )}
-                                <label className="avatar-edit-btn">
-                                    <Camera size={16} />
-                                    <input type="file" accept="image/*" hidden onChange={handleAvatarChange} />
+                                
+                                <label className="avatar-edit-badge">
+                                    {uploading ? <Loader2 size={16} className="animate-spin"/> : <Camera size={16} />}
+                                    <input type="file" accept="image/*" hidden onChange={handleAvatarUpload} disabled={uploading} />
                                 </label>
                             </div>
-                            <h2 className="sidebar-name">{profile.full_name || "Your Name"}</h2>
-                            <p className="sidebar-role">{profile.user_type}</p>
-                            <p className="sidebar-location"><MapPin size={12} /> {profile.location || "No Location"}</p>
+                            
+                            <h2 className="profile-name">{profile.full_name || "Your Name"}</h2>
+                            <div className="profile-role-badge">{profile.user_type}</div>
+                            
+                            {profile.is_verified && (
+                                <div className="verified-badge">
+                                    ✓ Verified Pro
+                                </div>
+                            )}
                         </div>
 
-                        <div className="sidebar-menu">
-                            <div className="menu-item active"><User size={18} /> Personal Info</div>
+                        <div className="sidebar-nav">
+                            <button className="nav-item active">
+                                <User size={18} /> Personal Info
+                            </button>
                             {profile.user_type === 'Photographer' && (
-                                <div className="menu-item"><Briefcase size={18} /> Professional</div>
+                                <button className="nav-item">
+                                    <Briefcase size={18} /> Professional Details
+                                </button>
                             )}
-                            <div className="menu-item"><Globe size={18} /> Social Links</div>
+                            <button className="nav-item">
+                                <Globe size={18} /> Social Links
+                            </button>
                         </div>
                     </div>
                 </aside>
 
-                {/* --- RIGHT CONTENT: FORMS --- */}
-                <main className="profile-content">
-                    <form onSubmit={handleSubmit}>
+                {/* --- RIGHT CONTENT: FORM --- */}
+                <main>
+                    <form onSubmit={handleSubmit} className="profile-form">
                         
-                        {/* 1. PERSONAL DETAILS */}
-                        <div className="content-card">
-                            <div className="card-header">
-                                <h3>Personal Details</h3>
-                                <p>This information will be displayed on your public profile.</p>
+                        {/* SECTION 1: BASICS */}
+                        <div className="form-section">
+                            <div className="section-header">
+                                <h3>Basic Information</h3>
+                                <p>Manage your personal details and bio.</p>
                             </div>
-                            
+
                             <div className="form-grid">
                                 <div className="form-group full-width">
                                     <label>Full Name</label>
                                     <input 
-                                        type="text" 
-                                        name="full_name" 
-                                        value={profile.full_name} 
-                                        onChange={handleChange} 
-                                        placeholder="John Doe"
+                                        type="text" name="full_name" 
+                                        value={profile.full_name || ''} onChange={handleChange} 
+                                        placeholder="Jane Doe" 
                                     />
                                 </div>
 
                                 <div className="form-group">
-                                    <label>Email Address</label>
-                                    <input 
-                                        type="email" 
-                                        value={profile.email} 
-                                        disabled 
-                                        className="input-disabled" 
-                                    />
+                                    <label>Email (Read Only)</label>
+                                    <input type="email" value={profile.email || ''} disabled className="input-locked" />
                                 </div>
 
                                 <div className="form-group">
                                     <label>Phone Number</label>
                                     <input 
-                                        type="tel" 
-                                        name="phone_number" 
-                                        value={profile.phone_number} 
-                                        onChange={handleChange} 
-                                        placeholder="+91 00000 00000"
+                                        type="tel" name="phone_number" 
+                                        value={profile.phone_number || ''} onChange={handleChange} 
+                                        placeholder="+1 234 567 890" 
                                     />
                                 </div>
 
                                 <div className="form-group full-width">
                                     <label>Location</label>
-                                    <input 
-                                        type="text" 
-                                        name="location" 
-                                        value={profile.location} 
-                                        onChange={handleChange} 
-                                        placeholder="City, Country"
-                                    />
+                                    <div className="input-icon-wrapper">
+                                        <MapPin size={18} className="field-icon" />
+                                        <input 
+                                            type="text" name="location" 
+                                            value={profile.location || ''} onChange={handleChange} 
+                                            placeholder="City, Country" 
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="form-group full-width">
                                     <label>Bio</label>
                                     <textarea 
-                                        name="bio" 
-                                        rows="4" 
-                                        value={profile.bio} 
-                                        onChange={handleChange} 
+                                        name="bio" rows="4" 
+                                        value={profile.bio || ''} onChange={handleChange} 
                                         placeholder="Tell us a little about yourself..."
                                     ></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        {/* 2. PROFESSIONAL DETAILS (Photographer Only) */}
+                        {/* SECTION 2: PROFESSIONAL (Photographer Only) */}
                         {profile.user_type === 'Photographer' && (
-                            <div className="content-card">
-                                <div className="card-header">
-                                    <h3>Professional Info</h3>
-                                    <p>Highlight your skills and rates to attract clients.</p>
+                            <div className="form-section mt-8">
+                                <div className="section-header">
+                                    <h3>Professional Portfolio</h3>
+                                    <p>Highlight your skills and pricing to attract clients.</p>
                                 </div>
 
                                 <div className="form-grid">
                                     <div className="form-group">
                                         <label>Hourly Rate ($)</label>
-                                        <div className="input-with-icon">
-                                            <DollarSign size={16} className="input-icon" />
-                                            <input 
-                                                type="number" 
-                                                name="hourly_rate" 
-                                                value={profile.hourly_rate} 
-                                                onChange={handleChange} 
-                                                placeholder="0.00"
-                                            />
-                                        </div>
+                                        <input 
+                                            type="number" name="hourly_rate" 
+                                            value={profile.hourly_rate || ''} onChange={handleChange} 
+                                            placeholder="0.00" 
+                                        />
                                     </div>
 
                                     <div className="form-group full-width">
                                         <label>Skills (Comma separated)</label>
                                         <input 
                                             type="text" 
-                                            value={skillsInput} 
-                                            onChange={(e) => setSkillsInput(e.target.value)} 
-                                            placeholder="Wedding, Portrait, Wildlife..."
+                                            value={skillsInput} onChange={(e) => setSkillsInput(e.target.value)} 
+                                            placeholder="Wedding, Portrait, Wildlife..." 
                                         />
                                     </div>
 
                                     <div className="form-group full-width">
                                         <label>Portfolio Intro</label>
                                         <textarea 
-                                            name="portfolio_intro" 
-                                            rows="3" 
-                                            value={profile.portfolio_intro} 
-                                            onChange={handleChange} 
-                                            placeholder="Short introduction for your portfolio page..."
+                                            name="portfolio_intro" rows="3" 
+                                            value={profile.portfolio_intro || ''} onChange={handleChange} 
+                                            placeholder="Short intro for your portfolio page..."
                                         ></textarea>
                                     </div>
                                 </div>
                             </div>
                         )}
 
-                        {/* 3. SOCIAL LINKS */}
-                        <div className="content-card">
-                            <div className="card-header">
+                        {/* SECTION 3: SOCIALS */}
+                        <div className="form-section mt-8">
+                            <div className="section-header">
                                 <h3>Social Presence</h3>
-                                <p>Where can clients find you online?</p>
+                                <p>Where can people find your work?</p>
                             </div>
 
                             <div className="form-grid">
                                 <div className="form-group">
-                                    <label>Instagram Username</label>
-                                    <div className="input-with-icon">
-                                        <Instagram size={16} className="input-icon" />
+                                    <label>Instagram</label>
+                                    <div className="input-icon-wrapper">
+                                        <Instagram size={18} className="field-icon" />
                                         <input 
-                                            type="text" 
-                                            name="instagram" 
-                                            value={profile.social_links.instagram} 
-                                            onChange={handleSocialChange} 
-                                            placeholder="username"
+                                            type="text" name="instagram" 
+                                            value={profile.social_links?.instagram || ''} onChange={handleSocialChange} 
+                                            placeholder="username" 
                                         />
                                     </div>
                                 </div>
 
                                 <div className="form-group">
-                                    <label>Twitter/X Handle</label>
-                                    <div className="input-with-icon">
-                                        <Twitter size={16} className="input-icon" />
+                                    <label>Twitter / X</label>
+                                    <div className="input-icon-wrapper">
+                                        <Twitter size={18} className="field-icon" />
                                         <input 
-                                            type="text" 
-                                            name="twitter" 
-                                            value={profile.social_links.twitter} 
-                                            onChange={handleSocialChange} 
-                                            placeholder="username"
+                                            type="text" name="twitter" 
+                                            value={profile.social_links?.twitter || ''} onChange={handleSocialChange} 
+                                            placeholder="username" 
                                         />
                                     </div>
                                 </div>
 
                                 <div className="form-group full-width">
-                                    <label>Website / Portfolio URL</label>
-                                    <div className="input-with-icon">
-                                        <Globe size={16} className="input-icon" />
+                                    <label>Website</label>
+                                    <div className="input-icon-wrapper">
+                                        <LinkIcon size={18} className="field-icon" />
                                         <input 
-                                            type="text" 
-                                            name="portfolio" 
-                                            value={profile.social_links.portfolio} 
-                                            onChange={handleSocialChange} 
-                                            placeholder="https://..."
+                                            type="text" name="website" 
+                                            value={profile.social_links?.website || ''} onChange={handleSocialChange} 
+                                            placeholder="https://yourportfolio.com" 
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* SUBMIT AREA */}
-                        <div className="action-bar">
-                            <button type="button" className="btn-cancel">Discard</button>
-                            <button type="submit" className="btn-save" disabled={loading}>
-                                {loading ? 'Saving...' : 'Save Changes'}
+                        {/* ACTION BAR */}
+                        <div className="sticky-action-bar">
+                            <button type="button" className="btn-cancel" onClick={() => window.location.reload()}>Discard</button>
+                            <button type="submit" className="btn-save" disabled={saving}>
+                                {saving ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
+                                {saving ? "Saving..." : "Save Changes"}
                             </button>
                         </div>
 

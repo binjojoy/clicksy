@@ -17,7 +17,7 @@ import Profile from './pages/Profile';
 import UploadPortfolio from './pages/UploadPortfolio';
 import ManageBookings from './pages/ManageBooking';
 import SellItem from './pages/SellItem';
-import EditProfile from './pages/Profile'; // Note: You had Profile imported as EditProfile
+import EditProfile from './pages/EditProfile'; // Note: You had Profile imported as EditProfile
 import CategoryGallery from './pages/CategoryGallery';
 import ItemDetails from './pages/ItemDetails';
 import ExplorePage from "./pages/ExplorePage";
