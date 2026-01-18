@@ -1,51 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-import { X } from "lucide-react"; // Import Close Icon
+import { X } from "lucide-react"; 
+import api from '../services/api'; // Import your Axios instance
 import './Community.css'; 
 
 const Community = () => {
   // --- STATE ---
-  const [showModal, setShowModal] = useState(false); // Controls the "View All" Modal
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [discussions, setDiscussions] = useState([]); // Now starts empty
 
-  // Existing Discussion Data
-  const [discussions, setDiscussions] = useState([
-    {
-      id: 1,
-      title: "Best Camera Settings for Outdoor Portraits during Golden Hour",
-      author: "Sarah Johnson",
-      likes: 45,
-      hasLiked: false,
-      category: "Tips & Tricks",
-      time: "2 hours ago",
-      comments: [
-        { id: 101, user: "Mike", text: "I usually stick to f/2.8 to get that creamy bokeh!" },
-        { id: 102, user: "Anna", text: "Don't forget to check your white balance." }
-      ]
-    },
-    {
-      id: 2,
-      title: "Is the upgrade to Mirrorless really worth it?",
-      author: "Mike Chen",
-      likes: 156,
-      hasLiked: true,
-      category: "Gear Talk",
-      time: "4 hours ago",
-      comments: []
-    },
-    {
-      id: 3,
-      title: "Critique Request: Moody street photography in Tokyo",
-      author: "Emma Davis",
-      likes: 34,
-      hasLiked: false,
-      category: "Critique",
-      time: "1 day ago",
-      comments: [{ id: 103, user: "Tom", text: "Great contrast! Maybe crop the left side a bit?" }]
-    }
-  ]);
+  // Sidebar Inputs State
+  const [newPostTitle, setNewPostTitle] = useState("");
+  const [newPostContent, setNewPostContent] = useState("");
 
-  // ALGORITHM DATA: Full List (For the Modal)
+  // Helper to get current User ID (Assuming you store user info in localStorage on login)
+  // If your auth logic is different, replace this line.
+  const getCurrentUserId = () => {
+  // 1. Direct check for the key 'user_id' you provided
+  const userId = localStorage.getItem('user_id');
+  
+  // 2. Return it if it exists, otherwise null
+  return userId ? userId : null;
+};
+
+  // --- 1. FETCH DATA (Feed) ---
+  const fetchPosts = async () => {
+  const userId = getCurrentUserId(); // Get ID from local storage
+  try {
+    // Pass userId as a query parameter so backend knows whose "red hearts" to show
+    const res = await api.get(`/community/posts?userId=${userId || ''}`);
+    setDiscussions(res.data);
+  } catch (err) {
+    console.error("Failed to load posts", err);
+  } finally {
+    setLoading(false);
+  }
+};
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  // --- ALGORITHM DATA: Full List (Static as requested) ---
   const allSuggestions = [
     { id: 1, name: "David Lo", role: "Wedding Photographer", match: 95, location: "Kochi", isConnected: false },
     { id: 2, name: "Maria K", role: "Fashion & Editorial", match: 88, location: "Mumbai", isConnected: false },
@@ -54,31 +52,112 @@ const Community = () => {
     { id: 5, name: "Sarah J", role: "Portrait Specialist", match: 65, location: "Delhi", isConnected: false },
     { id: 6, name: "Arjun V", role: "Cinematographer", match: 60, location: "Chennai", isConnected: false },
   ];
-
-  // Sidebar Widget Data (Top 3 only)
   const sidebarSuggestions = allSuggestions.slice(0, 3);
 
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [replyText, setReplyText] = useState("");
 
   // --- ACTIONS ---
-  const handleLike = (id) => { /* Same as before */ 
-    setDiscussions(discussions.map(p => p.id === id ? { ...p, hasLiked: !p.hasLiked, likes: p.hasLiked ? p.likes-1 : p.likes+1 } : p));
+
+  // 2. CREATE POST
+  const handleCreatePost = async () => {
+    const userId = getCurrentUserId();
+    if (!userId) return alert("Please log in to post.");
+    if (!newPostTitle.trim() || !newPostContent.trim()) return;
+
+    try {
+      await api.post('/community/posts', {
+        user_id: userId,
+        title: newPostTitle,
+        content: newPostContent,
+        category: "General" // Default category since UI has no dropdown
+      });
+      
+      // Clear inputs and refresh feed
+      setNewPostTitle("");
+      setNewPostContent("");
+      fetchPosts(); 
+    } catch (err) {
+      console.error("Error creating post", err);
+      alert("Failed to create post.");
+    }
   };
+
+  // 3. LIKE POST
+  // 2. Update handleLike to toggle correctly
+const handleLike = async (id) => {
+  const userId = getCurrentUserId();
+  if (!userId) return alert("Please log in to like posts.");
+
+  // Find the post to check current state
+  const post = discussions.find(p => p.id === id);
+  const isCurrentlyLiked = post.hasLiked;
+
+  // OPTIMISTIC UPDATE (Immediate Visual Feedback)
+  setDiscussions(discussions.map(p => 
+    p.id === id 
+      ? { 
+          ...p, 
+          hasLiked: !isCurrentlyLiked, // Toggle boolean
+          likes: isCurrentlyLiked ? p.likes - 1 : p.likes + 1 // Toggle count
+        } 
+      : p
+  ));
+
+  // SEND TO BACKEND
+  try {
+    // We must send data: { user_id: ... } in the body for the PUT request
+    await api.put(`/community/posts/${id}/like`, { user_id: userId });
+  } catch (err) {
+    console.error("Like failed", err);
+    // Revert if API fails
+    setDiscussions(discussions.map(p => 
+      p.id === id 
+        ? { 
+            ...p, 
+            hasLiked: isCurrentlyLiked, 
+            likes: isCurrentlyLiked ? p.likes : p.likes 
+          } 
+        : p
+    ));
+  }
+};
 
   const toggleComments = (id) => {
     setActiveCommentId(activeCommentId === id ? null : id);
   };
 
-  const handleReplySubmit = (postId) => { /* Same as before */ 
-    if (!replyText.trim()) return;
-    setDiscussions(discussions.map(p => p.id === postId ? { ...p, comments: [...p.comments, { id: Date.now(), user: "You", text: replyText }] } : p));
-    setReplyText("");
-  };
+  // 4. SUBMIT REPLY
+  const handleReplySubmit = async (postId) => {
+  const userId = getCurrentUserId();
+  // Get the real name from storage, or fallback to "You"
+  const userName = localStorage.getItem('userName') || "You"; 
 
-  // Connect Logic (Updates visuals only for demo)
+  if (!userId) return alert("Please log in to comment.");
+  if (!replyText.trim()) return;
+
+  const tempId = Date.now();
+  
+  // Optimistic Update with REAL NAME
+  const newComment = { id: tempId, user: userName, text: replyText };
+  
+  setDiscussions(discussions.map(p => 
+    p.id === postId ? { ...p, comments: [...p.comments, newComment] } : p
+  ));
+  setReplyText("");
+
+  try {
+    await api.post(`/community/posts/${postId}/comment`, {
+      user_id: userId,
+      content: newComment.text
+    });
+  } catch (err) {
+    console.error("Reply failed", err);
+    alert("Failed to post comment.");
+  }
+};
+  // Connect Logic (Static)
   const handleConnect = (id) => {
-    // In real app: API call here
     alert(`Connection request sent to User ID: ${id}`);
   };
 
@@ -108,46 +187,57 @@ const Community = () => {
             
             {/* LEFT: FEED */}
             <div className="feed-section">
-                {discussions.map((discussion) => (
-                    <div key={discussion.id} className="discussion-card">
-                        <div className="card-content-padding">
-                            <div className="card-top">
-                                <span className="category-badge">{discussion.category}</span>
-                                <span style={{ fontSize: '0.8rem', color: '#71717a' }}>{discussion.time}</span>
+                {loading ? (
+                    <div style={{color: '#a1a1aa', textAlign: 'center', marginTop: '2rem'}}>Loading discussions...</div>
+                ) : (
+                    discussions.map((discussion) => (
+                        <div key={discussion.id} className="discussion-card">
+                            <div className="card-content-padding">
+                                <div className="card-top">
+                                    <span className="category-badge">{discussion.category}</span>
+                                    <span style={{ fontSize: '0.8rem', color: '#71717a' }}>{discussion.time}</span>
+                                </div>
+                                <h3 className="discussion-title" onClick={() => toggleComments(discussion.id)}>
+                                    {discussion.title}
+                                </h3>
+                                <div className="discussion-meta">
+                                    <span style={{ color: 'white', fontWeight: '500' }}>@{discussion.author}</span>
+                                    <button className={`meta-btn ${discussion.hasLiked ? 'liked' : ''}`} onClick={() => handleLike(discussion.id)}>
+                                        <svg width="18" height="18" fill={discussion.hasLiked ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                                        {discussion.likes}
+                                    </button>
+                                    <button className={`meta-btn ${activeCommentId === discussion.id ? 'active' : ''}`} onClick={() => toggleComments(discussion.id)}>
+                                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                                        {discussion.comments.length} Replies
+                                    </button>
+                                </div>
                             </div>
-                            <h3 className="discussion-title" onClick={() => toggleComments(discussion.id)}>
-                                {discussion.title}
-                            </h3>
-                            <div className="discussion-meta">
-                                <span style={{ color: 'white', fontWeight: '500' }}>@{discussion.author}</span>
-                                <button className={`meta-btn ${discussion.hasLiked ? 'liked' : ''}`} onClick={() => handleLike(discussion.id)}>
-                                    <svg width="18" height="18" fill={discussion.hasLiked ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                                    {discussion.likes}
-                                </button>
-                                <button className={`meta-btn ${activeCommentId === discussion.id ? 'active' : ''}`} onClick={() => toggleComments(discussion.id)}>
-                                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                                    {discussion.comments.length} Replies
-                                </button>
-                            </div>
+                            {activeCommentId === discussion.id && (
+                                <div className="comments-section">
+                                    <div className="reply-box">
+                                        <input 
+                                            type="text" 
+                                            className="reply-input" 
+                                            placeholder="Write a reply..." 
+                                            value={replyText} 
+                                            onChange={(e) => setReplyText(e.target.value)} 
+                                            onKeyDown={(e) => e.key === 'Enter' && handleReplySubmit(discussion.id)}
+                                        />
+                                        <button className="btn-send" onClick={() => handleReplySubmit(discussion.id)}>Post</button>
+                                    </div>
+                                    <div className="comment-list">
+                                        {discussion.comments.map(c => (
+                                            <div key={c.id} className="single-comment">
+                                                <div className="comment-avatar"></div>
+                                                <div className="comment-body"><span className="comment-author">{c.user}</span>{c.text}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                        {activeCommentId === discussion.id && (
-                            <div className="comments-section">
-                                <div className="reply-box">
-                                    <input type="text" className="reply-input" placeholder="Write a reply..." value={replyText} onChange={(e) => setReplyText(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleReplySubmit(discussion.id)}/>
-                                    <button className="btn-send" onClick={() => handleReplySubmit(discussion.id)}>Post</button>
-                                </div>
-                                <div className="comment-list">
-                                    {discussion.comments.map(c => (
-                                        <div key={c.id} className="single-comment">
-                                            <div className="comment-avatar"></div>
-                                            <div className="comment-body"><span className="comment-author">{c.user}</span>{c.text}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                ))}
+                    ))
+                )}
             </div>
 
             {/* RIGHT: SIDEBAR */}
@@ -156,9 +246,26 @@ const Community = () => {
                 <div className="sidebar-card mb-6">
                     <h3 className="sidebar-title">Start a Discussion</h3>
                     <p style={{ color: '#a1a1aa', fontSize: '0.9rem', marginBottom: '1rem' }}>Share your thoughts or ask for advice.</p>
-                    <input type="text" className="create-input" placeholder="Title..." />
-                    <textarea className="create-input" placeholder="Content..." rows="3" style={{ resize: 'none' }}></textarea>
-                    <button className="btn-create-post">Post to Forum</button>
+                    
+                    {/* Added value and onChange for binding */}
+                    <input 
+                        type="text" 
+                        className="create-input" 
+                        placeholder="Title..." 
+                        value={newPostTitle}
+                        onChange={(e) => setNewPostTitle(e.target.value)}
+                    />
+                    <textarea 
+                        className="create-input" 
+                        placeholder="Content..." 
+                        rows="3" 
+                        style={{ resize: 'none' }}
+                        value={newPostContent}
+                        onChange={(e) => setNewPostContent(e.target.value)}
+                    ></textarea>
+                    
+                    {/* Added onClick Handler */}
+                    <button className="btn-create-post" onClick={handleCreatePost}>Post to Forum</button>
                 </div>
 
                 {/* Widget 2: Suggestions */}
@@ -190,7 +297,7 @@ const Community = () => {
         </div>
       </div>
 
-      {/* --- THE CLASSIC MODAL --- */}
+      {/* --- THE CLASSIC MODAL (UNCHANGED) --- */}
       {showModal && (
         <div className="comm-modal-overlay" onClick={() => setShowModal(false)}>
             <div className="comm-modal-content" onClick={(e) => e.stopPropagation()}>
