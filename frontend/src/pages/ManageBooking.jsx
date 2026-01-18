@@ -1,61 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
+import api from '../services/api'; // Import your Axios Service
+import { toast } from '../components/Toaster'; // Assuming you have a toaster
+import { Loader2 } from 'lucide-react'; // Icon for loading state
 import './ManageBooking.css'; 
 
 const ManageBookings = () => {
-    // 💡 DUMMY DATA: Now structured exactly like your Supabase 'bookings' table
-    // Note: In the real app, 'client_name' and 'listing_title' will come from Joins (foreign keys)
-    const [bookings, setBookings] = useState([
-        {
-            id: "d290f1ee-6c54-4b01-90e6-d701748f0851",
-            created_at: "2025-10-01T10:00:00Z",
-            start_time: "2025-10-15T09:00:00Z",
-            end_time: "2025-10-15T17:00:00Z",
-            total_price: 1200.00,
-            status: "pending", // matches public.booking_status
-            payment_status: "pending", // matches public.payment_status
-            special_requirements: "We need a photographer for 8 hours at City Hall. Please bring backup lighting.",
-            
-            // These fields simulate the Foreign Key data we will fetch later
-            client_name: "Alice Johnson",
-            listing_title: "Full Day Wedding Package"
-        },
-        {
-            id: "a123f1ee-6c54-4b01-90e6-d701748f0852",
-            created_at: "2025-09-10T14:30:00Z",
-            start_time: "2025-09-20T10:00:00Z",
-            end_time: "2025-09-20T12:00:00Z",
-            total_price: 300.00,
-            status: "confirmed",
-            payment_status: "paid",
-            special_requirements: "Headshots for 10 employees. White background needed.",
-            
-            client_name: "TechCorp Inc.",
-            listing_title: "Corporate Headshots"
-        },
-        {
-            id: "b456f1ee-6c54-4b01-90e6-d701748f0853",
-            created_at: "2025-08-01T09:00:00Z",
-            start_time: "2025-08-05T16:00:00Z",
-            end_time: "2025-08-05T18:00:00Z",
-            total_price: 250.00,
-            status: "completed",
-            payment_status: "paid",
-            special_requirements: "Outdoor shoot at the park. Natural light only.",
-            
-            client_name: "Mark Smith",
-            listing_title: "Golden Hour Portrait Session"
-        }
-    ]);
-
+    const [bookings, setBookings] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('pending');
 
+    // 1. FETCH REAL BOOKINGS
+    useEffect(() => {
+        const fetchBookings = async () => {
+            try {
+                // Get Provider ID from Local Storage
+                const providerId = localStorage.getItem('user_id');
+                
+                if (!providerId) {
+                    toast.error("You must be logged in to manage bookings.");
+                    return;
+                }
+
+                // Call the Backend Route we created
+                // GET /api/v1/bookings/manage?providerId=...
+                const response = await api.get(`/bookings/manage?providerId=${providerId}`);
+                
+                // The backend already formats the data correctly (client_name, listing_title, etc.)
+                setBookings(response.data);
+
+            } catch (error) {
+                console.error("Error fetching bookings:", error);
+                toast.error("Failed to load bookings.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchBookings();
+    }, []);
+
+    // 2. FILTERING LOGIC (Frontend Side)
+    // Since we fetch all bookings, we can filter them here instantly
     const filteredBookings = bookings.filter(b => {
-        if (activeTab === 'upcoming') return b.status === 'confirmed';
+        if (activeTab === 'upcoming') {
+            // Show Confirmed jobs that are happening in the future (optional date check could go here)
+            return b.status === 'confirmed'; 
+        }
         return b.status === activeTab;
     });
 
-    // Helper to format timestamps (e.g., "Oct 15, 2025 • 9:00 AM - 5:00 PM")
+    // Helper: Format Dates
     const formatTimeRange = (start, end) => {
         const startDate = new Date(start);
         const endDate = new Date(end);
@@ -67,15 +62,42 @@ const ManageBookings = () => {
         return `${dateStr} • ${startTime} - ${endTime}`;
     };
 
-    const updateStatus = (id, newStatus) => {
-        if (newStatus === 'cancelled') {
-            setBookings(bookings.filter(b => b.id !== id));
-        } else {
-            setBookings(bookings.map(b => 
-                b.id === id ? { ...b, status: newStatus } : b
-            ));
+    // 3. HANDLE STATUS UPDATES (Accept/Decline)
+    const handleStatusUpdate = async (bookingId, newStatus) => {
+        // Optimistic UI Update: Update list immediately before server responds
+        const previousBookings = [...bookings];
+        
+        // Update local state instantly so UI feels fast
+        setBookings(prev => prev.map(b => 
+            b.id === bookingId ? { ...b, status: newStatus } : b
+        ));
+
+        try {
+            const providerId = localStorage.getItem('user_id');
+
+            // Call Backend: PATCH /api/v1/bookings/:id/status
+            await api.patch(`/bookings/${bookingId}/status`, {
+                status: newStatus,
+                providerId: providerId // Security check
+            });
+
+            toast.success(`Booking ${newStatus} successfully!`);
+
+        } catch (error) {
+            console.error("Update failed:", error);
+            toast.error("Failed to update status.");
+            // Revert changes if server fails
+            setBookings(previousBookings);
         }
     };
+
+    if (loading) {
+        return (
+            <div className="manage-page" style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                <Loader2 className="animate-spin" size={48} color="#7c3aed" />
+            </div>
+        );
+    }
 
     return (
         <div className="manage-page">
@@ -115,7 +137,7 @@ const ManageBookings = () => {
                 <div className="bookings-list">
                     {filteredBookings.length === 0 ? (
                         <div className="empty-state">
-                            <p>No bookings found in this section.</p>
+                            <p>No {activeTab} bookings found.</p>
                         </div>
                     ) : (
                         filteredBookings.map((booking) => (
@@ -123,13 +145,13 @@ const ManageBookings = () => {
                                 
                                 <div className="booking-info">
                                     <div className="card-top-row">
-                                        <h3>{booking.listing_title}</h3>
+                                        <h3>{booking.listing_title || "Untitled Booking"}</h3>
                                         <div className="badges">
-                                            {/* Booking Status Badge */}
+                                            {/* Status Badge */}
                                             <span className={`status-badge status-${booking.status}`}>
                                                 {booking.status.toUpperCase()}
                                             </span>
-                                            {/* Payment Status Badge (New!) */}
+                                            {/* Payment Badge */}
                                             <span className={`status-badge payment-${booking.payment_status}`}>
                                                 {booking.payment_status === 'paid' ? 'PAID' : 'UNPAID'}
                                             </span>
@@ -138,7 +160,6 @@ const ManageBookings = () => {
 
                                     <p className="client-name">Client: {booking.client_name}</p>
                                     
-                                    {/* Formatted Date Range */}
                                     <p className="booking-details">
                                         📅 {formatTimeRange(booking.start_time, booking.end_time)}
                                     </p>
@@ -159,13 +180,13 @@ const ManageBookings = () => {
                                         <>
                                             <button 
                                                 className="btn-accept"
-                                                onClick={() => updateStatus(booking.id, 'confirmed')}
+                                                onClick={() => handleStatusUpdate(booking.id, 'confirmed')}
                                             >
                                                 Accept Request
                                             </button>
                                             <button 
                                                 className="btn-decline"
-                                                onClick={() => updateStatus(booking.id, 'cancelled')}
+                                                onClick={() => handleStatusUpdate(booking.id, 'cancelled')}
                                             >
                                                 Decline
                                             </button>
@@ -175,7 +196,7 @@ const ManageBookings = () => {
                                     {booking.status === 'confirmed' && (
                                         <button 
                                             className="btn-complete"
-                                            onClick={() => updateStatus(booking.id, 'completed')}
+                                            onClick={() => handleStatusUpdate(booking.id, 'completed')}
                                         >
                                             Mark as Completed
                                         </button>
@@ -184,6 +205,13 @@ const ManageBookings = () => {
                                     {booking.status === 'completed' && (
                                         <span className="completion-text">
                                             ✓ Job Done
+                                        </span>
+                                    )}
+                                     
+                                    {/* Handle Cancelled State UI */}
+                                    {booking.status === 'cancelled' && (
+                                        <span style={{color: '#ef4444', fontWeight: 'bold', alignSelf:'center'}}>
+                                            ✕ Declined
                                         </span>
                                     )}
                                 </div>
