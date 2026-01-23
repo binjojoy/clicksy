@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom'; 
 import { supabase } from '../config/supabaseClient';
+import { calculateImageHash } from '../utils/imageHasher'; // <--- NEW IMPORT
 import './UploadPortfolio.css';
 
 const UploadPortfolio = () => {
@@ -14,7 +15,7 @@ const UploadPortfolio = () => {
         description: ''
     });
 
-    // 1. CHECK LOCAL STORAGE LOGIN (The "Fake" Gate)
+    // 1. CHECK LOCAL STORAGE LOGIN
     useEffect(() => {
         const user = localStorage.getItem('userName');
         if (!user) {
@@ -53,7 +54,37 @@ const UploadPortfolio = () => {
         try {
             setLoading(true);
 
-            // 2. UPLOAD IMAGE (Standard Supabase Upload)
+            // --- COPYRIGHT PROTECTION START ---
+            // 1. Calculate the unique fingerprint of the image
+            const fingerprint = await calculateImageHash(file);
+            console.log("Checking copyright for hash:", fingerprint);
+
+            // 2. Check if this exact image exists in the database
+            const { data: existingImages, error: checkError } = await supabase
+                .from('portfolio_items')
+                .select('id, user_id')
+                .eq('image_hash', fingerprint);
+
+            if (checkError) throw checkError;
+
+            // 3. If it exists, block the upload
+            if (existingImages && existingImages.length > 0) {
+                const ownerId = existingImages[0].user_id;
+                
+                // Optional: Check if the user is re-uploading their OWN image
+                if (ownerId === userId) {
+                    alert("You have already uploaded this photo.");
+                } else {
+                    // COPYRIGHT STRIKE
+                    alert("COPYRIGHT ALERT: This image belongs to another photographer on this platform. Upload rejected.");
+                }
+                setLoading(false);
+                return; // <--- STOP EVERYTHING
+            }
+            // --- COPYRIGHT PROTECTION END ---
+
+
+            // 4. UPLOAD IMAGE (Standard Supabase Upload)
             const fileExt = file.name.split('.').pop();
             const fileName = `${Date.now()}.${fileExt}`;
             const filePath = `uploads/${fileName}`;
@@ -64,22 +95,23 @@ const UploadPortfolio = () => {
 
             if (uploadError) throw uploadError;
 
-            // 3. GET PUBLIC URL
+            // 5. GET PUBLIC URL
             const { data: { publicUrl } } = supabase.storage
                 .from('portfolio')
                 .getPublicUrl(filePath);
 
-            // 4. INSERT INTO DB (Using the REAL userId)
+            // 6. INSERT INTO DB (Includes the new image_hash)
             const { error: dbError } = await supabase
                 .from('portfolio_items')
                 .insert([
                     {
-                        user_id: userId, // <--- NOW USES THE ID FROM LOCAL STORAGE
+                        user_id: userId,
                         title: formData.title,
                         description: formData.description,
                         category: formData.category,
                         media_url: publicUrl,
-                        media_type: 'image'
+                        media_type: 'image',
+                        image_hash: fingerprint // <--- STORING THE FINGERPRINT
                     }
                 ]);
 
@@ -97,13 +129,9 @@ const UploadPortfolio = () => {
     };
 
     return (
-        // ... (Keep your existing JSX return statement exactly the same) ...
-        // Just ensuring you have the JSX from the previous prompt here
         <div className="upload-page">
             <Navbar />
             <div className="upload-container">
-                 {/* ... existing form code ... */}
-                 {/* Ensure the form calls onSubmit={handleSubmit} */}
                  <div className="upload-card">
                     <div className="upload-header">
                         <h1 className="upload-title">Upload New Work</h1>
@@ -111,13 +139,11 @@ const UploadPortfolio = () => {
                     </div>
 
                     <form onSubmit={handleSubmit}>
-                        {/* Title Input */}
                         <div className="form-group">
                             <label className="form-label">Project Title</label>
                             <input name="title" type="text" className="form-input" placeholder="e.g. Sunset" onChange={handleChange} disabled={loading} />
                         </div>
 
-                        {/* Category Dropdown */}
                         <div className="form-group">
                             <label className="form-label">Category</label>
                             <select name="category" className="form-select" onChange={handleChange} value={formData.category}>
@@ -128,7 +154,6 @@ const UploadPortfolio = () => {
                             </select>
                         </div>
 
-                        {/* File Input */}
                         <div className="form-group">
                             <label className="form-label">Upload Image</label>
                             <div className="file-drop-area">
@@ -139,14 +164,13 @@ const UploadPortfolio = () => {
                             </div>
                         </div>
 
-                        {/* Description */}
                         <div className="form-group">
                             <label className="form-label">Description</label>
                             <textarea name="description" rows="4" className="form-textarea" placeholder="Description..." onChange={handleChange}></textarea>
                         </div>
 
                         <button type="submit" className="btn-upload" disabled={loading}>
-                            {loading ? 'Uploading...' : 'Publish to Portfolio'}
+                            {loading ? 'Processing...' : 'Publish to Portfolio'}
                         </button>
                     </form>
                  </div>
