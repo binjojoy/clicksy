@@ -23,6 +23,7 @@ import ItemDetails from './pages/ItemDetails';
 import ExplorePage from "./pages/ExplorePage";
 import SavedPage from "./pages/SavedPage";
 import ClientBooking from "./pages/ClientBooking";
+import Profiles from './pages/Profiles';
 
 // Transition Wrapper
 import PageTransition from './components/PageTransition';
@@ -60,12 +61,17 @@ function App() {
               <PageTransition><Community /></PageTransition>
             } />
             
+            
             <Route path="/learn" element={
               <PageTransition><Learn /></PageTransition>
             } />
             
             <Route path="/about" element={
               <PageTransition><About /></PageTransition>
+            } />
+
+            <Route path="/profiles" element={
+              <PageTransition><Profiles /></PageTransition>
             } />
             
             <Route path="/marketplace" element={

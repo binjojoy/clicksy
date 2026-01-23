@@ -1,0 +1,444 @@
+/* src/pages/SignatureProfile.css */
+
+/* --- SCOPED VARIABLES (Prevents Dashboard Conflicts) --- */
+.sig-page-wrapper {
+    --sp-bg: #050505;           /* Deepest Obsidian */
+    --sp-glass: rgba(20, 20, 23, 0.6); /* Glass Card BG */
+    --sp-border: rgba(255, 255, 255, 0.08);
+    --sp-text: #ffffff;
+    --sp-muted: #9ca3af;
+    --sp-accent: #8b5cf6;       /* Electric Violet */
+    --sp-gradient: linear-gradient(135deg, #8b5cf6, #ec4899);
+
+    background-color: var(--sp-bg);
+    min-height: 100vh;
+    width: 100%;
+    color: var(--sp-text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    padding-top: 5rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* --- HERO BANNER (The "Atmosphere") --- */
+.sig-banner {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    /* Gradient fade to blend into the black body */
+    mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+    z-index: 0;
+    opacity: 0.6;
+}
+
+/* --- MAIN CONTAINER --- */
+.sig-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+    position: relative;
+    z-index: 10; /* Sits above banner */
+}
+
+/* --- PROFILE CARD (The "Glass" Effect) --- */
+.sig-card {
+    margin-top: 80px; /* Overlaps the banner */
+    background: var(--sp-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--sp-border);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    margin-bottom: 3rem;
+}
+
+/* Avatar with Glow */
+.sig-avatar-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.sig-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 1.5rem; /* Soft square > Circle for modern feel */
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.3); /* Purple Glow */
+}
+
+.sig-verified {
+    position: absolute;
+    bottom: -10px; right: -10px;
+    background: white;
+    border-radius: 50%;
+    padding: 4px;
+    color: var(--sp-accent);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* User Details */
+.sig-info {
+    flex-grow: 1;
+}
+
+.sig-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.sig-name-block h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, white, #d4d4d8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sig-role {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--sp-accent);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* The Creative Edit Button */
+.sig-btn-edit {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 3rem; /* Pill shape */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sig-btn-edit:hover {
+    background: white;
+    color: black;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.sig-bio {
+    color: var(--sp-muted);
+    line-height: 1.7;
+    font-size: 1rem;
+    max-width: 600px;
+    margin-bottom: 2rem;
+}
+
+/* Stats as "Cards within Card" */
+.sig-stats {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.sig-stat-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--sp-border);
+    padding: 0.8rem 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    min-width: 100px;
+}
+
+.sig-stat-val {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.sig-stat-lbl {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--sp-muted);
+    letter-spacing: 0.05em;
+}
+
+/* --- RECOMMENDATION STRIP (Fixed Grid Layout) --- */
+.sig-rec-container {
+    margin-bottom: 4rem;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.sig-rec-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+}
+
+.sig-rec-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.sig-rec-subtitle {
+    font-size: 0.85rem;
+    color: var(--sp-muted);
+}
+
+.sig-view-all-link {
+    font-size: 0.85rem;
+    color: var(--sp-accent);
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: color 0.2s;
+}
+.sig-view-all-link:hover { color: white; }
+
+/* Grid Layout for Cards */
+.sig-rec-list {
+    display: grid;
+    /* Smart responsive grid: Fits 6 cards on desktop, wraps automatically on smaller screens */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 1rem;
+    padding: 0.5rem; 
+}
+
+/* Mini Cards */
+.sig-rec-card {
+    background: var(--sp-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--sp-border);
+    border-radius: 1.5rem;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.sig-rec-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--sp-accent);
+    box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.3);
+}
+
+.sig-rec-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.1);
+    margin-bottom: 0.8rem;
+    z-index: 1;
+}
+
+.sig-rec-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.2rem;
+    z-index: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.sig-rec-role {
+    font-size: 0.7rem;
+    color: var(--sp-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    z-index: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.sig-btn-follow {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 1;
+}
+
+.sig-btn-follow:hover {
+    background: var(--sp-text);
+    color: black;
+    border-color: var(--sp-text);
+}
+
+/* "See More" End Card */
+.sig-rec-view-more {
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed var(--sp-border);
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--sp-muted);
+    padding: 1rem;
+    min-height: 100%; /* Matches height of other cards */
+}
+
+.sig-rec-view-more:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--sp-text);
+    color: var(--sp-text);
+    transform: translateY(-5px);
+}
+
+.sig-view-more-icon {
+    margin-bottom: 0.5rem;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+}
+
+/* --- TABS (Minimalist) --- */
+.sig-tabs {
+    display: flex;
+    gap: 3rem;
+    border-bottom: 1px solid var(--sp-border);
+    margin-bottom: 2.5rem;
+}
+
+.sig-tab {
+    background: none;
+    border: none;
+    padding: 1rem 0;
+    color: var(--sp-muted);
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.sig-tab.active {
+    color: white;
+}
+
+.sig-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; width: 100%;
+    height: 3px;
+    background: var(--sp-accent);
+    box-shadow: 0 -5px 15px var(--sp-accent); /* Glowing line */
+}
+
+/* --- MASONRY GRID --- */
+.sig-masonry {
+    column-count: 3;
+    column-gap: 1.5rem;
+}
+
+.sig-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: #121212;
+}
+
+.sig-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.sig-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Hover Info */
+.sig-item-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 2rem 1rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.sig-item:hover .sig-item-overlay { opacity: 1; }
+
+.sig-item-title {
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.sig-item-likes {
+    color: var(--sp-muted);
+    font-size: 0.8rem;
+    display: flex; align-items: center; gap: 4px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+    .sig-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: 40px;
+    }
+    .sig-header-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .sig-stats { justify-content: center; }
+    .sig-masonry { column-count: 2; }
+}
+
+@media (max-width: 500px) {
+    .sig-masonry { column-count: 1; }
+    .sig-banner { height: 250px; }
+}

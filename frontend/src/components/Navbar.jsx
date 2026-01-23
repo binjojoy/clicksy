@@ -31,6 +31,7 @@ const Navbar = () => {
     { path: "/booking", label: "Bookings" },    
     { path: "/community", label: "Community" },
     { path: "/marketplace", label: "Marketplace" },
+    { path: "/learn", label: "Learn" },
   ];
 
   // Menu for CLIENTS (Customers)
