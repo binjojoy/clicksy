@@ -1,15 +1,16 @@
-// src/pages/Dashboard.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './Dashboard.css'; 
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-import api from "../services/api.js"; // Ensure your API service is imported
+import api from "../services/api.js"; 
 import { 
   // Standard Icons
   Camera, Calendar, Users, DollarSign, Image as ImageIcon, Upload, X, Clock, MapPin, ArrowRight, Search, Heart, Star,
   // Widget Icons
-  MoreVertical, MessageSquare, CheckCircle, AlertCircle, Sparkles
+  MoreVertical, MessageSquare, CheckCircle, AlertCircle, Sparkles,
+  // New Icons for Pro UI
+  Loader2, ChevronRight, User
 } from "lucide-react";
 
 // --- SHARED UTILITIES ---
@@ -34,17 +35,21 @@ const ActionButton = ({ icon: Icon, label, isPrimary = false, onClick }) => (
 );
 
 // ==========================================
-// 📸 PHOTOGRAPHER DASHBOARD (Updated with Real Data)
+// 📸 PHOTOGRAPHER DASHBOARD (PRO UI INTEGRATED)
 // ==========================================
 const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollowers, showBookings, setShowBookings }) => {
     const [activeTab, setActiveTab] = useState('Overview');
     
-    // --- STATE FOR REAL DATA ---
+    // --- REAL DATA STATE ---
     const [photoCount, setPhotoCount] = useState(0); 
-    const [bookings, setBookings] = useState([]); // Real bookings from DB
+    const [followerCount, setFollowerCount] = useState(0); 
+    const [bookings, setBookings] = useState([]); 
     
-    // --- HELPER: Format Date for UI ---
-    // Converts DB Date (ISO) -> { day: "24", month: "OCT", time: "10:00 AM" }
+    // Followers Modal State
+    const [followersList, setFollowersList] = useState([]);
+    const [loadingFollowers, setLoadingFollowers] = useState(false);
+    
+    // --- HELPER: Format Date ---
     const formatDate = (isoString) => {
         if (!isoString) return { day: '--', month: '---', time: '--:--' };
         const date = new Date(isoString);
@@ -55,30 +60,29 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
         };
     };
 
-    // --- FETCH DATA FROM BACKEND ---
+    // --- 1. FETCH DASHBOARD STATS ---
     useEffect(() => {
         const fetchData = async () => {
             const userId = localStorage.getItem('user_id');
             if (!userId) return;
 
             try {
-                // 1. Get Photo Count
-                const statsRes = await api.get(`/user/stats/${userId}`);
-                setPhotoCount(statsRes.data.photoCount);
+                // Parallel fetch for speed
+                const [statsRes, followRes, bookingRes] = await Promise.all([
+                    api.get(`/user/stats/${userId}`).catch(() => ({ data: { photoCount: 0 } })),
+                    api.get(`/profile/${userId}/follow-stats`).catch(() => ({ data: { followersCount: 0 } })),
+                    api.get(`/bookings/user/${userId}`).catch(() => ({ data: [] }))
+                ]);
 
-                // 2. Get Upcoming Bookings
-                const bookingRes = await api.get(`/bookings/user/${userId}`);
-                
-                // Map Database fields to UI structure
+                setPhotoCount(statsRes.data.photoCount);
+                setFollowerCount(followRes.data.followersCount);
+
                 const formattedBookings = bookingRes.data.map(b => {
                     const { day, month, time } = formatDate(b.start_time);
                     return {
                         id: b.id,
                         title: b.booking_title,
-                        day, 
-                        month, 
-                        time,
-                        // Use special_requirements as location fallback since schema has no location col yet
+                        day, month, time,
                         location: b.special_requirements || "On Location", 
                         status: b.status
                     };
@@ -93,22 +97,34 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
         fetchData();
     }, []);
 
-    // Static Data (Placeholders for now)
-    const followersCount = 4; 
+    // --- 2. FETCH FOLLOWERS LIST (On Open) ---
+    useEffect(() => {
+        if (showFollowers) {
+            const fetchFollowersList = async () => {
+                setLoadingFollowers(true);
+                const userId = localStorage.getItem('user_id');
+                try {
+                    const { data } = await api.get(`/profile/${userId}/followers`);
+                    // Ensure we always work with an array
+                    setFollowersList(Array.isArray(data) ? data : []);
+                } catch (error) {
+                    console.error("Failed to load followers", error);
+                    setFollowersList([]); 
+                } finally {
+                    setLoadingFollowers(false);
+                }
+            };
+            fetchFollowersList();
+        }
+    }, [showFollowers]);
+
     const totalRevenue = 0;
-    const mockFollowers = [
-        { id: 1, name: "Sarah Jenkins", role: "Wedding Photographer", initials: "SJ" },
-        { id: 2, name: "Mike Chen", role: "Studio Owner", initials: "MC" },
-        { id: 3, name: "Pixel Studio", role: "Creative Agency", initials: "PS" },
-        { id: 4, name: "David Rose", role: "Model", initials: "DR" },
-    ];
 
     return (
         <>
             <div className="stats-container-fixed">
                 <StatCard title="Total Photos" icon={ImageIcon} value={photoCount} footerText="In your portfolio" />
                 
-                {/* DYNAMIC BOOKING CARD */}
                 <StatCard 
                     title="Upcoming Bookings" 
                     icon={Calendar} 
@@ -117,8 +133,16 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                     onClick={() => setShowBookings(true)} 
                 />
                 
-                <StatCard title="Followers" icon={Users} value={followersCount} footerText="Click to view details" onClick={() => setShowFollowers(true)}/>
-                <StatCard title="Total Revenue" icon={DollarSign} value={totalRevenue.toFixed(2)} valuePrefix="$" footerText="From completed bookings"/>
+                {/* Clickable Follower Card */}
+                <StatCard 
+                    title="Followers" 
+                    icon={Users} 
+                    value={followerCount} 
+                    footerText="Your community" 
+                    onClick={() => setShowFollowers(true)}
+                />
+                
+                <StatCard title="Total Revenue" icon={DollarSign} value={totalRevenue.toFixed(2)} valuePrefix="₹" footerText="From completed bookings"/>
             </div>
 
             <div className="tabs-container">
@@ -143,7 +167,6 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                 <h3 className="section-title">Recent Activity</h3>
                 <p className="text-muted section-subtitle">Your latest bookings and uploads</p>
                 
-                {/* DYNAMIC RECENT ACTIVITY */}
                 {bookings.length > 0 ? (
                     <div className="activity-card" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                         <div>
@@ -159,33 +182,66 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                 )}
             </div>
 
-            {/* MODAL 1: FOLLOWERS (Static) */}
+            {/* === MODAL 1: FOLLOWERS (NEW CLASSIC UI) === */}
             {showFollowers && (
                 <div className="modal-overlay" onClick={() => setShowFollowers(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                         <div className="modal-header">
-                            <h2 className="modal-title">Your Community</h2>
+                            <div>
+                                <h2 className="modal-title">Your Community</h2>
+                                <p className="text-muted text-sm" style={{marginTop:'4px'}}>
+                                    {followersList.length} people following you
+                                </p>
+                            </div>
                             <button className="close-btn" onClick={() => setShowFollowers(false)}><X size={24} /></button>
                         </div>
-                        <div className="follower-list">
-                            {mockFollowers.map(follower => (
-                                <div key={follower.id} className="follower-item">
-                                    <div className="follower-left">
-                                        <div className="follower-avatar">{follower.initials}</div>
-                                        <div className="follower-info">
-                                            <h4>{follower.name}</h4>
-                                            <p>{follower.role}</p>
-                                        </div>
-                                    </div>
-                                    <button className="btn-view-profile" onClick={() => navigate(`/profile/${follower.id}`)}>View Profile</button>
+                        
+                        <div className="follower-list-container">
+                            {loadingFollowers ? (
+                                <div className="state-message">
+                                    <Loader2 className="animate-spin" /> Loading...
                                 </div>
-                            ))}
+                            ) : followersList.length === 0 ? (
+                                <div className="state-message">
+                                    <Users size={32} style={{opacity:0.5, marginBottom:10}}/>
+                                    No followers yet.
+                                </div>
+                            ) : (
+                                <div className="follower-grid">
+                                    {followersList.map(follower => (
+                                        <div 
+                                            key={follower.id} 
+                                            className="follower-card-classic" 
+                                            onClick={() => navigate(`/profile/${follower.id}`)}
+                                        >
+                                            <div className="fc-left">
+                                                {follower.avatar ? (
+                                                    <img src={follower.avatar} alt={follower.name} className="fc-avatar" />
+                                                ) : (
+                                                    <div className="fc-avatar-placeholder">
+                                                        {follower.name ? follower.name.charAt(0).toUpperCase() : 'U'}
+                                                    </div>
+                                                )}
+                                                <div className="fc-info">
+                                                    <h4>{follower.name}</h4>
+                                                    <p>{follower.role || "Member"}</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="fc-action">
+                                                <span className="view-text">View</span>
+                                                <ChevronRight size={16} />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* MODAL 2: BOOKINGS (Dynamic) */}
+            {/* === MODAL 2: BOOKINGS (Standard UI) === */}
             {showBookings && (
                 <div className="modal-overlay" onClick={() => setShowBookings(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -208,9 +264,7 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                                             <div className="booking-info">
                                                 <h4>{booking.title}</h4>
                                                 <p>
-                                                    <Clock size={12} /> {booking.time} 
-                                                    <span className="mx-1">•</span> 
-                                                    <MapPin size={12} /> {booking.location}
+                                                    <Clock size={12} /> {booking.time} <span className="mx-1">•</span> <MapPin size={12} /> {booking.location}
                                                 </p>
                                             </div>
                                         </div>
@@ -219,7 +273,6 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                                 ))
                             )}
                         </div>
-                        
                         <button className="btn-view-all" onClick={() => navigate('/manage-bookings')}>
                             View Full Calendar <ArrowRight size={16} />
                         </button>
@@ -230,35 +283,22 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
     );
 };
 
-
 // ==========================================
-// 🌟 CLIENT DASHBOARD (WIDGET STYLE - Unchanged)
+// 🌟 CLIENT DASHBOARD (Unchanged)
 // ==========================================
 const ClientDashboard = ({ profile, navigate }) => {
-    // Mock Data
-    const nextBooking = {
-        id: "BK-201", photographer: "Elena Fisher", date: "Tomorrow, 10:00 AM", 
-        location: "Grand Hyatt, Kochi", avatar: "EF", status: "confirmed"
-    };
-
+    // Mock Data for Client view
+    const nextBooking = { id: "BK-201", photographer: "Elena Fisher", date: "Tomorrow, 10:00 AM", location: "Grand Hyatt, Kochi", avatar: "EF", status: "confirmed" };
     const notifications = [
         { id: 1, text: "Elena accepted your request", time: "2h ago", icon: <CheckCircle size={14} className="text-green-400"/> },
         { id: 2, text: "New 'Wedding' collection available", time: "5h ago", icon: <Sparkles size={14} className="text-yellow-400"/> },
         { id: 3, text: "Complete your profile", time: "1d ago", icon: <AlertCircle size={14} className="text-blue-400"/> },
     ];
-
-    const spotlightPhotographer = {
-        id: 104, name: "Sarah Jenkins", category: "Fashion & Editorial", 
-        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=500&h=300",
-        rating: 4.9
-    };
+    const spotlightPhotographer = { id: 104, name: "Sarah Jenkins", category: "Fashion & Editorial", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=500&h=300", rating: 4.9 };
 
     return (
         <div className="client-dashboard-wrapper">
-            
-            {/* 1. HERO WIDGET SECTION */}
             <div className="dashboard-hero-row">
-                {/* Welcome Widget */}
                 <div className="hero-widget welcome-widget">
                     <div className="widget-content">
                         <h2>Ready for your close-up?</h2>
@@ -268,48 +308,30 @@ const ClientDashboard = ({ profile, navigate }) => {
                             <input type="text" placeholder="Find a photographer..." />
                         </div>
                     </div>
-                    <div className="hero-decoration">
-                        <Camera size={120} strokeWidth={1} className="deco-icon" />
-                    </div>
+                    <div className="hero-decoration"><Camera size={120} strokeWidth={1} className="deco-icon" /></div>
                 </div>
-
-                {/* Quick Stats Widget */}
                 <div className="hero-widget stats-widget-vertical">
                     <div className="mini-stat-row" onClick={() => navigate('/saved')}>
                         <div className="icon-box pink"><Heart size={20} /></div>
-                        <div>
-                            <span className="stat-num">12</span>
-                            <span className="stat-label">Favorites</span>
-                        </div>
+                        <div><span className="stat-num">12</span><span className="stat-label">Favorites</span></div>
                     </div>
                     <div className="divider"></div>
                     <div className="mini-stat-row" onClick={() => navigate('/my-bookings')}>
                         <div className="icon-box purple"><Calendar size={20} /></div>
-                        <div>
-                            <span className="stat-num">02</span>
-                            <span className="stat-label">Bookings</span>
-                        </div>
+                        <div><span className="stat-num">02</span><span className="stat-label">Bookings</span></div>
                     </div>
                 </div>
             </div>
 
-            {/* 2. MAIN CONTENT GRID */}
             <div className="dashboard-widgets-grid">
-                
-                {/* LEFT COLUMN: STATUS & ALERTS */}
                 <div className="widget-column left">
-                    
-                    {/* "Up Next" Widget */}
                     <div className="dashboard-card next-up-card">
                         <div className="card-header-row">
                             <h3>Up Next</h3>
                             <button className="btn-icon-only"><MoreVertical size={16}/></button>
                         </div>
                         <div className="next-booking-display">
-                            <div className="nb-date-circle">
-                                <span className="nb-day">24</span>
-                                <span className="nb-month">OCT</span>
-                            </div>
+                            <div className="nb-date-circle"><span className="nb-day">24</span><span className="nb-month">OCT</span></div>
                             <div className="nb-info">
                                 <h4>{nextBooking.photographer}</h4>
                                 <p className="nb-time"><Clock size={12}/> {nextBooking.date}</p>
@@ -321,62 +343,42 @@ const ClientDashboard = ({ profile, navigate }) => {
                             <button className="btn-glass-icon"><MessageSquare size={16}/></button>
                         </div>
                     </div>
-
-                    {/* Notification Feed Widget */}
                     <div className="dashboard-card feed-card">
                         <h3>Activity Feed</h3>
                         <div className="feed-list">
                             {notifications.map(notif => (
                                 <div key={notif.id} className="feed-item">
                                     <div className="feed-icon">{notif.icon}</div>
-                                    <div className="feed-text">
-                                        <p>{notif.text}</p>
-                                        <span>{notif.time}</span>
-                                    </div>
+                                    <div className="feed-text"><p>{notif.text}</p><span>{notif.time}</span></div>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
-
-                {/* RIGHT COLUMN: INSPIRATION & DISCOVERY */}
                 <div className="widget-column right">
-                    
-                    {/* "Spotlight" Widget */}
                     <div className="dashboard-card spotlight-card" onClick={() => navigate(`/profile/${spotlightPhotographer.id}`)}>
                         <div className="spotlight-image">
                             <img src={spotlightPhotographer.image} alt={spotlightPhotographer.name} />
                             <div className="spotlight-badge">Trending</div>
                         </div>
                         <div className="spotlight-content">
-                            <div className="spotlight-info">
-                                <h4>{spotlightPhotographer.name}</h4>
-                                <p>{spotlightPhotographer.category}</p>
-                            </div>
-                            <div className="spotlight-rating">
-                                <Star size={14} fill="white" color="white" /> {spotlightPhotographer.rating}
-                            </div>
+                            <div className="spotlight-info"><h4>{spotlightPhotographer.name}</h4><p>{spotlightPhotographer.category}</p></div>
+                            <div className="spotlight-rating"><Star size={14} fill="white" color="white" /> {spotlightPhotographer.rating}</div>
                         </div>
                     </div>
-
-                    {/* Quick Categories Widget */}
                     <div className="dashboard-card categories-widget">
                         <h3>Browse</h3>
                         <div className="cat-grid-mini">
                             {['Wedding', 'Portrait', 'Fashion', 'Product'].map(cat => (
-                                <button key={cat} className="cat-box" onClick={() => navigate('/explore')}>
-                                    {cat}
-                                </button>
+                                <button key={cat} className="cat-box" onClick={() => navigate('/explore')}>{cat}</button>
                             ))}
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     );
 };
-
 
 // ==========================================
 // 🚀 MAIN DASHBOARD CONTAINER
@@ -387,7 +389,6 @@ const Dashboard = () => {
   const [profile, setProfile] = useState(null); 
   const [loading, setLoading] = useState(true);
   
-  // State for Photographer Modals
   const [showFollowers, setShowFollowers] = useState(false);
   const [showBookings, setShowBookings] = useState(false);
 
@@ -415,10 +416,19 @@ const Dashboard = () => {
       <main className="dashboard-main-content">
         <div className="content-wrapper">
           
-          {/* SHARED WELCOME SECTION */}
           <div className="welcome-section">
             <div className="welcome-inner">
-              <div className="avatar-badge">{welcomeEmailInitial}</div>
+              {/* Feature: Redirect on Avatar Click */}
+              <div 
+                className="avatar-badge" 
+                onClick={() => navigate('/profiles')} 
+                style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+                title="View your public profile"
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                {welcomeEmailInitial}
+              </div>
               <div>
                 <h1 className="welcome-title">Welcome back, <span className="text-purple">{welcomeName}!</span></h1>
                 <p className="text-muted">
@@ -430,7 +440,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* CONDITIONAL RENDERING BASED ON ROLE */}
           {isPhotographer ? (
               <PhotographerDashboard 
                   profile={profile} 
@@ -441,10 +450,7 @@ const Dashboard = () => {
                   setShowBookings={setShowBookings}
               />
           ) : (
-              <ClientDashboard 
-                  profile={profile} 
-                  navigate={navigate}
-              />
+              <ClientDashboard profile={profile} navigate={navigate} />
           )}
 
         </div>

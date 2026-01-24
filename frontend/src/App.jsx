@@ -73,6 +73,10 @@ function App() {
             <Route path="/profiles" element={
               <PageTransition><Profiles /></PageTransition>
             } />
+
+            <Route path="/profile/:id" element={
+              <PageTransition><Profiles /></PageTransition>
+            } />
             
             <Route path="/marketplace" element={
               <PageTransition><Marketplace /></PageTransition>
@@ -94,6 +98,7 @@ function App() {
               <PageTransition><Profile /></PageTransition>
             } />
             
+
             <Route path="/upload-portfolio" element={
               <PageTransition><UploadPortfolio /></PageTransition>
             } />

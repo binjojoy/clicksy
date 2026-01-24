@@ -4,15 +4,12 @@ const supabase = require('../config/supabase');
 
 // --- HELPER: Jaccard Similarity ---
 const calculateSkillMatch = (userSkills, otherSkills) => {
-    // Safety Check: If skills are missing/null, treat as empty array
     const uSkills = userSkills || [];
     const oSkills = otherSkills || [];
-
     if (uSkills.length === 0 || oSkills.length === 0) return 0;
 
     const setA = new Set(uSkills.map(s => s.toLowerCase().trim()));
     const setB = new Set(oSkills.map(s => s.toLowerCase().trim()));
-
     const intersection = new Set([...setA].filter(x => setB.has(x)));
     const union = new Set([...setA, ...setB]);
 
@@ -24,14 +21,7 @@ const calculateSkillMatch = (userSkills, otherSkills) => {
 router.get('/peers', async (req, res) => {
     try {
         const { userId } = req.query;
-        
-        console.log(`\n--- 🔍 DEBUG RECOMMENDATION START ---`);
-        console.log(`1. Incoming Request for User ID: ${userId}`);
-
-        if (!userId) {
-            console.log("❌ Error: Missing User ID");
-            return res.status(400).json({ error: 'Missing userId' });
-        }
+        if (!userId) return res.status(400).json({ error: 'Missing userId' });
 
         // 1. Fetch Current User
         const { data: currentUser, error: userError } = await supabase
@@ -41,57 +31,38 @@ router.get('/peers', async (req, res) => {
             .single();
 
         if (userError || !currentUser) {
-            console.log("❌ Error: Current User Profile Not Found in DB.");
-            console.log("Supabase Error:", userError);
             return res.status(404).json({ error: 'User profile not found' });
         }
-
-        console.log("2. Current User Found:", { 
-            loc: currentUser.location, 
-            skills: currentUser.skills 
-        });
 
         // 2. Fetch Candidates
         const { data: candidates, error: listError } = await supabase
             .from('profiles')
             .select('user_id, full_name, user_type, location, skills, avatar_url, is_verified')
-            .neq('user_id', userId);
+            .neq('user_id', userId); // Exclude self
 
-        if (listError) {
-            console.log("❌ Error fetching candidates:", listError);
-            throw listError;
-        }
+        if (listError) throw listError;
 
-        console.log(`3. Found ${candidates.length} potential candidates.`);
-
-        // 3. Run Algorithm
-        const scoredResults = candidates.map(candidate => {
+        // 3. Run Scoring
+        let scoredResults = candidates.map(candidate => {
             let score = 0;
             const hasSkills = currentUser.skills && currentUser.skills.length > 0;
             
-            // Skill Score
             const skillScore = calculateSkillMatch(currentUser.skills, candidate.skills);
             
-            // Location Score
             const userLoc = currentUser.location ? currentUser.location.toLowerCase().trim() : "";
             const candLoc = candidate.location ? candidate.location.toLowerCase().trim() : "";
             const locationMatch = (userLoc && candLoc && userLoc === candLoc);
 
-            // Logic Switch
             if (hasSkills) {
-                // 70% Skills + 30% Location
+                // Skills available? Use them.
                 score = (skillScore * 0.7) + (locationMatch ? 30 : 0);
             } else {
-                // Fallback: 85% for Location, 10% base
-                score = locationMatch ? 85 : 10;
+                // No skills? Fallback to location only.
+                score = locationMatch ? 50 : 0; 
             }
             
+            // Tiny boost for verified users (Tie-breaker)
             if (candidate.is_verified) score += 5;
-
-            // Debug specific matches to see why they fail/succeed
-            if (score > 0) {
-                console.log(`   -> Matched ${candidate.full_name}: ${Math.round(score)}% (Loc: ${locationMatch}, Skill: ${skillScore}%)`);
-            }
 
             return {
                 id: candidate.user_id,
@@ -103,19 +74,22 @@ router.get('/peers', async (req, res) => {
             };
         });
 
-        // 4. Sort & Return
-        const topMatches = scoredResults
-            .filter(item => item.match > 0) // Only return non-zero matches
+        // 4. THE FAIL-SAFE SORTING
+        // Instead of filtering out 0s, we just sort by score descending.
+        // If everyone is 0, we still return them (just with 0% match shown, or we can hide the pill).
+        
+        let topMatches = scoredResults
             .sort((a, b) => b.match - a.match)
             .slice(0, 6);
 
-        console.log(`4. Returning ${topMatches.length} final matches.`);
-        console.log(`--- DEBUG END ---\n`);
-
+        // 5. EMERGENCY FALLBACK
+        // If somehow we have 0 matches (e.g. database empty), return empty array
+        // But if we have candidates with 0 score, we STILL return them so UI isn't empty.
+        
         res.status(200).json(topMatches);
 
     } catch (err) {
-        console.error('❌ SERVER ERROR:', err);
+        console.error('Server Error:', err);
         res.status(500).json({ error: 'Server Error' });
     }
 });
