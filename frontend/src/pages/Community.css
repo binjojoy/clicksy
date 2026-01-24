@@ -462,3 +462,187 @@
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+
+
+
+
+/* --- CLASSIC RECOMMENDATION WIDGET (Premium Upgrade) --- */
+
+/* The Container: Dark Glass Effect */
+.classic-rec-widget {
+    background: rgba(20, 20, 23, 0.6); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.5rem; /* Smoother corners */
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    margin-top: 2rem;
+}
+
+.rec-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.rec-subtitle {
+    font-size: 0.75rem;
+    color: #a1a1aa; 
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 1rem;
+}
+
+/* List Layout */
+.classic-rec-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.classic-rec-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.classic-rec-item:hover {
+    transform: translateX(4px); /* Premium hover feel */
+}
+
+/* --- THE KEY FEATURE: MATCH RING --- */
+.rec-avatar-container {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+/* The Ring Color is set via inline JS */
+.rec-match-ring {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid; 
+    padding: 3px; /* Gap between ring and image */
+}
+
+.rec-match-ring img, 
+.rec-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #27272a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+/* The Score Pill (e.g., "95%") */
+.rec-score-pill {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: #000; /* Black text for readability */
+    padding: 1px 6px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+/* Typography Hierarchy */
+.rec-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden; 
+}
+
+.rec-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.rec-role {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.rec-loc {
+    font-size: 0.7rem;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-top: 2px;
+}
+
+/* Connect Button */
+.btn-rec-connect {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-rec-connect:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+/* View All Button */
+.btn-view-all-classic {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    color: #9ca3af;
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-view-all-classic:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-color: #fff;
+}
+
+/* Loading State */
+.rec-loading, .rec-empty {
+    text-align: center;
+    color: #52525b;
+    font-size: 0.85rem;
+    padding: 1rem 0;
+}
