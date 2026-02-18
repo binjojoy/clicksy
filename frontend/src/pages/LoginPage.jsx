@@ -10,10 +10,14 @@ const Auth = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [activeTab, setActiveTab] = useState("signin");
+    
+    // 1. NEW STATE: Holds the success message
+    const [successMsg, setSuccessMsg] = useState("");
 
     const handleSignUp = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setSuccessMsg(""); // Clear any old messages
 
         const formData = new FormData(e.currentTarget);
         const email = formData.get("signup-email");
@@ -28,6 +32,9 @@ const Auth = () => {
                 userType,
                 fullName 
             });
+
+            // 2. SET SUCCESS MESSAGE: This triggers the green container to appear
+            setSuccessMsg("Sign up successful! Please log in to your account.");
 
             toast.success(response.data.message || "Registration successful! Check your email for verification.");
             setActiveTab("signin");
@@ -144,6 +151,23 @@ const Auth = () => {
                         <p className="card-description">Sign in to your account or create a new one</p>
                     </div>
                     <div className="card-content">
+                        
+                        {/* 3. SHOW CONTAINER: Only if successMsg has text */}
+                        {successMsg && (
+                            <div style={{
+                                padding: '1rem',
+                                marginBottom: '1.5rem',
+                                borderRadius: 'var(--radius)',
+                                backgroundColor: 'rgba(34, 197, 94, 0.1)', // Subtle Green BG
+                                border: '1px solid #22c55e',              // Green Border
+                                color: '#22c55e',                         // Green Text
+                                textAlign: 'center',
+                                fontSize: '0.95rem'
+                            }}>
+                                {successMsg}
+                            </div>
+                        )}
+
                         <div className="tabs">
                             <div className="tabs-list">
                                 <button
@@ -154,7 +178,10 @@ const Auth = () => {
                                 </button>
                                 <button
                                     className={`tabs-trigger ${activeTab === 'signup' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('signup')}
+                                    onClick={() => {
+                                        setActiveTab('signup');
+                                        setSuccessMsg(""); // Clear message if they switch back to signup
+                                    }}
                                 >
                                     Sign Up
                                 </button>
