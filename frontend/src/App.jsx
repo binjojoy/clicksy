@@ -26,6 +26,8 @@ import ClientBooking from "./pages/ClientBooking";
 import Profiles from './pages/Profiles';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
+import NetworkError from './pages/NetworkError';
+import NotFound from './pages/NotFound';
 
 // Transition Wrapper
 import PageTransition from './components/PageTransition';
@@ -144,8 +146,10 @@ function App() {
             <Route path='/privacy-policy' element={
               <PageTransition><Privacy/></PageTransition>
             } />
-
-
+            <Route path="*" element={
+              <PageTransition><NotFound/></PageTransition>
+            } />
+            <Route path="/error" element={<PageTransition><NetworkError/></PageTransition>} />
           </Routes>
         </AnimatePresence>
       </main>

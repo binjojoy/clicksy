@@ -45,6 +45,12 @@ const Auth = () => {
             setAgreedToTerms(false); // Reset checkbox on success
 
         } catch (error) {
+            // NETWORK ERROR REDIRECT
+            if (!error.response) {
+                window.location.href = '/error';
+                return;
+            }
+            
             console.error("Registration Error:", error.response?.data);
             const errorMessage = error.response?.data?.error || "Registration failed.";
             toast.error(errorMessage);
@@ -84,6 +90,12 @@ const Auth = () => {
             window.location.href = "/dashboard";
 
         } catch (error) {
+            // NETWORK ERROR REDIRECT
+            if (!error.response) {
+                window.location.href = '/error';
+                return;
+            }
+            
             console.error("Login Error:", error.response?.data);
             const errorMessage = error.response?.data?.error || "Login failed.";
             toast.error(errorMessage);
