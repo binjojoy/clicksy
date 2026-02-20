@@ -222,7 +222,7 @@ const Home = () => {
         <div style={{ width: '100%', maxWidth: '90%', position: 'relative', }}>
           <Reveal>
             <div style={{ position: 'absolute', inset: '-15px', background: 'linear-gradient(to right, rgba(139, 92, 246, 0.4), rgba(236, 72, 153, 0.3), rgba(249, 115, 22, 0.3))', filter: 'blur(50px)', borderRadius: '3rem', zIndex: 0 }}></div>
-            <div style={{ position: 'relative', background: '#0c0c0e', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '1.5rem', padding: '5rem 2rem', zIndex: 10, textAlign: 'center' }}>
+            <div style={{ position: 'relative', background: '#0c0c0e', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '1.5rem', padding: '2rem 2rem', zIndex: 10, textAlign: 'center' }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1.25rem', borderRadius: '9999px', background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.2)', marginBottom: '2rem' }}>
                 <TrendingUp size={14} color="#c084fc" />
                 <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#c084fc' }}>Join 48,000+ Photographers</span>
