@@ -24,6 +24,8 @@ import ExplorePage from "./pages/ExplorePage";
 import SavedPage from "./pages/SavedPage";
 import ClientBooking from "./pages/ClientBooking";
 import Profiles from './pages/Profiles';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 
 // Transition Wrapper
 import PageTransition from './components/PageTransition';
@@ -134,6 +136,15 @@ function App() {
             <Route path="/my-bookings" element={
               <PageTransition><ClientBooking /></PageTransition>
             } />
+
+            <Route path='/terms-and-conditions' element={
+              <PageTransition><Terms/></PageTransition>
+            } />
+            
+            <Route path='/privacy-policy' element={
+              <PageTransition><Privacy/></PageTransition>
+            } />
+
 
           </Routes>
         </AnimatePresence>
