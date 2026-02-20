@@ -23,7 +23,8 @@ Thumbs.db
 /frontend/node_modules
 /frontend/dist              
 /frontend/build
-/frontend/.vite             
+/frontend/.vite    
+/frontend/.env         
 
 # NPM & Yarn files
 /frontend/package-lock.json
