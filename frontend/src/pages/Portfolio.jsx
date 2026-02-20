@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { useNavigate } from 'react-router-dom'; // 1. Import Navigation Hook
-import './Portfolio.css'; 
+import '../styles/Portfolio.css'; 
 
 // Import your assets (Keep your existing imports)
 // import image1 from "../assets/image1.jpg"; 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-import { supabase } from '../config/supabaseClient';
-import './ItemDetails.css';
+import { supabase } from '../services/supabaseClient';
+import '../styles/ItemDetails.css';
 
 const ItemDetails = () => {
   const { id } = useParams();

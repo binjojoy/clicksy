@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-import { supabase } from '../config/supabaseClient'; 
+import { supabase } from '../services/supabaseClient'; 
 import { ArrowLeft, Loader } from 'lucide-react';
 
 const CategoryGallery = () => {

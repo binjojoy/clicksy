@@ -6,7 +6,7 @@ import Footer from "../components/Footer.jsx";
 import { 
   Calendar, Clock, MapPin, Search, MoreVertical, MessageSquare, XCircle, CheckCircle, AlertCircle, Camera, Star
 } from "lucide-react";
-import "./ClientBooking.css";
+import "../styles/ClientBooking.css";
 
 const ClientBooking = () => {
   const navigate = useNavigate();

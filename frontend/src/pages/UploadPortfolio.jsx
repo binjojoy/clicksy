@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom'; 
-import { supabase } from '../config/supabaseClient';
+import { supabase } from '../services/supabaseClient';
 import { calculateImageHash } from '../utils/imageHasher'; // <--- NEW IMPORT
-import './UploadPortfolio.css';
+import '../styles/UploadPortfolio.css';
 
 const UploadPortfolio = () => {
     const navigate = useNavigate();

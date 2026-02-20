@@ -7,7 +7,7 @@ import {
     Edit3, MapPin, Link as LinkIcon, Heart, ShieldCheck, 
     Bookmark, Sparkles, ArrowRight, Loader2, UserPlus, Check
 } from 'lucide-react'; // Added UserPlus, Check icons
-import './Profiles.css';
+import '../styles/Profiles.css';
 
 const SignatureProfile = () => {
     const navigate = useNavigate();

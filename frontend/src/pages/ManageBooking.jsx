@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import api from '../services/api'; // Import your Axios Service
 import { toast } from '../components/Toaster'; // Assuming you have a toaster
 import { Loader2 } from 'lucide-react'; // Icon for loading state
-import './ManageBooking.css'; 
+import '../styles/ManageBooking.css'; 
 
 const ManageBookings = () => {
     const [bookings, setBookings] = useState([]);

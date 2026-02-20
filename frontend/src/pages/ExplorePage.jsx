@@ -7,7 +7,7 @@ import Footer from "../components/Footer.jsx";
 import { 
   Search, MapPin, Filter, Star, Heart, ArrowUpRight, Camera, Sparkles, ShieldCheck, CheckCircle, Clock
 } from "lucide-react";
-import "./ExplorePage.css";
+import "../styles/ExplorePage.css";
 
 const API_BASE_URL = 'http://localhost:5000/api/v1';
 

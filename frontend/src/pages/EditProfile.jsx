@@ -3,9 +3,9 @@ import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { toast } from "../components/Toaster.jsx"; 
 import api from '../services/api'; 
-import { supabase } from '../config/supabaseClient'; 
+import { supabase } from '../services/supabaseClient'; 
 import { Camera, MapPin, Globe, Instagram, Twitter, User, Briefcase, Link as LinkIcon, Save, Loader2, Image as ImageIcon } from "lucide-react";
-import './EditProfile.css';
+import '../styles/EditProfile.css';
 
 const EditProfile = () => {
     const [loading, setLoading] = useState(true);

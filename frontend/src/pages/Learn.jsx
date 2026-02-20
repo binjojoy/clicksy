@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-import './Learn.css';
+import '../styles/Learn.css';
 
 const Learn = () => {
   // 1. FILTER STATE

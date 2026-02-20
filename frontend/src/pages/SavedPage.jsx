@@ -6,7 +6,7 @@ import Footer from "../components/Footer.jsx";
 import { 
   Heart, MapPin, Star, ArrowUpRight, Trash2, Search, Ghost
 } from "lucide-react";
-import "./SavedPage.css";
+import "../styles/SavedPage.css";
 
 const SavedPage = () => {
   const navigate = useNavigate();

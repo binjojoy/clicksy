@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../config/supabaseClient';
+import { supabase } from '../services/supabaseClient';
 import { predictPriceKNN } from '../utils/knnPricePredictor'; // 1. Import the K-NN Algorithm
-import './SellItem.css';
+import '../styles/SellItem.css';
 
 const SellItem = () => {
     const navigate = useNavigate();

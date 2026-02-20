@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-import { supabase } from '../config/supabaseClient'; 
-import './Marketplace.css';
+import { supabase } from '../services/supabaseClient'; 
+import '../styles/Marketplace.css';
 
 const Marketplace = () => {
   const [items, setItems] = useState([]);

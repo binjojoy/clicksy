@@ -1,0 +1,191 @@
+/* src/pages/SavedPage.css */
+
+.saved-main {
+    padding-top: 80px; /* Space for fixed navbar */
+    min-height: 80vh;
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+/* --- HEADER --- */
+.saved-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #27272a;
+    padding-bottom: 1.5rem;
+}
+
+.gradient-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem 0;
+    background: linear-gradient(to right, #ffffff, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.saved-count-badge {
+    background: #18181b;
+    border: 1px solid #27272a;
+    color: #a1a1aa;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* --- SAVED GRID --- */
+.saved-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+}
+
+/* --- SAVED CARD --- */
+.saved-card {
+    background-color: #09090b; /* Slightly darker than usual card */
+    border: 1px solid #27272a;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.saved-card:hover {
+    border-color: #7c3aed;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.3);
+}
+
+/* Card Image Area */
+.saved-card-img {
+    position: relative;
+    height: 200px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.saved-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+.saved-card:hover .saved-card-img img { transform: scale(1.05); }
+
+.category-badge {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    color: #e4e4e7;
+    padding: 0.3rem 0.8rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Card Content */
+.saved-card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.saved-card-content h3 {
+    margin: 0; color: white; font-size: 1.25rem; cursor: pointer;
+    transition: color 0.2s;
+}
+.saved-card-content h3:hover { color: #a78bfa; }
+
+.rating-pill {
+    display: flex; align-items: center; gap: 0.3rem;
+    background: rgba(234, 179, 8, 0.1); color: #eab308;
+    padding: 0.2rem 0.5rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.85rem;
+}
+
+.meta-details {
+    margin-bottom: 1.5rem;
+    color: #a1a1aa;
+    font-size: 0.9rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+}
+.price-highlight { color: #e4e4e7; font-weight: 600; font-size: 1rem; }
+
+/* Action Buttons footer */
+.saved-actions {
+    margin-top: auto; /* Pushes to bottom */
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-unsave {
+    background: #18181b; border: 1px solid #3f3f46;
+    padding: 0.75rem; border-radius: 0.75rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+}
+.btn-unsave:hover { 
+    background: rgba(236, 72, 153, 0.1); border-color: #ec4899; 
+}
+/* Make the filled heart turn to an outline or trash icon on hover for better UX */
+.btn-unsave:hover svg { fill: transparent; stroke: #ec4899; }
+
+
+.btn-view-profile-large {
+    flex-grow: 1;
+    background: #7c3aed; color: white; border: none;
+    padding: 0.75rem; border-radius: 0.75rem;
+    font-weight: 600; font-size: 0.95rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    transition: background 0.2s;
+}
+.btn-view-profile-large:hover { background: #6d28d9; }
+
+
+/* --- EMPTY STATE --- */
+.empty-saved-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #09090b;
+    border-radius: 1.5rem;
+    border: 2px dashed #27272a;
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.empty-icon-wrapper {
+    background: rgba(124, 58, 237, 0.1);
+    width: 100px; height: 100px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.empty-saved-state h2 { color: white; font-size: 1.75rem; margin-bottom: 0.5rem; }
+.empty-saved-state p { color: #a1a1aa; margin-bottom: 2rem; font-size: 1.1rem; }
+
+.btn-explore-now {
+    background: #7c3aed; color: white; border: none;
+    padding: 1rem 2rem; border-radius: 2rem;
+    font-weight: 700; font-size: 1rem; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: transform 0.2s, background 0.2s;
+}
+.btn-explore-now:hover { transform: translateY(-3px); background: #8b5cf6; }
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .saved-grid { grid-template-columns: 1fr; }
+    .gradient-title { font-size: 2rem; }
+    .saved-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}

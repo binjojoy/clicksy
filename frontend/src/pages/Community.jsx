@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { X, Sparkles, MapPin, UserPlus, Loader2 } from "lucide-react"; 
 import api from '../services/api'; 
-import './Community.css'; 
+import '../styles/Community.css'; 
 
 const Community = () => {
     // --- STATE ---
