@@ -5,11 +5,9 @@ import {
   Camera, Users, BookOpen, ShoppingBag, Calendar, Sparkles,
   ArrowRight, Star, TrendingUp, Award, ChevronDown
 } from "lucide-react";
-import NavbarHome from "../components/NavbarHome.jsx"; 
+import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import "../styles/HomePage.css"; 
-
-const mockLogout = () => console.log('Mock user logged out from Home page.');
 
 /* ─── Floating ambient orbs (reusable) ─── */
 const Orb = ({ style }) => (
@@ -71,7 +69,8 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
-      <NavbarHome isAuthenticated={false} onLogout={mockLogout} />
+      {/* 👇 FIX: Replaced NavbarHome with Navbar */}
+      <Navbar />
 
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -79,7 +78,7 @@ const Home = () => {
         <Orb style={{ width:600, height:600, top:"-10%", left:"-10%", background:"rgba(139, 92, 246, 0.18)", animation:"orbFloat 9s ease-in-out infinite" }} />
         <Orb style={{ width:500, height:500, bottom:"-5%", right:"-8%",  background:"rgba(249, 115, 22, 0.14)",  animation:"orbFloat2 11s ease-in-out infinite" }} />
 
-        <div className="home-container text-center relative z-10">
+        <div className="home-container text-center relative z-10" style={{ marginTop: '10%' }}>
           <Reveal>
             <h1 style={{ fontSize: 'clamp(6rem, 6vw, 10rem)', fontWeight: '900', lineHeight: '0.95', letterSpacing: '-0.04em', marginBottom: '2rem' }}>
               <span style={{ color: 'white' }}>One </span>
