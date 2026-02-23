@@ -2,6 +2,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import './Navbar.css';
+import { User } from "lucide-react";
 
 const Navbar = () => {
   const location = useLocation();
@@ -46,7 +47,6 @@ const Navbar = () => {
   ];
 
   // ⚡ 4. DYNAMIC ROUTING LOGIC
-  // If not logged in, navLinks is empty. Otherwise, assign based on role.
   const navLinks = isAuthenticated 
     ? (userRole === "photographer" ? photographerLinks : clientLinks)
     : [];
@@ -83,7 +83,7 @@ const Navbar = () => {
         {/* === DESKTOP NAVIGATION === */}
         <div className="nav-links-desktop hidden md:flex" style={{ display: 'flex', flexGrow: 1, justifyContent: navLinks.length > 0 ? 'space-between' : 'flex-end', alignItems: 'center' }}>
           
-          {/* Render Links (Only visible if logged in & navLinks array has items) */}
+          {/* Render Links (Only visible if logged in) */}
           {navLinks.length > 0 && (
             <div className="navbar-links flex gap-6 mx-auto">
               {navLinks.map((link) => (
@@ -101,9 +101,30 @@ const Navbar = () => {
           {/* Auth Buttons */}
           <div className="nav-auth-desktop flex gap-4 ml-auto">
             {isAuthenticated ? (
-              <button onClick={handleLogout} className="btn-signup" style={{ cursor: 'pointer' }}>
-                Logout
-              </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                {/* Profile Link */}
+                <Link 
+                    to="/profiles" 
+                    style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '0.4rem', 
+                        color: '#e5e7eb', 
+                        textDecoration: 'none', 
+                        fontWeight: 500, 
+                        fontSize: '0.95rem', 
+                        transition: 'color 0.2s' 
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#7c3aed'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#e5e7eb'}
+                >
+                  <User size={18} /> Profile
+                </Link>
+                {/* Logout Button */}
+                <button onClick={handleLogout} className="btn-signup" style={{ cursor: 'pointer' }}>
+                  Logout
+                </button>
+              </div>
             ) : (
               <>
                 <Link to="/auth" className="btn-login">Login</Link>
@@ -153,12 +174,22 @@ const Navbar = () => {
         {/* Mobile Auth Buttons */}
         <div className="nav-auth-mobile flex flex-col gap-3 border-t border-gray-800 pt-4">
             {isAuthenticated ? (
-                <button 
-                    onClick={() => { onLogout(); setMobileMenuOpen(false); }}
-                    className="btn-signup w-full"
-                >
-                    Logout
-                </button>
+                <>
+                    <Link 
+                        to="/profiles" 
+                        className="mobile-menu-link" 
+                        onClick={() => setMobileMenuOpen(false)}
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                    >
+                        <User size={18} /> Profile
+                    </Link>
+                    <button 
+                        onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
+                        className="btn-signup w-full"
+                    >
+                        Logout
+                    </button>
+                </>
             ) : (
                 <>
                     <Link to="/auth" className="btn-login w-full text-center" onClick={() => setMobileMenuOpen(false)}>Login</Link>

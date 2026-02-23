@@ -1279,3 +1279,14 @@ body {
     opacity: 1;
     transform: translateX(0);
 }
+
+/* Styling for unread notifications in the full history list */
+.unread-bg {
+    background-color: rgba(124, 58, 237, 0.05) !important;
+    border-left: 3px solid #7c3aed !important;
+}
+
+.notification-history-list .follower-card-classic:hover {
+    transform: none; /* Disable lift effect on the full history page for readability */
+    background-color: rgba(255, 255, 255, 0.05);
+}

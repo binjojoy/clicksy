@@ -3,8 +3,7 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
 
-// --- GET /api/v1/user/me ---
-// Fetches the current authenticated user's profile and data
+
 router.get('/me', async (req, res) => {
     
     // 1. Check for Authorization Header

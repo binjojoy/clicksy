@@ -28,6 +28,7 @@ import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import NetworkError from './pages/NetworkError';
 import NotFound from './pages/NotFound';
+import NotificationsPage from './pages/NotificationsPage';
 
 // Security & Transitions
 import PageTransition from './components/PageTransition';
@@ -83,6 +84,7 @@ function App() {
             <Route path="/manage-bookings" element={<PageTransition><ManageBookings /></PageTransition>} />
             <Route path="/marketplace/sell-item" element={<PageTransition><SellItem /></PageTransition>} />
             <Route path="/my-bookings" element={<PageTransition><ClientBooking /></PageTransition>} />
+            <Route path="/activity" element={<PageTransition><NotificationsPage /></PageTransition>} />
           </Route>
 
         </Routes>

@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import '../styles/Dashboard.css'; 
+import '../styles/Dashboard.css';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-import api from "../services/api.js"; 
-import { 
-  // Standard Icons
-  Camera, Calendar, Users, DollarSign, Image as ImageIcon, Upload, X, Clock, MapPin, ArrowRight, Search, Heart, Star,
-  // Widget Icons
-  MoreVertical, MessageSquare, CheckCircle, AlertCircle, Sparkles,
-  // New Icons for Pro UI
-  Loader2, ChevronRight, User
+import api from "../services/api.js";
+import {
+    // Standard Icons
+    Camera, Calendar, Users, DollarSign, Image as ImageIcon, Upload, X, Clock, MapPin, ArrowRight, Search, Heart, Star,
+    // Widget Icons
+    MoreVertical, MessageSquare, CheckCircle, AlertCircle, Sparkles, Bell,
+    // New Icons for Pro UI
+    Loader2, ChevronRight, User
 } from "lucide-react";
 
 // --- SHARED UTILITIES ---
@@ -39,16 +39,16 @@ const ActionButton = ({ icon: Icon, label, isPrimary = false, onClick }) => (
 // ==========================================
 const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollowers, showBookings, setShowBookings }) => {
     const [activeTab, setActiveTab] = useState('Overview');
-    
+
     // --- REAL DATA STATE ---
-    const [photoCount, setPhotoCount] = useState(0); 
-    const [followerCount, setFollowerCount] = useState(0); 
-    const [bookings, setBookings] = useState([]); 
-    
+    const [photoCount, setPhotoCount] = useState(0);
+    const [followerCount, setFollowerCount] = useState(0);
+    const [bookings, setBookings] = useState([]);
+
     // Followers Modal State
     const [followersList, setFollowersList] = useState([]);
     const [loadingFollowers, setLoadingFollowers] = useState(false);
-    
+
     // --- HELPER: Format Date ---
     const formatDate = (isoString) => {
         if (!isoString) return { day: '--', month: '---', time: '--:--' };
@@ -60,14 +60,12 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
         };
     };
 
-    // --- 1. FETCH DASHBOARD STATS ---
     useEffect(() => {
         const fetchData = async () => {
             const userId = localStorage.getItem('user_id');
             if (!userId) return;
 
             try {
-                // Parallel fetch for speed
                 const [statsRes, followRes, bookingRes] = await Promise.all([
                     api.get(`/user/stats/${userId}`).catch(() => ({ data: { photoCount: 0 } })),
                     api.get(`/profile/${userId}/follow-stats`).catch(() => ({ data: { followersCount: 0 } })),
@@ -83,7 +81,7 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                         id: b.id,
                         title: b.booking_title,
                         day, month, time,
-                        location: b.special_requirements || "On Location", 
+                        location: b.special_requirements || "On Location",
                         status: b.status
                     };
                 });
@@ -97,7 +95,6 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
         fetchData();
     }, []);
 
-    // --- 2. FETCH FOLLOWERS LIST (On Open) ---
     useEffect(() => {
         if (showFollowers) {
             const fetchFollowersList = async () => {
@@ -105,11 +102,10 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                 const userId = localStorage.getItem('user_id');
                 try {
                     const { data } = await api.get(`/profile/${userId}/followers`);
-                    // Ensure we always work with an array
                     setFollowersList(Array.isArray(data) ? data : []);
                 } catch (error) {
                     console.error("Failed to load followers", error);
-                    setFollowersList([]); 
+                    setFollowersList([]);
                 } finally {
                     setLoadingFollowers(false);
                 }
@@ -124,25 +120,24 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
         <>
             <div className="stats-container-fixed">
                 <StatCard title="Total Photos" icon={ImageIcon} value={photoCount} footerText="In your portfolio" />
-                
-                <StatCard 
-                    title="Upcoming Bookings" 
-                    icon={Calendar} 
-                    value={bookings.length} 
-                    footerText="Click to view schedule" 
-                    onClick={() => setShowBookings(true)} 
+
+                <StatCard
+                    title="Upcoming Bookings"
+                    icon={Calendar}
+                    value={bookings.length}
+                    footerText="Click to view schedule"
+                    onClick={() => setShowBookings(true)}
                 />
-                
-                {/* Clickable Follower Card */}
-                <StatCard 
-                    title="Followers" 
-                    icon={Users} 
-                    value={followerCount} 
-                    footerText="Your community" 
+
+                <StatCard
+                    title="Followers"
+                    icon={Users}
+                    value={followerCount}
+                    footerText="Your community"
                     onClick={() => setShowFollowers(true)}
                 />
-                
-                <StatCard title="Total Revenue" icon={DollarSign} value={totalRevenue.toFixed(2)} valuePrefix="₹" footerText="From completed bookings"/>
+
+                <StatCard title="Total Revenue" icon={DollarSign} value={totalRevenue.toFixed(2)} valuePrefix="₹" footerText="From completed bookings" />
             </div>
 
             <div className="tabs-container">
@@ -166,12 +161,12 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
             <div className="content-section">
                 <h3 className="section-title">Recent Activity</h3>
                 <p className="text-muted section-subtitle">Your latest bookings and uploads</p>
-                
+
                 {bookings.length > 0 ? (
-                    <div className="activity-card" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <div className="activity-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
-                            <h4 style={{color: 'white', marginBottom: '4px'}}>New Booking: {bookings[0].title}</h4>
-                            <p className="text-muted" style={{fontSize: '0.9rem'}}>
+                            <h4 style={{ color: 'white', marginBottom: '4px' }}>New Booking: {bookings[0].title}</h4>
+                            <p className="text-muted" style={{ fontSize: '0.9rem' }}>
                                 {bookings[0].day} {bookings[0].month} at {bookings[0].time}
                             </p>
                         </div>
@@ -182,20 +177,19 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                 )}
             </div>
 
-            {/* === MODAL 1: FOLLOWERS (NEW CLASSIC UI) === */}
             {showFollowers && (
                 <div className="modal-overlay" onClick={() => setShowFollowers(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                         <div className="modal-header">
                             <div>
                                 <h2 className="modal-title">Your Community</h2>
-                                <p className="text-muted text-sm" style={{marginTop:'4px'}}>
+                                <p className="text-muted text-sm" style={{ marginTop: '4px' }}>
                                     {followersList.length} people following you
                                 </p>
                             </div>
                             <button className="close-btn" onClick={() => setShowFollowers(false)}><X size={24} /></button>
                         </div>
-                        
+
                         <div className="follower-list-container">
                             {loadingFollowers ? (
                                 <div className="state-message">
@@ -203,15 +197,15 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                                 </div>
                             ) : followersList.length === 0 ? (
                                 <div className="state-message">
-                                    <Users size={32} style={{opacity:0.5, marginBottom:10}}/>
+                                    <Users size={32} style={{ opacity: 0.5, marginBottom: 10 }} />
                                     No followers yet.
                                 </div>
                             ) : (
                                 <div className="follower-grid">
                                     {followersList.map(follower => (
-                                        <div 
-                                            key={follower.id} 
-                                            className="follower-card-classic" 
+                                        <div
+                                            key={follower.id}
+                                            className="follower-card-classic"
                                             onClick={() => navigate(`/profile/${follower.id}`)}
                                         >
                                             <div className="fc-left">
@@ -227,7 +221,7 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                                                     <p>{follower.role || "Member"}</p>
                                                 </div>
                                             </div>
-                                            
+
                                             <div className="fc-action">
                                                 <span className="view-text">View</span>
                                                 <ChevronRight size={16} />
@@ -241,7 +235,6 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                 </div>
             )}
 
-            {/* === MODAL 2: BOOKINGS (Standard UI) === */}
             {showBookings && (
                 <div className="modal-overlay" onClick={() => setShowBookings(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -249,7 +242,7 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                             <h2 className="modal-title">Upcoming Schedule</h2>
                             <button className="close-btn" onClick={() => setShowBookings(false)}><X size={24} /></button>
                         </div>
-                        
+
                         <div className="booking-list">
                             {bookings.length === 0 ? (
                                 <p className="text-muted text-center py-4">No upcoming bookings found.</p>
@@ -284,17 +277,105 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
 };
 
 // ==========================================
-// 🌟 CLIENT DASHBOARD (Unchanged)
+// 🌟 CLIENT DASHBOARD (FINAL OPTIMIZED)
 // ==========================================
 const ClientDashboard = ({ profile, navigate }) => {
-    // Mock Data for Client view
-    const nextBooking = { id: "BK-201", photographer: "Elena Fisher", date: "Tomorrow, 10:00 AM", location: "Grand Hyatt, Kochi", avatar: "EF", status: "confirmed" };
-    const notifications = [
-        { id: 1, text: "Elena accepted your request", time: "2h ago", icon: <CheckCircle size={14} className="text-green-400"/> },
-        { id: 2, text: "New 'Wedding' collection available", time: "5h ago", icon: <Sparkles size={14} className="text-yellow-400"/> },
-        { id: 3, text: "Complete your profile", time: "1d ago", icon: <AlertCircle size={14} className="text-blue-400"/> },
-    ];
-    const spotlightPhotographer = { id: 104, name: "Sarah Jenkins", category: "Fashion & Editorial", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=500&h=300", rating: 4.9 };
+    const [dashboardData, setDashboardData] = useState({
+        totalBookings: 0,
+        nextBooking: null,
+        followingCount: 0,
+        spotlight: null,
+        activities: []
+    });
+    const [loading, setLoading] = useState(true);
+
+    const [showFollowing, setShowFollowing] = useState(false);
+    const [followingList, setFollowingList] = useState([]);
+    const [loadingFollowing, setLoadingFollowing] = useState(false);
+
+    useEffect(() => {
+        const fetchDashboardData = async () => {
+            const userId = localStorage.getItem('user_id');
+            if (!userId) { setLoading(false); return; }
+
+            try {
+                // Parallel fetch for speed
+                const [bookingsRes, followRes, peersRes, activityRes] = await Promise.all([
+                    api.get(`/bookings/client-dashboard/${userId}`).catch(() => ({ data: {} })),
+                    api.get(`/profile/${userId}/follow-stats`).catch(() => ({ data: { followingCount: 0 } })),
+                    api.get(`/recommendations/peers?userId=${userId}`).catch(() => ({ data: [] })),
+                    api.get(`/activity/${userId}?limit=4`).catch(() => ({ data: [] }))
+                ]);
+
+                const recommendedPeers = peersRes.data || [];
+                const topPhotographer = recommendedPeers.find(p => p.role === 'photographer') || recommendedPeers[0];
+
+                let spotlightData = null;
+                if (topPhotographer) {
+                    spotlightData = {
+                        id: topPhotographer.id,
+                        name: topPhotographer.name,
+                        category: topPhotographer.match > 0 ? `${topPhotographer.match}% Skill Match` : "Recommended Creator",
+                        image: topPhotographer.avatar || "https://images.unsplash.com/photo-1516035069371-29a1b244cc32",
+                        rating: 4.9
+                    };
+                }
+
+                setDashboardData({
+                    totalBookings: bookingsRes.data.totalBookings || 0,
+                    nextBooking: bookingsRes.data.nextBooking || null,
+                    followingCount: followRes.data.followingCount || 0,
+                    spotlight: spotlightData,
+                    activities: activityRes.data || []
+                });
+            } catch (error) {
+                console.error("Dashboard fetch error:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchDashboardData();
+    }, []);
+
+    useEffect(() => {
+        if (showFollowing) {
+            const fetchFollowingList = async () => {
+                setLoadingFollowing(true);
+                const userId = localStorage.getItem('user_id');
+                try {
+                    const { data } = await api.get(`/profile/${userId}/following`);
+                    setFollowingList(Array.isArray(data) ? data : []);
+                } catch (error) {
+                    setFollowingList([]);
+                } finally {
+                    setLoadingFollowing(false);
+                }
+            };
+            fetchFollowingList();
+        }
+    }, [showFollowing]);
+
+    const formatBookingDate = (isoString) => {
+        if (!isoString) return { day: '--', month: '---', fullTime: '--' };
+        const date = new Date(isoString);
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        let dayPrefix = "";
+        if (date.toDateString() === today.toDateString()) dayPrefix = "Today, ";
+        else if (date.toDateString() === tomorrow.toDateString()) dayPrefix = "Tomorrow, ";
+
+        return {
+            day: date.getDate().toString().padStart(2, '0'),
+            month: date.toLocaleString('default', { month: 'short' }).toUpperCase(),
+            fullTime: `${dayPrefix}${date.toLocaleString('default', { hour: '2-digit', minute: '2-digit' })}`
+        };
+    };
+
+    if (loading) return <div className="text-center text-muted" style={{ padding: '2rem' }}>Loading your dashboard...</div>;
+
+    const formattedDate = dashboardData.nextBooking ? formatBookingDate(dashboardData.nextBooking.start_time) : null;
 
     return (
         <div className="client-dashboard-wrapper">
@@ -302,23 +383,29 @@ const ClientDashboard = ({ profile, navigate }) => {
                 <div className="hero-widget welcome-widget">
                     <div className="widget-content">
                         <h2>Ready for your close-up?</h2>
-                        <p>You have <strong>1 upcoming shoot</strong> and <strong>3 unread messages</strong>.</p>
+                        <p>You have <strong>{dashboardData.nextBooking ? '1 upcoming shoot' : '0 upcoming shoots'}</strong> and <strong>0 unread messages</strong>.</p>
                         <div className="hero-search-pill">
-                            <Search size={18} className="text-muted"/>
+                            <Search size={18} className="text-muted" />
                             <input type="text" placeholder="Find a photographer..." />
                         </div>
                     </div>
                     <div className="hero-decoration"><Camera size={120} strokeWidth={1} className="deco-icon" /></div>
                 </div>
                 <div className="hero-widget stats-widget-vertical">
-                    <div className="mini-stat-row" onClick={() => navigate('/saved')}>
-                        <div className="icon-box pink"><Heart size={20} /></div>
-                        <div><span className="stat-num">12</span><span className="stat-label">Favorites</span></div>
+                    <div className="mini-stat-row" onClick={() => setShowFollowing(true)}>
+                        <div className="icon-box pink"><Users size={20} /></div>
+                        <div>
+                            <span className="stat-num">{dashboardData.followingCount}</span>
+                            <span className="stat-label">Following</span>
+                        </div>
                     </div>
                     <div className="divider"></div>
                     <div className="mini-stat-row" onClick={() => navigate('/my-bookings')}>
                         <div className="icon-box purple"><Calendar size={20} /></div>
-                        <div><span className="stat-num">02</span><span className="stat-label">Bookings</span></div>
+                        <div>
+                            <span className="stat-num">{dashboardData.totalBookings}</span>
+                            <span className="stat-label">Bookings</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -328,44 +415,89 @@ const ClientDashboard = ({ profile, navigate }) => {
                     <div className="dashboard-card next-up-card">
                         <div className="card-header-row">
                             <h3>Up Next</h3>
-                            <button className="btn-icon-only"><MoreVertical size={16}/></button>
+                            <button className="btn-icon-only"><MoreVertical size={16} /></button>
                         </div>
-                        <div className="next-booking-display">
-                            <div className="nb-date-circle"><span className="nb-day">24</span><span className="nb-month">OCT</span></div>
-                            <div className="nb-info">
-                                <h4>{nextBooking.photographer}</h4>
-                                <p className="nb-time"><Clock size={12}/> {nextBooking.date}</p>
-                                <p className="nb-loc"><MapPin size={12}/> {nextBooking.location}</p>
+
+                        {dashboardData.nextBooking ? (
+                            <>
+                                <div className="next-booking-display">
+                                    <div className="nb-date-circle">
+                                        <span className="nb-day">{formattedDate.day}</span>
+                                        <span className="nb-month">{formattedDate.month}</span>
+                                    </div>
+                                    <div className="nb-info">
+                                        <h4>{dashboardData.nextBooking.photographer_name}</h4>
+                                        <p className="nb-time"><Clock size={12} /> {formattedDate.fullTime}</p>
+                                        <p className="nb-loc"><MapPin size={12} /> {dashboardData.nextBooking.special_requirements || "On Location"}</p>
+                                    </div>
+                                </div>
+                                <div className="nb-actions">
+                                    <button className="btn-glass" onClick={() => navigate('/my-bookings')}>View Ticket</button>
+                                    <button className="btn-glass-icon"><MessageSquare size={16} /></button>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="next-booking-display" style={{ padding: '2rem 0', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+                                <p className="text-muted">No upcoming bookings. Time to explore!</p>
+                                <button className="btn-glass" style={{ width: 'auto', padding: '0.6rem 1.5rem' }} onClick={() => navigate('/explore')}>
+                                    Find a Photographer
+                                </button>
                             </div>
-                        </div>
-                        <div className="nb-actions">
-                            <button className="btn-glass" onClick={() => navigate('/my-bookings')}>View Ticket</button>
-                            <button className="btn-glass-icon"><MessageSquare size={16}/></button>
-                        </div>
+                        )}
                     </div>
                     <div className="dashboard-card feed-card">
-                        <h3>Activity Feed</h3>
+                        <div className="card-header-row">
+                            <h3>Activity Feed</h3>
+                            <button className="btn-link-sm" onClick={() => navigate('/activity')}>View All</button>
+                        </div>
                         <div className="feed-list">
-                            {notifications.map(notif => (
-                                <div key={notif.id} className="feed-item">
-                                    <div className="feed-icon">{notif.icon}</div>
-                                    <div className="feed-text"><p>{notif.text}</p><span>{notif.time}</span></div>
+                            {dashboardData.activities.length > 0 ? (
+                                dashboardData.activities.map(notif => (
+                                    <div key={notif.id} className="feed-item">
+                                        <div className="feed-icon">
+                                            {notif.type === 'follow' && <Users size={14} className="text-purple" />}
+                                            {notif.type === 'booking' && <CheckCircle size={14} className="text-green-400" />}
+                                            {notif.type === 'comment' && <MessageSquare size={14} className="text-blue-400" />}
+                                            {notif.type === 'vote' && <Sparkles size={14} className="text-yellow-400" />}
+                                            {!['follow', 'booking', 'comment', 'vote'].includes(notif.type) && <Bell size={14} className="text-muted" />}
+                                        </div>
+                                        <div className="feed-text">
+                                            <p>{notif.content}</p>
+                                            <span>{new Date(notif.created_at).toLocaleDateString()}</span>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div style={{ textAlign: 'center', padding: '1rem 0' }}>
+                                    <p className="text-muted" style={{ fontSize: '0.85rem' }}>No recent activity. Start exploring!</p>
                                 </div>
-                            ))}
+                            )}
                         </div>
                     </div>
                 </div>
                 <div className="widget-column right">
-                    <div className="dashboard-card spotlight-card" onClick={() => navigate(`/profile/${spotlightPhotographer.id}`)}>
-                        <div className="spotlight-image">
-                            <img src={spotlightPhotographer.image} alt={spotlightPhotographer.name} />
-                            <div className="spotlight-badge">Trending</div>
+                    {dashboardData.spotlight ? (
+                        <div className="dashboard-card spotlight-card" onClick={() => navigate(`/profile/${dashboardData.spotlight.id}`)}>
+                            <div className="spotlight-image">
+                                <img src={dashboardData.spotlight.image} alt={dashboardData.spotlight.name} />
+                                <div className="spotlight-badge">Trending</div>
+                            </div>
+                            <div className="spotlight-content">
+                                <div className="spotlight-info">
+                                    <h4>{dashboardData.spotlight.name}</h4>
+                                    <p>{dashboardData.spotlight.category}</p>
+                                </div>
+                                <div className="spotlight-rating"><Star size={14} fill="white" color="white" /> {dashboardData.spotlight.rating}</div>
+                            </div>
                         </div>
-                        <div className="spotlight-content">
-                            <div className="spotlight-info"><h4>{spotlightPhotographer.name}</h4><p>{spotlightPhotographer.category}</p></div>
-                            <div className="spotlight-rating"><Star size={14} fill="white" color="white" /> {spotlightPhotographer.rating}</div>
+                    ) : (
+                        <div className="dashboard-card spotlight-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem 1rem', background: '#121214', cursor: 'default' }}>
+                            <Sparkles size={32} style={{ opacity: 0.2, marginBottom: '1rem' }} />
+                            <h4 style={{ color: 'white', marginBottom: '0.5rem' }}>No Trending Creators</h4>
+                            <p className="text-muted" style={{ textAlign: 'center', fontSize: '0.875rem' }}>Check back later to discover top photographers in your area.</p>
                         </div>
-                    </div>
+                    )}
+
                     <div className="dashboard-card categories-widget">
                         <h3>Browse</h3>
                         <div className="cat-grid-mini">
@@ -376,6 +508,64 @@ const ClientDashboard = ({ profile, navigate }) => {
                     </div>
                 </div>
             </div>
+
+            {showFollowing && (
+                <div className="modal-overlay" onClick={() => setShowFollowing(false)}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <div>
+                                <h2 className="modal-title">Following</h2>
+                                <p className="text-muted text-sm" style={{ marginTop: '4px' }}>
+                                    You are following {followingList.length} creators
+                                </p>
+                            </div>
+                            <button className="close-btn" onClick={() => setShowFollowing(false)}><X size={24} /></button>
+                        </div>
+
+                        <div className="follower-list-container">
+                            {loadingFollowing ? (
+                                <div className="state-message">
+                                    <Loader2 className="animate-spin" /> Loading...
+                                </div>
+                            ) : followingList.length === 0 ? (
+                                <div className="state-message">
+                                    <Users size={32} style={{ opacity: 0.5, marginBottom: 10 }} />
+                                    You aren't following anyone yet.
+                                </div>
+                            ) : (
+                                <div className="follower-grid">
+                                    {followingList.map(person => (
+                                        <div
+                                            key={person.id}
+                                            className="follower-card-classic"
+                                            onClick={() => navigate(`/profile/${person.id}`)}
+                                        >
+                                            <div className="fc-left">
+                                                {person.avatar ? (
+                                                    <img src={person.avatar} alt={person.name} className="fc-avatar" />
+                                                ) : (
+                                                    <div className="fc-avatar-placeholder">
+                                                        {person.name ? person.name.charAt(0).toUpperCase() : 'U'}
+                                                    </div>
+                                                )}
+                                                <div className="fc-info">
+                                                    <h4>{person.name}</h4>
+                                                    <p>{person.role || "Creator"}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="fc-action">
+                                                <span className="view-text">View</span>
+                                                <ChevronRight size={16} />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
@@ -384,80 +574,78 @@ const ClientDashboard = ({ profile, navigate }) => {
 // 🚀 MAIN DASHBOARD CONTAINER
 // ==========================================
 const Dashboard = () => {
-  const navigate = useNavigate(); 
-  const { toast } = useToast(); 
-  const [profile, setProfile] = useState(null); 
-  const [loading, setLoading] = useState(true);
-  
-  const [showFollowers, setShowFollowers] = useState(false);
-  const [showBookings, setShowBookings] = useState(false);
+    const navigate = useNavigate();
+    const [profile, setProfile] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const storedName = localStorage.getItem('userName');
-    const storedRole = localStorage.getItem('userRole') || 'client'; 
-    
-    setProfile({ 
-        full_name: storedName || "User",
-        role: storedRole.toLowerCase() 
-    });
-    setLoading(false);
-  }, []);
+    const [showFollowers, setShowFollowers] = useState(false);
+    const [showBookings, setShowBookings] = useState(false);
 
-  if (loading) return <div className="page-container center-content"><Navbar /><p className="text-muted">Loading...</p></div>;
+    useEffect(() => {
+        const storedName = localStorage.getItem('userName');
+        const storedRole = localStorage.getItem('userRole') || 'client';
 
-  const welcomeName = profile?.full_name || "Guest"; 
-  const welcomeEmailInitial = welcomeName.charAt(0).toUpperCase();
-  const isPhotographer = profile?.role === 'photographer';
+        setProfile({
+            full_name: storedName || "User",
+            role: storedRole.toLowerCase()
+        });
+        setLoading(false);
+    }, []);
 
-  return (
-    <div className="page-container">
-      <Navbar /> 
-      
-      <main className="dashboard-main-content">
-        <div className="content-wrapper">
-          
-          <div className="welcome-section">
-            <div className="welcome-inner">
-              {/* Feature: Redirect on Avatar Click */}
-              <div 
-                className="avatar-badge" 
-                onClick={() => navigate('/profiles')} 
-                style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
-                title="View your public profile"
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                {welcomeEmailInitial}
-              </div>
-              <div>
-                <h1 className="welcome-title">Welcome back, <span className="text-purple">{welcomeName}!</span></h1>
-                <p className="text-muted">
-                    {isPhotographer 
-                        ? "Here's what's happening with your photography business"
-                        : "Explore top-rated photographers and manage your bookings."}
-                </p>
-              </div>
-            </div>
-          </div>
+    if (loading) return <div className="page-container center-content"><Navbar /><p className="text-muted">Loading...</p></div>;
 
-          {isPhotographer ? (
-              <PhotographerDashboard 
-                  profile={profile} 
-                  navigate={navigate}
-                  showFollowers={showFollowers}
-                  setShowFollowers={setShowFollowers}
-                  showBookings={showBookings}
-                  setShowBookings={setShowBookings}
-              />
-          ) : (
-              <ClientDashboard profile={profile} navigate={navigate} />
-          )}
+    const welcomeName = profile?.full_name || "Guest";
+    const welcomeEmailInitial = welcomeName.charAt(0).toUpperCase();
+    const isPhotographer = profile?.role === 'photographer';
 
+    return (
+        <div className="page-container">
+            <Navbar />
+
+            <main className="dashboard-main-content">
+                <div className="content-wrapper">
+
+                    <div className="welcome-section">
+                        <div className="welcome-inner">
+                            <div
+                                className="avatar-badge"
+                                onClick={() => navigate('/profiles')}
+                                style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+                                title="View your public profile"
+                                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                            >
+                                {welcomeEmailInitial}
+                            </div>
+                            <div>
+                                <h1 className="welcome-title">Welcome back, <span className="text-purple">{welcomeName}!</span></h1>
+                                <p className="text-muted">
+                                    {isPhotographer
+                                        ? "Here's what's happening with your photography business"
+                                        : "Explore top-rated photographers and manage your bookings."}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {isPhotographer ? (
+                        <PhotographerDashboard
+                            profile={profile}
+                            navigate={navigate}
+                            showFollowers={showFollowers}
+                            setShowFollowers={setShowFollowers}
+                            showBookings={showBookings}
+                            setShowBookings={setShowBookings}
+                        />
+                    ) : (
+                        <ClientDashboard profile={profile} navigate={navigate} />
+                    )}
+
+                </div>
+            </main>
+            <Footer />
         </div>
-      </main>
-      <Footer />
-    </div>
-  );
+    );
 };
 
 export default Dashboard;

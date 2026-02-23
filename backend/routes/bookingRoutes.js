@@ -75,6 +75,7 @@ router.patch('/:id/status', async (req, res) => {
     const { status, providerId } = req.body; 
 
     try {
+        // 1. Update the booking and select the result so we have the client_id and title
         const { data, error } = await supabase
             .from('bookings')
             .update({ status: status })
@@ -88,7 +89,27 @@ router.patch('/:id/status', async (req, res) => {
             return res.status(404).json({ error: 'Booking not found' });
         }
 
-        res.status(200).json(data[0]);
+        const updatedBooking = data[0];
+
+        // --- ⚡ START NOTIFICATION TRIGGER ⚡ ---
+        // A. Fetch the photographer's name to make the notification readable
+        const { data: providerProfile } = await supabase
+            .from('profiles')
+            .select('full_name')
+            .eq('user_id', providerId)
+            .single();
+
+        // B. Insert the notification for the client
+        await supabase.from('notifications').insert({
+            user_id: updatedBooking.client_id, // The Client receives this
+            type: 'booking',
+            title: 'Booking Update',
+            content: `${providerProfile?.full_name || 'The photographer'} updated your "${updatedBooking.booking_title}" status to ${status}.`,
+            related_id: id // Links back to this specific booking
+        });
+        // --- ⚡ END NOTIFICATION TRIGGER ⚡ ---
+
+        res.status(200).json(updatedBooking);
 
     } catch (err) {
         console.error('Error updating status:', err);
@@ -118,6 +139,101 @@ router.get('/user/:userId', async (req, res) => {
 
     } catch (err) {
         console.error('Error fetching dashboard bookings:', err.message);
+        res.status(500).json({ error: 'Server Error' });
+    }
+});
+
+// --- GET /api/v1/bookings/client-dashboard/:userId ---
+// Fetches total booking count and the single next upcoming booking with photographer details
+router.get('/client-dashboard/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // 1. Get TOTAL count of all bookings for this client (for the stat card)
+        const { count, error: countError } = await supabase
+            .from('bookings')
+            .select('*', { count: 'exact', head: true })
+            .eq('client_id', userId);
+
+        if (countError) throw countError;
+
+        // 2. Get the SINGLE next upcoming booking
+        const { data: nextBookingData, error: nextBookingError } = await supabase
+            .from('bookings')
+            .select('*')
+            .eq('client_id', userId)
+            .gte('start_time', new Date().toISOString()) // Only future bookings
+            .order('start_time', { ascending: true })    // Closest date first
+            .limit(1)
+            .single(); // Returns an object instead of an array, or null if none
+
+        // If there's no upcoming booking, return the count and null for nextBooking
+        if (!nextBookingData || nextBookingError) {
+            return res.status(200).json({
+                totalBookings: count || 0,
+                nextBooking: null
+            });
+        }
+
+        // 3. Fetch the Photographer's Profile (to get their name)
+        const { data: profileData, error: profileError } = await supabase
+            .from('profiles')
+            .select('full_name, avatar_url')
+            .eq('user_id', nextBookingData.provider_id)
+            .single();
+
+        if (profileError) console.error("Error fetching provider profile:", profileError);
+
+        // 4. Format and send the response
+        res.status(200).json({
+            totalBookings: count || 0,
+            nextBooking: {
+                ...nextBookingData,
+                photographer_name: profileData?.full_name || 'Unknown Photographer',
+                photographer_avatar: profileData?.avatar_url || null
+            }
+        });
+
+    } catch (err) {
+        console.error('Error fetching client dashboard bookings:', err.message);
+        res.status(500).json({ error: 'Server Error' });
+    }
+});
+
+// --- GET /api/v1/bookings/client/:userId ---
+// Fetches all bookings for a client with photographer names and avatars
+router.get('/client/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // 1. Fetch bookings
+        const { data: bookings, error } = await supabase
+            .from('bookings')
+            .select('*')
+            .eq('client_id', userId)
+            .order('start_time', { ascending: false });
+
+        if (error) throw error;
+
+        // 2. Fetch photographer profiles
+        const providerIds = [...new Set(bookings.map(b => b.provider_id))];
+        const { data: profiles } = await supabase
+            .from('profiles')
+            .select('user_id, full_name, avatar_url')
+            .in('user_id', providerIds);
+
+        const profileMap = {};
+        profiles?.forEach(p => profileMap[p.user_id] = p);
+
+        // 3. Combine data
+        const enrichedBookings = bookings.map(b => ({
+            ...b,
+            photographer_name: profileMap[b.provider_id]?.full_name || "Unknown Photographer",
+            photographer_avatar: profileMap[b.provider_id]?.avatar_url || null
+        }));
+
+        res.status(200).json(enrichedBookings);
+    } catch (err) {
         res.status(500).json({ error: 'Server Error' });
     }
 });

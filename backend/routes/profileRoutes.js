@@ -141,14 +141,14 @@ router.get('/:userId/portfolio', async (req, res) => {
 
 // --- 4. TOGGLE FOLLOW (Follow/Unfollow Logic) ---
 // Route: POST /api/v1/profile/:id/follow
+// --- 4. TOGGLE FOLLOW (Follow/Unfollow Logic) ---
 router.post('/:targetId/follow', async (req, res) => {
     try {
         const { targetId } = req.params;
-        const { userId } = req.body; // Sent from frontend
+        const { userId } = req.body; 
 
         if (userId === targetId) return res.status(400).json({ error: "Cannot follow self" });
 
-        // 1. Check if relationship exists
         const { data: existing } = await supabase
             .from('follows')
             .select('*')
@@ -159,13 +159,34 @@ router.post('/:targetId/follow', async (req, res) => {
         let isFollowing = false;
 
         if (existing) {
-            // UNFOLLOW: Delete the row
             await supabase.from('follows').delete().eq('follower_id', userId).eq('following_id', targetId);
             isFollowing = false;
         } else {
-            // FOLLOW: Insert the row
             await supabase.from('follows').insert({ follower_id: userId, following_id: targetId });
             isFollowing = true;
+
+            // --- ⚡ START NOTIFICATION TRIGGER ⚡ ---
+            const { data: followerProfile } = await supabase.from('profiles').select('full_name').eq('user_id', userId).single();
+            const { data: targetProfile } = await supabase.from('profiles').select('full_name').eq('user_id', targetId).single();
+
+            // 1. Notify the Target (e.g. Photographer)
+            await supabase.from('notifications').insert({
+                user_id: targetId,
+                type: 'follow',
+                title: 'New Follower',
+                content: `${followerProfile?.full_name || 'Someone'} started following you!`,
+                related_id: userId
+            });
+
+            // 2. Update Actor's Feed (e.g. Client/Binjo Joy)
+            await supabase.from('notifications').insert({
+                user_id: userId,
+                type: 'follow',
+                title: 'New Connection',
+                content: `You started following ${targetProfile?.full_name || 'a new creator'}`,
+                related_id: targetId
+            });
+            // --- ⚡ END NOTIFICATION TRIGGER ⚡ ---
         }
 
         res.status(200).json({ isFollowing });
@@ -269,4 +290,84 @@ router.get('/:userId/followers', async (req, res) => {
     }
 });
 
+// --- 7. GET TRENDING / SPOTLIGHT PHOTOGRAPHER ---
+// Route: GET /api/v1/profile/spotlight/trending
+router.get('/spotlight/trending', async (req, res) => {
+    try {
+        // Basic Algorithm: Fetch a photographer with an avatar
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('user_id, full_name, avatar_url, bio, skills')
+            .eq('user_type', 'photographer')
+            .not('avatar_url', 'is', null) // Prioritize people with profile pictures
+            .limit(1)
+            .single();
+
+        if (error) throw error;
+
+        // Extract their first skill to use as a "Category", or default to "Professional"
+        const category = data.skills && data.skills.length > 0 ? data.skills[0] : "Professional Photographer";
+
+        res.status(200).json({
+            id: data.user_id,
+            name: data.full_name,
+            category: category,
+            image: data.avatar_url,
+            rating: 4.9 // Placeholder until you build a reviews table
+        });
+
+    } catch (err) {
+        console.error('Trending fetch error:', err.message);
+        // Fallback mock if database is empty so your UI doesn't break
+        res.status(200).json({
+            id: 104, name: "Sarah Jenkins", category: "Fashion & Editorial", 
+            image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=500&h=300", 
+            rating: 4.9 
+        });
+    }
+});
+
+// --- 6.5 GET FOLLOWING LIST (People this user follows) ---
+router.get('/:userId/following', async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // 1. Get the IDs of the people this user is following
+        const { data: followRows, error: followError } = await supabase
+            .from('follows')
+            .select('following_id, created_at')
+            .eq('follower_id', userId);
+
+        if (followError) throw followError;
+
+        if (!followRows || followRows.length === 0) {
+            return res.status(200).json([]);
+        }
+
+        const followingIds = followRows.map(row => row.following_id);
+
+        // 2. Fetch their actual profile details
+        const { data: profiles, error: profileError } = await supabase
+            .from('profiles')
+            .select('user_id, full_name, avatar_url, user_type, location')
+            .in('user_id', followingIds);
+
+        if (profileError) throw profileError;
+
+        // 3. Format it for the frontend
+        const result = profiles.map(profile => ({
+            id: profile.user_id,
+            name: profile.full_name || "Anonymous User",
+            avatar: profile.avatar_url,
+            role: profile.user_type || "Member",
+            location: profile.location || "Earth"
+        }));
+
+        res.status(200).json(result);
+
+    } catch (err) {
+        console.error('Error fetching following list:', err.message);
+        res.status(500).json({ error: 'Server Error' });
+    }
+});
 module.exports = router;
