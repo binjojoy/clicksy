@@ -7,24 +7,27 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // ⚡ INSTANT CHECK: Read role directly from storage. 
-  // This prevents the "flicker" because it happens before the component renders.
-  const [userRole, setUserRole] = useState(() => {
-    return localStorage.getItem("userRole") || "client"; 
+  // ⚡ Check if user is actually authenticated
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return !!localStorage.getItem("userToken"); // Returns true if token exists, false otherwise
   });
 
-  // Optional: Listen for storage changes (helpful if you have multiple tabs open)
+  // ⚡ Read role directly from storage (No default fallback if not logged in)
+  const [userRole, setUserRole] = useState(() => {
+    return localStorage.getItem("userRole"); 
+  });
+
+  // Listen for storage changes across tabs
   useEffect(() => {
     const handleStorageChange = () => {
-        setUserRole(localStorage.getItem("userRole"));
+      setIsAuthenticated(!!localStorage.getItem("userToken"));
+      setUserRole(localStorage.getItem("userRole"));
     };
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   // --- MENU DEFINITIONS ---
-
-  // Menu for PHOTOGRAPHERS (Business Owners)
   const photographerLinks = [
     { path: "/dashboard", label: "Dashboard" },
     { path: "/portfolio", label: "Portfolio" }, 
@@ -34,7 +37,6 @@ const Navbar = () => {
     { path: "/learn", label: "Learn" },
   ];
 
-  // Menu for CLIENTS (Customers)
   const clientLinks = [
     { path: "/dashboard", label: "Home" },
     { path: "/explore", label: "Explore" },      
@@ -42,8 +44,11 @@ const Navbar = () => {
     { path: "/saved", label: "Saved" },          
   ];
 
-  // Select the correct menu immediately based on the state
-  const navLinks = userRole === "photographer" ? photographerLinks : clientLinks;
+  // Only show navLinks if authenticated. If photographer, show photographer links. Otherwise show client links.
+  // If not authenticated, show an empty array (or a generic public menu if you prefer)
+  const navLinks = isAuthenticated 
+    ? (userRole === "photographer" ? photographerLinks : clientLinks)
+    : []; // Public visitors see no private dashboard links
 
   const isActive = (path) => location.pathname === path;
 
@@ -54,6 +59,8 @@ const Navbar = () => {
     localStorage.removeItem("userName");
     localStorage.removeItem("user_id");
     
+    setIsAuthenticated(false);
+    setUserRole(null);
     navigate("/auth");
   };
 
@@ -61,7 +68,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container navbar-container">
         {/* Logo */}
-        <Link to="/dashboard" className="navbar-logo">
+        <Link to="/" className="navbar-logo">
           <div className="navbar-logo-icon">
             <svg
               width="24"
@@ -92,9 +99,18 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <button onClick={handleLogout} className="btn btn-primary btn-sm ml-4">
-            Log Out
-          </button>
+
+          {/* ⚡ CONDITIONAL AUTH BUTTONS */}
+          {isAuthenticated ? (
+            <button onClick={handleLogout} className="btn btn-primary btn-sm ml-4">
+              Log Out
+            </button>
+          ) : (
+            <div className="flex gap-2 ml-4">
+              <Link to="/auth" className="btn btn-outline btn-sm">Login</Link>
+              <Link to="/auth" className="btn btn-primary btn-sm">Sign Up</Link>
+            </div>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -129,15 +145,24 @@ const Navbar = () => {
             {link.label}
           </Link>
         ))}
-        <button
-          onClick={() => {
-            setMobileMenuOpen(false);
-            handleLogout();
-          }}
-          className="btn btn-primary w-full mt-4"
-        >
-          Log Out
-        </button>
+
+        {/* ⚡ CONDITIONAL AUTH BUTTONS (MOBILE) */}
+        {isAuthenticated ? (
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              handleLogout();
+            }}
+            className="btn btn-primary w-full mt-4"
+          >
+            Log Out
+          </button>
+        ) : (
+          <div className="flex flex-col gap-2 mt-4">
+            <Link to="/auth" className="btn btn-outline w-full text-center" onClick={() => setMobileMenuOpen(false)}>Login</Link>
+            <Link to="/auth" className="btn btn-primary w-full text-center" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
+          </div>
+        )}
       </div>
     </nav>
   );

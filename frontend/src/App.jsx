@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom'; // Removed BrowserRouter here
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 // Component Imports
@@ -17,7 +17,7 @@ import Profile from './pages/Profile';
 import UploadPortfolio from './pages/UploadPortfolio';
 import ManageBookings from './pages/ManageBooking';
 import SellItem from './pages/SellItem';
-import EditProfile from './pages/EditProfile'; // Note: You had Profile imported as EditProfile
+import EditProfile from './pages/EditProfile'; 
 import CategoryGallery from './pages/CategoryGallery';
 import ItemDetails from './pages/ItemDetails';
 import ExplorePage from "./pages/ExplorePage";
@@ -29,133 +29,65 @@ import Privacy from './pages/Privacy';
 import NetworkError from './pages/NetworkError';
 import NotFound from './pages/NotFound';
 
-// Transition Wrapper
+// Security & Transitions
 import PageTransition from './components/PageTransition';
+import ProtectedRoute from './components/ProtectedRoute'; // 👈 Import your new bouncer
 
 function App() {
-  // We need the location to identify unique pages for the animation
   const location = useLocation();
 
   return (
-    <>
-      {/* Navbar can go here if you want it to stay visible 
-         while the page content animates underneath it.
-         <Navbar /> 
-      */}
-
-      <main className="w-full h-full">
-        {/* mode="wait" ensures the old page fades out BEFORE the new one fades in */}
-        <AnimatePresence mode="wait">
+    <main className="w-full h-full">
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
           
-          <Routes location={location} key={location.pathname}>
-            
-            <Route path="/" element={
-              <PageTransition><HomePage /></PageTransition>
-            } />
-            
-            <Route path="/auth" element={
-              <PageTransition><Auth /></PageTransition>
-            } />
-            
-            <Route path="/booking" element={
-              <PageTransition><Booking /></PageTransition>
-            } />
-            
-            <Route path="/community" element={
-              <PageTransition><Community /></PageTransition>
-            } />
-            
-            
-            <Route path="/learn" element={
-              <PageTransition><Learn /></PageTransition>
-            } />
-            
-            <Route path="/about" element={
-              <PageTransition><About /></PageTransition>
-            } />
+          {/* ==========================================
+              🔓 PUBLIC ROUTES (Anyone can access)
+              ========================================== */}
+          <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
+          <Route path="/auth" element={<PageTransition><Auth /></PageTransition>} />
+          <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+          <Route path="/terms-and-conditions" element={<PageTransition><Terms/></PageTransition>} />
+          <Route path="/privacy-policy" element={<PageTransition><Privacy/></PageTransition>} />
+          
+          {/* Publicly viewable profiles and items */}
+          <Route path="/explore" element={<PageTransition><ExplorePage /></PageTransition>} />
+          <Route path="/profiles" element={<PageTransition><Profiles /></PageTransition>} />
+          <Route path="/profile/:id" element={<PageTransition><Profiles /></PageTransition>} />
+          <Route path="/portfolio/:category" element={<PageTransition><CategoryGallery /></PageTransition>} />
+          <Route path="/marketplace/item/:id" element={<PageTransition><ItemDetails /></PageTransition>} />
+          <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
 
-            <Route path="/profiles" element={
-              <PageTransition><Profiles /></PageTransition>
-            } />
+          {/* Errors */}
+          <Route path="*" element={<PageTransition><NotFound/></PageTransition>} />
+          <Route path="/error" element={<PageTransition><NetworkError/></PageTransition>} />
 
-            <Route path="/profile/:id" element={
-              <PageTransition><Profiles /></PageTransition>
-            } />
+          {/* ==========================================
+              🔒 PROTECTED ROUTES (Requires Login)
+              ========================================== */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />
+            <Route path="/profile" element={<PageTransition><Profile /></PageTransition>} />
+            <Route path="/edit-profile" element={<PageTransition><EditProfile /></PageTransition>} />
             
-            <Route path="/marketplace" element={
-              <PageTransition><Marketplace /></PageTransition>
-            } />
+            {/* Features that require a logged-in user */}
+            <Route path="/booking" element={<PageTransition><Booking /></PageTransition>} />
+            <Route path="/community" element={<PageTransition><Community /></PageTransition>} />
+            <Route path="/learn" element={<PageTransition><Learn /></PageTransition>} />
+            <Route path="/marketplace" element={<PageTransition><Marketplace /></PageTransition>} />
+            <Route path="/saved" element={<PageTransition><SavedPage /></PageTransition>} />
             
-            <Route path="/portfolio" element={
-              <PageTransition><Portfolio /></PageTransition>
-            } />
-            
-            <Route path="/contact" element={
-              <PageTransition><Contact /></PageTransition>
-            } />
-            
-            <Route path="/dashboard" element={
-              <PageTransition><Dashboard /></PageTransition>
-            } />
-            
-            <Route path="/profile" element={
-              <PageTransition><Profile /></PageTransition>
-            } />
-            
+            {/* Action pages */}
+            <Route path="/upload-portfolio" element={<PageTransition><UploadPortfolio /></PageTransition>} />
+            <Route path="/manage-bookings" element={<PageTransition><ManageBookings /></PageTransition>} />
+            <Route path="/marketplace/sell-item" element={<PageTransition><SellItem /></PageTransition>} />
+            <Route path="/my-bookings" element={<PageTransition><ClientBooking /></PageTransition>} />
+          </Route>
 
-            <Route path="/upload-portfolio" element={
-              <PageTransition><UploadPortfolio /></PageTransition>
-            } />
-            
-            <Route path="/manage-bookings" element={
-              <PageTransition><ManageBookings /></PageTransition>
-            } />
-            
-            <Route path="/marketplace/sell-item" element={
-              <PageTransition><SellItem /></PageTransition>
-            } />
-            
-            <Route path="/edit-profile" element={
-              <PageTransition><EditProfile /></PageTransition>
-            } />
-            
-            <Route path="/portfolio/:category" element={
-              <PageTransition><CategoryGallery /></PageTransition>
-            } />
-            
-            <Route path="/marketplace/item/:id" element={
-              <PageTransition><ItemDetails /></PageTransition>
-            } />
-            
-            <Route path="/explore" element={
-              <PageTransition><ExplorePage /></PageTransition>
-            } />
-            
-            <Route path="/saved" element={
-              <PageTransition><SavedPage /></PageTransition>
-            } />
-            
-            <Route path="/my-bookings" element={
-              <PageTransition><ClientBooking /></PageTransition>
-            } />
-
-            <Route path='/terms-and-conditions' element={
-              <PageTransition><Terms/></PageTransition>
-            } />
-            
-            <Route path='/privacy-policy' element={
-              <PageTransition><Privacy/></PageTransition>
-            } />
-            <Route path="*" element={
-              <PageTransition><NotFound/></PageTransition>
-            } />
-            <Route path="/error" element={<PageTransition><NetworkError/></PageTransition>} />
-          </Routes>
-        </AnimatePresence>
-      </main>
-      
-      {/* <Footer /> */}
-    </>
+        </Routes>
+      </AnimatePresence>
+    </main>
   );
 }
 
