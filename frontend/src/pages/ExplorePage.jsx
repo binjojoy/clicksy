@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
+import { toast } from "../components/Toaster.jsx";
 import { 
-  Search, MapPin, Filter, Star, Heart, ArrowUpRight, Camera, Sparkles, 
-  ShieldCheck, CheckCircle, Clock, X 
+  Search, MapPin, Star, Heart, ArrowUpRight, Camera, Sparkles, X 
 } from "lucide-react";
 import "../styles/ExplorePage.css";
 
@@ -22,50 +22,86 @@ const ExplorePage = () => {
   const [featuredWorks, setFeaturedWorks] = useState([]);
   const [locations, setLocations] = useState([]); 
   const [collections, setCollections] = useState([]); 
+  const [savedIds, setSavedIds] = useState([]); // Tracks user's saved list
   
   // Modal/Overlay States
   const [selectedLocation, setSelectedLocation] = useState(null); 
   const [activeCollection, setActiveCollection] = useState(null); 
 
+  const userId = localStorage.getItem("user_id"); // Matches Auth logic
   const categories = ["All", "Wedding", "Portrait", "Fashion", "Product", "Events", "Travel"];
 
   useEffect(() => {
     fetchExploreData();
-  }, []);
+    if (userId) fetchSavedList();
+  }, [userId]);
+
+  // --- SAVE LOGIC START ---
+  const fetchSavedList = async () => {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/saved/${userId}`);
+      setSavedIds(res.data.map(item => item.id)); 
+    } catch (err) {
+      console.error("Error fetching saved list:", err);
+    }
+  };
+
+ const toggleSave = async (e, photographerId) => {
+    e.stopPropagation(); 
+    if (!userId) return toast.error("Please login to save photographers.");
+    
+    const isSaved = savedIds.includes(photographerId);
+    
+    try {
+      if (isSaved) {
+        // DELETE logic using the userId and photographerId params
+        await axios.delete(`${API_BASE_URL}/saved/${userId}/${photographerId}`);
+        setSavedIds(prev => prev.filter(id => id !== photographerId));
+        toast.success("Removed from saved.");
+      } else {
+        // POST logic sending the JSON body
+        await axios.post(`${API_BASE_URL}/saved`, { 
+            user_id: userId, 
+            photographer_id: photographerId 
+        });
+        setSavedIds(prev => [...prev, photographerId]);
+        toast.success("Photographer saved!");
+      }
+    } catch (err) {
+      console.error("Save error:", err.response?.data || err.message);
+      toast.error("Failed to update saved list.");
+    }
+};
+  // --- SAVE LOGIC END ---
 
   const fetchExploreData = async () => {
     setLoading(true);
     try {
-      // 1. Fetch main data
       const [pgRes, locRes, colRes] = await Promise.all([
         axios.get(`${API_BASE_URL}/profile/explore/photographers`),
         axios.get(`${API_BASE_URL}/profile/explore/locations`),
         axios.get(`${API_BASE_URL}/profile/explore/collections`).catch(() => ({ data: [] }))
       ]);
 
-      // Photographers Mapping
       setPhotographers(pgRes.data.map(p => ({
         id: p.user_id,
         name: p.full_name || "New Photographer",
         category: (p.skills && p.skills.length > 0) ? p.skills[0] : "General",
         location: p.location || "Location Private",
-        hourly_rate: p.hourly_rate || 0,
-        skills: p.skills || [],
-        price: p.hourly_rate ? `₹${p.hourly_rate}/hr` : "Contact",
+        hourly_rate: p.hourly_rate || 0, // Fallback to 0
+        price: p.hourly_rate && p.hourly_rate > 0 ? `₹${p.hourly_rate}/hr` : "Contact for Rates",
         image: p.avatar_url || "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=400",
-        rating: 4.9
+        rating: 4.9,
+        skills: p.skills || []
       })));
 
       setLocations(locRes.data || []);
       setCollections(colRes.data || []);
 
-      // 2. Fetch Inspiration (Isolated)
       const worksRes = await axios.get(`${API_BASE_URL}/profile/explore/inspiration`);
-      console.log("Inspiration Data Received:", worksRes.data); 
       setFeaturedWorks(worksRes.data || []);
-
     } catch (err) {
-      console.error("Critical Data fetch error", err);
+      console.error("Data fetch error", err);
     } finally {
       setLoading(false);
     }
@@ -76,7 +112,7 @@ const ExplorePage = () => {
     const matchesSearch = pg.name.toLowerCase().includes(term) || 
                           pg.location.toLowerCase().includes(term);
     const matchesCategory = activeCategory === "All" || 
-                           (pg.category && pg.category.toLowerCase() === activeCategory.toLowerCase());
+                            (pg.category && pg.category.toLowerCase() === activeCategory.toLowerCase());
     return matchesSearch && matchesCategory;
   });
 
@@ -104,16 +140,14 @@ const ExplorePage = () => {
     <div className={`page-container bg-black ${(selectedLocation || activeCollection) ? 'modal-open' : ''}`}>
       <Navbar />
 
-      {/* GLASSMORPHISM MODAL */}
+      {/* GLASSMORPHISM OVERLAY MODAL */}
       {(selectedLocation || activeCollection) && (
         <div className="location-overlay-backdrop" onClick={closeModals}>
           <div className="location-glass-container" onClick={(e) => e.stopPropagation()}>
             <button className="btn-close-glass" onClick={closeModals}><X size={20} /></button>
             <div className="glass-header">
                 <h2>{selectedLocation ? `Photographers in ${selectedLocation}` : activeCollection.title}</h2>
-                <p className="text-muted">
-                    {selectedLocation ? photographersInLocation.length : photographersInCollection.length} professionals found
-                </p>
+                <p>{selectedLocation ? photographersInLocation.length : photographersInCollection.length} professionals found</p>
             </div>
             <div className="glass-content-grid">
               {(selectedLocation ? photographersInLocation : photographersInCollection).map(pg => (
@@ -132,13 +166,14 @@ const ExplorePage = () => {
       )}
 
       <main className="explore-main">
+        {/* HERO SECTION */}
         <section className="explore-hero">
           <div className="hero-content">
-            <div className="hero-badge"><Sparkles size={14} className="text-yellow-400" /> <span>Discover Top Talent</span></div>
+            <div className="hero-badge"><Sparkles size={14} /> <span>Discover Top Talent</span></div>
             <h1>Find the perfect lens for your story.</h1>
             <div className="hero-search-bar">
               <Search className="search-icon" size={22} />
-              <input type="text" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+              <input type="text" placeholder="Search by name or location..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
               <button className="btn-search">Search</button>
             </div>
           </div>
@@ -146,18 +181,23 @@ const ExplorePage = () => {
         </section>
 
         <div className="explore-content-wrapper">
+            {/* POPULAR LOCATIONS */}
             <section className="locations-section">
                 <h3 className="section-label">Popular Locations</h3>
                 <div className="locations-scroll">
                     {locations.map((loc, index) => (
                         <div key={index} className="location-bubble dynamic" onClick={() => setSelectedLocation(loc.name)}>
                             <div className="bubble-icon-wrapper"><MapPin size={24} /></div>
-                            <div className="bubble-text"><span className="loc-name">{loc.name}</span><span className="loc-count">{loc.count} Pros</span></div>
+                            <div className="bubble-text">
+                              <span className="loc-name">{loc.name}</span>
+                              <span className="loc-count">{loc.count} Pros</span>
+                            </div>
                         </div>
                     ))}
                 </div>
             </section>
 
+            {/* CATEGORY FILTERS */}
             <section className="filter-section">
                 <div className="filter-scroll">
                     {categories.map(cat => (
@@ -166,6 +206,7 @@ const ExplorePage = () => {
                 </div>
             </section>
 
+            {/* MAIN PHOTOGRAPHER GRID */}
             <section className="grid-section">
                 <div className="section-header">
                     <h3>{activeCategory === "All" ? "Trending Photographers" : `${activeCategory} Photographers`}</h3>
@@ -180,13 +221,42 @@ const ExplorePage = () => {
                                 <div className="pg-card-image">
                                     <img src={pg.image} alt={pg.name} />
                                     <div className="pg-card-overlay">
-                                        <button className="btn-heart" onClick={(e) => e.stopPropagation()}><Heart size={18} /></button>
-                                        <div className="pg-overlay-bottom"><span className="pg-price-tag">{pg.price}</span></div>
+                                        <div className="pg-overlay-top">
+                                            <button 
+                                                className={`btn-heart ${savedIds.includes(pg.id) ? 'active' : ''}`} 
+                                                onClick={(e) => toggleSave(e, pg.id)}
+                                            >
+                                                <Heart 
+                                                  size={18} 
+                                                  fill={savedIds.includes(pg.id) ? "#ef4444" : "none"} 
+                                                  color={savedIds.includes(pg.id) ? "#ef4444" : "white"}
+                                                />
+                                            </button>
+                                            
+                                            <button 
+                                                className="btn-book-overlay"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    navigate(`/booking`, { state: { photographer: pg } });
+                                                }}
+                                            >
+                                                Book Now
+                                            </button>
+                                        </div>
+                                        <div className="pg-overlay-bottom">
+                                            <span className="pg-price-tag">{pg.price}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="pg-card-content">
-                                    <div className="pg-header-row"><h4>{pg.name}</h4><div className="pg-rating"><Star size={14} fill="#eab308" color="#eab308"/> <span>{pg.rating}</span></div></div>
-                                    <div className="pg-meta-row"><span className="pg-badge">{pg.category}</span><span className="pg-location"><MapPin size={12}/> {pg.location}</span></div>
+                                    <div className="pg-header-row">
+                                      <h4>{pg.name}</h4>
+                                      <div className="pg-rating"><Star size={14} fill="#eab308" color="#eab308"/> <span>{pg.rating}</span></div>
+                                    </div>
+                                    <div className="pg-meta-row">
+                                      <span className="pg-badge">{pg.category}</span>
+                                      <span className="pg-location"><MapPin size={12}/> {pg.location}</span>
+                                    </div>
                                     <button className="btn-view-profile">View Profile <ArrowUpRight size={16} /></button>
                                 </div>
                             </div>
@@ -195,23 +265,25 @@ const ExplorePage = () => {
                 )}
             </section>
 
+            {/* CURATED COLLECTIONS */}
             <section className="collections-section">
                 <div className="section-header"><h3>Curated Collections</h3></div>
                 <div className="collections-grid">
                     {collections.map(col => (
                         <div key={col.id} className="collection-card" onClick={() => setActiveCollection(col)}>
                             <img src={col.image_url} alt={col.title} className="col-bg" />
-                            <div className="col-overlay"><div><h5>{col.title}</h5><p>{col.subtitle}</p></div><ArrowUpRight className="col-icon" /></div>
+                            <div className="col-overlay">
+                              <div><h5>{col.title}</h5><p>{col.subtitle}</p></div>
+                              <ArrowUpRight className="col-icon" />
+                            </div>
                         </div>
                     ))}
                 </div>
             </section>
 
-            {/* --- RE-ADDED VISUAL INSPIRATION FEED --- */}
+            {/* VISUAL INSPIRATION FEED */}
             <section className="inspiration-section">
-                <div className="section-header">
-                    <h3>Visual Inspiration</h3>
-                </div>
+                <div className="section-header"><h3>Visual Inspiration</h3></div>
                 <div className="masonry-grid">
                     {featuredWorks.map(work => (
                         <div key={work.id} className="work-card">

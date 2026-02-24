@@ -2,6 +2,71 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
 
+// --- POST /api/v1/bookings ---
+// --- POST /api/v1/bookings ---
+router.post('/', async (req, res) => {
+    try {
+        const { 
+            client_id, 
+            provider_id, 
+            booking_title, 
+            start_time, 
+            end_time, 
+            total_price, 
+            special_requirements 
+        } = req.body;
+
+        // 1. Insert the Booking record
+        const { data: booking, error: bookingError } = await supabase
+            .from('bookings')
+            .insert([{
+                client_id,
+                provider_id,
+                booking_title,
+                start_time,
+                end_time,
+                total_price,
+                special_requirements,
+                status: 'pending',
+                payment_status: 'pending'
+            }])
+            .select()
+            .single();
+
+        if (bookingError) throw bookingError;
+
+        // --- ⚡ START NOTIFICATION TRIGGER ⚡ ---
+        // Fetch profiles to get names for the notification content
+        const { data: clientProfile } = await supabase.from('profiles').select('full_name').eq('user_id', client_id).single();
+        const { data: providerProfile } = await supabase.from('profiles').select('full_name').eq('user_id', provider_id).single();
+
+        // A. Notify the Provider (Photographer) - "You have a new request"
+        await supabase.from('notifications').insert({
+            user_id: provider_id,
+            type: 'booking',
+            title: 'New Booking Request',
+            content: `${clientProfile?.full_name || 'A client'} requested a session: "${booking_title}"`,
+            related_id: booking.id // Link to the specific booking ID
+        });
+
+        // B. Notify the Client - "Your request was sent"
+        await supabase.from('notifications').insert({
+            user_id: client_id,
+            type: 'booking',
+            title: 'Booking Sent',
+            content: `Your request for "${booking_title}" has been sent to ${providerProfile?.full_name || 'the photographer'}.`,
+            related_id: booking.id
+        });
+        // --- ⚡ END NOTIFICATION TRIGGER ⚡ ---
+
+        res.status(201).json(booking);
+
+    } catch (err) {
+        console.error('Booking Notification Error:', err.message);
+        res.status(500).json({ error: 'Failed to create booking or notification' });
+    }
+});
+
 // --- GET /api/v1/bookings/manage ---
 // Usage: http://localhost:5000/api/v1/bookings/manage?providerId=YOUR_UUID
 router.get('/manage', async (req, res) => {

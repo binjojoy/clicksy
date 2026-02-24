@@ -512,3 +512,196 @@
     color: white;
     border-color: #7c3aed;
 }
+
+/* --- Hover Button UI --- */
+.pg-overlay-top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.btn-book-overlay {
+    background: rgba(124, 58, 237, 0.9); /* Purple with transparency */
+    backdrop-filter: blur(8px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Initially hidden for conditional rendering */
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/* --- The Conditional Reveal --- */
+.pg-card-lg:hover .btn-book-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-book-overlay:hover {
+    background: #7c3aed;
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+    transform: scale(1.05);
+}
+
+/* Ensure the heart button stays visible or adjust as needed */
+.btn-heart {
+    transition: all 0.3s ease;
+}
+
+/* --- EXPLORE PAGE GLOBAL --- */
+.page-container {
+    min-height: 100vh;
+    background: #000;
+    color: white;
+}
+
+/* --- OVERLAY MODAL (Material Glass) --- */
+.location-overlay-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.location-glass-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2.5rem;
+    width: 100%;
+    max-width: 800px;
+    max-height: 80vh;
+    padding: 3rem;
+    position: relative;
+    overflow-y: auto;
+}
+
+/* --- PHOTOGRAPHER CARDS & HOVER LOGIC --- */
+.pg-card-lg {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.pg-card-lg:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.pg-card-image {
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+}
+
+.pg-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.pg-card-lg:hover .pg-card-image img {
+    transform: scale(1.05);
+}
+
+/* --- CONDITIONAL RENDERING (BOOK NOW) --- */
+.pg-card-overlay {
+    position: absolute;
+    inset: 0;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(0,0,0,0.6) 100%);
+}
+
+.pg-overlay-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-book-overlay {
+    background: #7c3aed;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Hide by default */
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.pg-card-lg:hover .btn-book-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- HEART BUTTON UI --- */
+.btn-heart {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-heart:hover {
+    transform: scale(1.15);
+}
+
+.btn-heart.active {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* --- MASONRY GRID --- */
+.masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    grid-auto-rows: 200px;
+}
+
+.work-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.work-card:nth-child(even) { grid-row: span 2; }
+.work-card:nth-child(3n) { grid-row: span 1.5; }
+
+.work-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

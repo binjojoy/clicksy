@@ -1,0 +1,600 @@
+/* --- Booking Page Theme --- */
+.booking-page-container {
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% -20%, #2e1065, #000000);
+    color: white;
+}
+
+.booking-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 120px 1.5rem 60px;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 2.5rem;
+}
+
+/* --- Glassmorphism Card --- */
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Form Styling --- */
+.booking-form-section h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, #ffffff, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.booking-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.booking-group label {
+    font-size: 0.85rem;
+    color: #a1a1aa;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.booking-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.85rem;
+    padding: 1rem;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.booking-input:focus {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
+}
+
+.booking-textarea {
+    min-height: 120px;
+    resize: none;
+}
+
+/* --- Photographer Summary Card --- */
+.summary-card {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    text-align: center;
+}
+
+.photographer-avatar-lg {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1.5rem;
+    border: 3px solid #7c3aed;
+    padding: 4px;
+    background: #000;
+}
+
+.price-breakdown {
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    color: #a1a1aa;
+    font-size: 0.95rem;
+}
+
+.price-row.total {
+    color: white;
+    font-weight: 800;
+    font-size: 1.25rem;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+/* --- Action Button --- */
+.btn-submit-booking {
+    width: 100%;
+    margin-top: 2rem;
+    padding: 1.2rem;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.btn-submit-booking:hover {
+    background: #8b5cf6;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
+}
+
+/* --- Mobile Fix --- */
+@media (max-width: 768px) {
+    .booking-wrapper {
+        grid-template-columns: 1fr;
+        padding-top: 100px;
+    }
+    .input-grid { grid-template-columns: 1fr; }
+    .summary-card { order: -1; position: static; }
+}
+
+.overflow-hidden {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Added for the Popper checkmark shadow */
+.shadow-purple-500\/20 {
+    box-shadow: 0 20px 40px -10px rgba(168, 85, 247, 0.2);
+}
+
+/* Force the no-scroll to work and keep the overlay visible */
+.no-scroll {
+    overflow: hidden !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    position: fixed !important;
+}
+
+/* Ensure framer motion exit/entry doesn't hide the container */
+.booking-page-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Add a spotlight effect to the success card */
+.shadow-2xl {
+    box-shadow: 0 0 50px rgba(124, 58, 237, 0.3) !important;
+}
+
+/* --- SUCCESS OVERLAY SPECIFIC (Standard CSS) --- */
+
+.success-overlay-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000; /* Stays on top of everything */
+}
+
+.success-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+}
+
+.success-card {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    background: rgba(24, 24, 27, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.success-icon-circle {
+    width: 80px;
+    height: 80px;
+    background: rgba(168, 85, 247, 0.15);
+    color: #a855f7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.success-summary-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 24px;
+    text-align: left;
+    margin: 32px 0;
+}
+
+.summary-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 16px;
+}
+
+.summary-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #7c3aed;
+}
+
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #d4d4d8;
+    font-size: 0.95rem;
+}
+
+.success-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.btn-secondary-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 16px;
+    border-radius: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-primary-solid {
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-primary-solid:hover {
+    background: #6d28d9;
+    transform: translateY(-2px);
+}
+
+/* --- Success UI Overhaul --- */
+.success-overlay-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.success-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(25px); /* Increased blur for professional look */
+    -webkit-backdrop-filter: blur(25px);
+}
+
+.success-card {
+    position: relative;
+    width: 90%;
+    max-width: 440px;
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2.5rem;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(124, 58, 237, 0.2);
+}
+
+.success-icon-circle {
+    width: 72px;
+    height: 72px;
+    background: rgba(124, 58, 237, 0.1);
+    color: #a78bfa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.success-title {
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.success-subtitle {
+    color: #a1a1aa;
+    font-size: 0.9rem;
+    margin-bottom: 2.5rem;
+}
+
+/* --- Receipt Detail Box --- */
+.success-details-receipt {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.receipt-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+}
+
+.receipt-icon {
+    color: #7c3aed;
+    opacity: 0.8;
+}
+
+.receipt-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.receipt-label {
+    font-size: 0.65rem;
+    color: #71717a;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.receipt-value {
+    font-size: 0.95rem;
+    color: white;
+    font-weight: 600;
+}
+
+/* --- Updated Actions --- */
+.success-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.btn-secondary-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary-solid {
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* --- Material Glass Success Overlay --- */
+.glass-overlay-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.glass-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px); /* Deep blur for the background content */
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.material-glass-card {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.05); /* Very light tint */
+    backdrop-filter: blur(10px); /* Secondary blur for the card itself */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 3rem;
+    padding: 3rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.glass-success-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.glass-check-icon {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+}
+
+.glass-success-header h2 {
+    color: white;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.glass-success-header p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+}
+
+/* --- Receipt Styling --- */
+.glass-receipt-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2rem;
+    padding: 1.5rem;
+    display: grid;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+}
+
+.receipt-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.receipt-icon-box {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a78bfa;
+}
+
+.receipt-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.receipt-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 700;
+}
+
+.receipt-value {
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* --- Glass Buttons --- */
+.glass-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.glass-btn {
+    padding: 1.1rem;
+    border-radius: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.glass-btn.primary {
+    background: #7c3aed;
+    color: white;
+}
+
+.glass-btn.secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.glass-btn.primary:hover {
+    background: #6d28d9;
+    box-shadow: 0 10px 20px rgba(124, 58, 237, 0.4);
+}

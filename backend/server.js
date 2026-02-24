@@ -28,7 +28,7 @@ app.use('/api/v1/profile',profileRoutes);
 app.use('/api/v1/community', communityRoutes);
 app.use('/api/v1/recommendations', recommendationRoutes);
 app.use('/api/v1/activity',activityRoutes);
-app.use('api/v1/saved',savedRoutes);
+app.use('/api/v1/saved',savedRoutes);
 app.use('/api/v1/explore', exploreRoutes);
 
 app.get('/', (req, res) => {

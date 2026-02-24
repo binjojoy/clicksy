@@ -1,127 +1,122 @@
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { toast } from "../components/Toaster.jsx";
+import { Calendar, Clock, MessageSquare, ShieldCheck, ArrowRight } from "lucide-react";
+import BookingSuccessOverlay from "../components/BookingSuccessOverlay.jsx";
+import "../styles/Booking.css";
+
+const API_BASE_URL = 'http://localhost:5000/api/v1';
 
 const Booking = () => {
-  const handleSubmit = (e) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { photographer } = location.state || {};
+
+  const [formData, setFormData] = useState({ date: "", startTime: "", endTime: "", requirements: "" });
+  const [submitting, setSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // Manage body scroll lock
+  useEffect(() => {
+    if (showSuccess) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+    return () => document.body.classList.remove('no-scroll');
+  }, [showSuccess]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.success("Booking request submitted! We'll contact you soon.");
+    setSubmitting(true);
+    const clientId = localStorage.getItem('user_id'); 
+    
+    if (!clientId) {
+        toast.error("Please login to book.");
+        setSubmitting(false);
+        return navigate("/login");
+    }
+
+    try {
+        const payload = {
+            client_id: clientId,
+            provider_id: photographer.id,
+            booking_title: `${photographer.category || 'Photography'} Session`,
+            start_time: new Date(`${formData.date}T${formData.startTime}`).toISOString(),
+            end_time: new Date(`${formData.date}T${formData.endTime}`).toISOString(),
+            total_price: parseFloat(photographer.hourly_rate) || 0,
+            special_requirements: formData.requirements,
+            status: 'pending'
+        };
+
+        const res = await axios.post(`${API_BASE_URL}/bookings`, payload);
+        if (res.status === 201 || res.status === 200) setShowSuccess(true);
+    } catch (err) {
+        toast.error("Booking failed. Please check your network.");
+    } finally {
+        setSubmitting(false);
+    }
   };
 
+  if (!photographer) return null;
+
   return (
-    <div className="min-h-screen">
+    <div className="booking-page-container">
       <Navbar />
-
-      <section className="pt-32 pb-20 px-4">
-        <div className="container max-w-2xl">
-          <div className="text-center mb-12">
-            <svg
-              width="64"
-              height="64"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="mx-auto mb-4"
-              style={{ color: 'var(--primary)' }}
-            >
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-              <line x1="16" y1="2" x2="16" y2="6" />
-              <line x1="8" y1="2" x2="8" y2="6" />
-              <line x1="3" y1="10" x2="21" y2="10" />
-            </svg>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Book a Session
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Let's capture your special moments
-            </p>
-          </div>
-
-          <div className="card">
-            <div className="card-header">
-              <h2 className="card-title">Event Details</h2>
-              <p className="card-description">
-                Fill in the details below and we'll get back to you
-              </p>
+      <main className="booking-wrapper">
+        <div className="glass-card booking-form-section">
+          <h2>Secure Your Session</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="input-grid">
+              <div className="booking-group">
+                <label><Calendar size={16} /> Date</label>
+                <input type="date" required className="booking-input" onChange={e => setFormData({...formData, date: e.target.value})} />
+              </div>
+              <div className="booking-group">
+                <label><Clock size={16} /> Start Time</label>
+                <input type="time" required className="booking-input" onChange={e => setFormData({...formData, startTime: e.target.value})} />
+              </div>
             </div>
-            <div className="card-content">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="input-group">
-                    <label htmlFor="name" className="label">Full Name</label>
-                    <input
-                      id="name"
-                      type="text"
-                      placeholder="John Doe"
-                      required
-                      className="input"
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label htmlFor="email" className="label">Email</label>
-                    <input
-                      id="email"
-                      type="email"
-                      placeholder="john@example.com"
-                      required
-                      className="input"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="input-group">
-                    <label htmlFor="phone" className="label">Phone</label>
-                    <input
-                      id="phone"
-                      type="tel"
-                      placeholder="+1 (555) 000-0000"
-                      required
-                      className="input"
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label htmlFor="date" className="label">Preferred Date</label>
-                    <input
-                      id="date"
-                      type="date"
-                      required
-                      className="input"
-                    />
-                  </div>
-                </div>
-
-                <div className="input-group">
-                  <label htmlFor="event-type" className="label">Event Type</label>
-                  <input
-                    id="event-type"
-                    type="text"
-                    placeholder="Wedding, Portrait, Event, etc."
-                    required
-                    className="input"
-                  />
-                </div>
-
-                <div className="input-group">
-                  <label htmlFor="message" className="label">Additional Details</label>
-                  <textarea
-                    id="message"
-                    placeholder="Tell us more about your event..."
-                    required
-                    className="textarea"
-                  />
-                </div>
-
-                <button type="submit" className="btn btn-primary w-full">
-                  Submit Booking Request
-                </button>
-              </form>
+            <div className="booking-group" style={{marginTop: '24px'}}>
+              <label><Clock size={16} /> End Time</label>
+              <input type="time" required className="booking-input" onChange={e => setFormData({...formData, endTime: e.target.value})} />
             </div>
+            <div className="booking-group" style={{marginTop: '24px'}}>
+              <label><MessageSquare size={16} /> Requirements</label>
+              <textarea className="booking-input booking-textarea" placeholder="Details..." onChange={e => setFormData({...formData, requirements: e.target.value})} />
+            </div>
+            <button type="submit" className="btn-submit-booking" disabled={submitting}>
+              {submitting ? "Processing..." : "Confirm Booking"} <ArrowRight size={20} />
+            </button>
+          </form>
+        </div>
+
+        <div className="glass-card summary-card">
+          <img src={photographer.image} className="photographer-avatar-lg" alt={photographer.name} />
+          <h3 className="text-xl font-bold">{photographer.name}</h3>
+          <p className="text-purple-400 text-sm font-semibold uppercase">{photographer.category}</p>
+          <div className="price-breakdown">
+            <div className="price-row"><span>Rate</span><span>{photographer.price}</span></div>
+            <div className="price-row total"><span>Total</span><span>{photographer.price}</span></div>
           </div>
         </div>
-      </section>
+      </main>
 
+      <BookingSuccessOverlay 
+        isVisible={showSuccess}
+        details={{
+          photographerName: photographer.name,
+          photographerImage: photographer.image,
+          category: photographer.category,
+          date: formData.date,
+          time: `${formData.startTime} - ${formData.endTime}`
+        }}
+        onHome={() => navigate("/")}
+        onMore={() => navigate("/explore")}
+      />
       <Footer />
     </div>
   );
