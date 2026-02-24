@@ -33,7 +33,7 @@ const Navbar = () => {
   const photographerLinks = [
     { path: "/dashboard", label: "Dashboard" },
     { path: "/portfolio", label: "Portfolio" }, 
-    { path: "/booking", label: "Bookings" },    
+    //{ path: "/booking", label: "Bookings" },    
     { path: "/community", label: "Community" },
     { path: "/marketplace", label: "Marketplace" },
     { path: "/learn", label: "Learn" },
