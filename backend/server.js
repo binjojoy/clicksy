@@ -11,6 +11,7 @@ const communityRoutes = require('./routes/communityRoutes');
 const recommendationRoutes = require('./routes/recommendationRoutes');
 const activityRoutes= require('./routes/activityRoutes');
 const savedRoutes=require('./routes/savedRoutes');
+const exploreRoutes = require('./routes/exploreRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000; 
@@ -28,6 +29,7 @@ app.use('/api/v1/community', communityRoutes);
 app.use('/api/v1/recommendations', recommendationRoutes);
 app.use('/api/v1/activity',activityRoutes);
 app.use('api/v1/saved',savedRoutes);
+app.use('/api/v1/explore', exploreRoutes);
 
 app.get('/', (req, res) => {
     res.send('CLICKSY Backend Server is Running and Connected to Supabase!');

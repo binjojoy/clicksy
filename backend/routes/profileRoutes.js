@@ -370,4 +370,106 @@ router.get('/:userId/following', async (req, res) => {
         res.status(500).json({ error: 'Server Error' });
     }
 });
+
+// Route: GET /api/v1/profile/explore/photographers
+// Route: GET /api/v1/profile/explore/photographers
+router.get('/explore/photographers', async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('user_type', 'photographer') // Standardized role
+            .order('is_verified', { ascending: false });
+
+        if (error) throw error;
+        res.status(200).json(data);
+    } catch (err) {
+        console.error('Error:', err.message);
+        res.status(500).json({ error: 'Server Error' });
+    }
+});
+
+// Route: GET /api/v1/profile/explore/inspiration
+// Route: GET /api/v1/profile/explore/inspiration
+router.get('/explore/inspiration', async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('portfolio_items')
+            .select(`
+                id, 
+                title, 
+                media_url, 
+                profiles (
+                    full_name
+                )
+            `)
+            .order('created_at', { ascending: false })
+            .limit(12);
+
+        if (error) throw error;
+
+        // Flatten the data so the frontend gets exactly what it needs
+        const formatted = data.map(item => ({
+            id: item.id,
+            title: item.title || "Untitled",
+            image_url: item.media_url, // Maps to your schema
+            photographer_name: item.profiles?.full_name || "Anonymous"
+        }));
+
+        res.status(200).json(formatted);
+    } catch (err) {
+        console.error('Inspiration Route Error:', err.message);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Route: GET /api/v1/profile/explore/locations
+
+router.get('/explore/locations', async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('location')
+            .eq('user_type', 'photographer')
+            .not('location', 'is', null);
+
+        if (error) throw error;
+
+        // Normalize to lowercase for counting, then capitalize for the UI
+        const counts = data.reduce((acc, profile) => {
+            const loc = profile.location.trim().toLowerCase();
+            if (loc) {
+                const display = loc.charAt(0).toUpperCase() + loc.slice(1);
+                acc[display] = (acc[display] || 0) + 1;
+            }
+            return acc;
+        }, {});
+
+        // Sort by count descending
+        const sorted = Object.entries(counts)
+            .map(([name, count]) => ({ name, count }))
+            .sort((a, b) => b.count - a.count);
+
+        res.status(200).json(sorted);
+    } catch (err) {
+        res.status(500).json({ error: 'Server Error' });
+    }
+});
+
+// Route: GET /api/v1/profile/explore/collections
+router.get('/explore/collections', async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('collections')
+            .select('*')
+            .order('id', { ascending: true });
+
+        if (error) throw error;
+        res.status(200).json(data);
+    } catch (err) {
+        console.error('Collections Fetch Error:', err.message);
+        res.status(500).json({ error: 'Failed to load collections' });
+    }
+});
+
 module.exports = router;
