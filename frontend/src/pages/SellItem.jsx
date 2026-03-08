@@ -237,7 +237,7 @@ const SellItem = () => {
                                 {/* --- ALGORITHM RESULT DISPLAY --- */}
                                 {predictedPrice && (
                                     <span className="smart-price-hint">
-                                        ✨ Market Value: ${predictedPrice}
+                                        ✨ Market Value: ₹{predictedPrice}
                                     </span>
                                 )}
                             </div>
