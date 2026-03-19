@@ -1,0 +1,35 @@
+{
+  "features": [
+    "condition_score",
+    "age_at_sale",
+    "log_new_price",
+    "category_encoded",
+    "brand_tier"
+  ],
+  "best_k": 7,
+  "brand_tier": {
+    "Leica": 2.5,
+    "Profoto": 2.2,
+    "Sony": 1.8,
+    "Canon": 1.7,
+    "Nikon": 1.7,
+    "Fujifilm": 1.5,
+    "DJI": 1.4,
+    "Rode": 1.3,
+    "GoPro": 1.1,
+    "Godox": 0.9,
+    "Other": 0.85
+  },
+  "category_list": [
+    "Camera Body",
+    "Lens",
+    "Drone",
+    "Lighting",
+    "Audio",
+    "Stabilizer",
+    "Accessory"
+  ],
+  "mae": 4800,
+  "r2": 0.9507,
+  "mape": 14.9
+}
