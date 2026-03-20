@@ -21,6 +21,7 @@ import EditProfile from './pages/EditProfile';
 import CategoryGallery from './pages/CategoryGallery';
 import ItemDetails from './pages/ItemDetails';
 import ExplorePage from "./pages/ExplorePage";
+import ExplorePhotographer from "./pages/ExplorePhotographer";
 import SavedPage from "./pages/SavedPage";
 import ClientBooking from "./pages/ClientBooking";
 import Profiles from './pages/Profiles';
@@ -77,6 +78,7 @@ function App() {
             <Route path="/community" element={<PageTransition><Community /></PageTransition>} />
             <Route path="/learn" element={<PageTransition><Learn /></PageTransition>} />
             <Route path="/marketplace" element={<PageTransition><Marketplace /></PageTransition>} />
+            <Route path="/explore-photographers" element={<PageTransition><ExplorePhotographer /></PageTransition>} />
             <Route path="/saved" element={<PageTransition><SavedPage /></PageTransition>} />
             //done and dusted
             {/* Action pages */}

@@ -35,6 +35,7 @@ const Navbar = () => {
     { path: "/portfolio", label: "Portfolio" }, 
     //{ path: "/booking", label: "Bookings" },    
     { path: "/community", label: "Community" },
+    { path: "/explore-photographers", label: "Explore" },
     { path: "/marketplace", label: "Marketplace" },
     { path: "/learn", label: "Learn" },
   ];
