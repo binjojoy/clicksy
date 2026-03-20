@@ -7,6 +7,7 @@ import {
     Edit3, MapPin, Link as LinkIcon, Heart, ShieldCheck, 
     Bookmark, Sparkles, ArrowRight, Loader2, UserPlus, Check
 } from 'lucide-react'; // Added UserPlus, Check icons
+import { supabase } from '../services/supabaseClient';
 import '../styles/Profiles.css';
 
 const SignatureProfile = () => {
@@ -24,6 +25,10 @@ const SignatureProfile = () => {
     // --- NEW: FOLLOW STATE ---
     const [isFollowing, setIsFollowing] = useState(false);
     const [followStats, setFollowStats] = useState({ followers: 0, following: 0 });
+
+    // --- APPRECIATION STATE ---
+    const [appreciationCount, setAppreciationCount] = useState(0);
+    const [loadingAppreciation, setLoadingAppreciation] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0); 
@@ -69,6 +74,42 @@ const SignatureProfile = () => {
         fetchData();
     }, [id, navigate]);
 
+    useEffect(() => {
+        const targetId = id || localStorage.getItem('user_id');
+        if (!targetId) return;
+
+        const fetchAppreciations = async () => {
+            setLoadingAppreciation(true);
+            try {
+                const res = await api.get(`/appreciations/count/${targetId}`);
+                setAppreciationCount(res.data.count);
+            } catch(err) {
+                console.error("Error fetching appreciations:", err);
+            } finally {
+                setLoadingAppreciation(false);
+            }
+        };
+
+        fetchAppreciations();
+
+        // Realtime Subscription
+        const channel = supabase
+            .channel('appreciations-count')
+            .on('postgres_changes', {
+                event: '*',
+                schema: 'public',
+                table: 'appreciations',
+                filter: `photographer_id=eq.${targetId}`
+            }, () => {
+                fetchAppreciations();
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+    }, [id]);
+
     // --- NEW: HANDLE FOLLOW ACTION ---
     const handleFollow = async () => {
         const currentUserId = localStorage.getItem('user_id');
@@ -106,6 +147,7 @@ const SignatureProfile = () => {
     // Helper for formatting stats
     const formatNumber = (num) => {
         if (!num) return 0;
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
         if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
         return num;
     };
@@ -180,7 +222,12 @@ const SignatureProfile = () => {
                                 <span className="sig-stat-lbl">Followers</span>
                             </div>
                             <div className="sig-stat-box">
-                                <span className="sig-stat-val">{formatNumber(portfolioStats.likes)}</span>
+                                {/* APPRECIATION COUNT */}
+                                {loadingAppreciation ? (
+                                    <div className="sig-stat-val" style={{ width: '40px', height: '24px', background: '#27272a', borderRadius: '4px', margin: '0 auto', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }}></div>
+                                ) : (
+                                    <span className="sig-stat-val">{formatNumber(appreciationCount)}</span>
+                                )}
                                 <span className="sig-stat-lbl">Appreciation</span>
                             </div>
                         </div>
