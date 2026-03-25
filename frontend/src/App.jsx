@@ -30,6 +30,7 @@ import Privacy from './pages/Privacy';
 import NetworkError from './pages/NetworkError';
 import NotFound from './pages/NotFound';
 import NotificationsPage from './pages/NotificationsPage';
+import InboxPage from './pages/InboxPage';
 
 // Security & Transitions
 import PageTransition from './components/PageTransition';
@@ -87,6 +88,8 @@ function App() {
             <Route path="/marketplace/sell-item" element={<PageTransition><SellItem /></PageTransition>} />
             <Route path="/my-bookings" element={<PageTransition><ClientBooking /></PageTransition>} />
             <Route path="/activity" element={<PageTransition><NotificationsPage /></PageTransition>} />
+            <Route path="/messages" element={<PageTransition><InboxPage /></PageTransition>} />
+            <Route path="/messages/:threadId" element={<PageTransition><InboxPage /></PageTransition>} />
           </Route>
 
         </Routes>
