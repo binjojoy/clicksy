@@ -48,7 +48,7 @@ const ItemDetails = () => {
       }
 
       // 2. Guard: can't message your own listing
-      if (userId === item.user_id) {
+      if (String(userId).trim() === String(item.user_id).trim()) {
         alert('This is your own listing');
         return;
       }

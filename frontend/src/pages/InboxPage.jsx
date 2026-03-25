@@ -38,13 +38,18 @@ function getInitials(name) {
 async function fetchProfile(userId) {
   if (!userId) return null;
   try {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .select('user_id, full_name, avatar_url')
       .eq('user_id', userId)
-      .single();
+      .maybeSingle();
+    if (error) {
+      console.error('fetchProfile error for', userId, error);
+      return null;
+    }
     return data;
-  } catch {
+  } catch (err) {
+    console.error('fetchProfile exception:', err);
     return null;
   }
 }

@@ -81,12 +81,12 @@ const SellItem = () => {
         try {
             setLoading(true);
 
-            let finalUserId;
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                finalUserId = user.id;
-            } else {
-                finalUserId = "00000000-0000-0000-0000-000000000000"; 
+            // Use localStorage user_id (same as what the backend stores)
+            const finalUserId = localStorage.getItem('user_id');
+            if (!finalUserId) {
+                alert("You must be logged in to list an item.");
+                navigate('/auth');
+                return;
             }
 
             const fileExt = file.name.split('.').pop();

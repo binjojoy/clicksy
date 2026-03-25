@@ -37,6 +37,7 @@ const Navbar = () => {
     { path: "/community", label: "Community" },
     { path: "/explore-photographers", label: "Explore" },
     { path: "/marketplace", label: "Marketplace" },
+    { path: "/messages", label: "Messages" },
     { path: "/learn", label: "Learn" },
   ];
 
@@ -44,7 +45,8 @@ const Navbar = () => {
     { path: "/dashboard", label: "Home" },
     { path: "/explore", label: "Explore" },      
     { path: "/my-bookings", label: "My Bookings" }, 
-    { path: "/saved", label: "Saved" },          
+    { path: "/saved", label: "Saved" },
+    { path: "/messages", label: "Messages" },
   ];
 
   // ⚡ 4. DYNAMIC ROUTING LOGIC
