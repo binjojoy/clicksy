@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'; // Added UserPlus, Check icons
 import { supabase } from '../services/supabaseClient';
 import AvatarFallback from '../components/AvatarFallback.jsx';
+import ClientProfile from './ClientProfile';
 import '../styles/Profiles.css';
 
 const SignatureProfile = () => {
@@ -44,29 +45,32 @@ const SignatureProfile = () => {
                     return;
                 }
 
-                // Parallel Fetch: Profile + Portfolio + Recs + FOLLOW STATS
-                const [profileRes, portfolioRes, recRes, followRes] = await Promise.all([
-                    api.get(`/profile/${targetId}`),
-                    api.get(`/profile/${targetId}/portfolio`),
-                    api.get(`/recommendations/peers?userId=${targetId}`),
-                    // New Route Call
-                    api.get(`/profile/${targetId}/follow-stats?currentUserId=${currentUserId}`)
-                ]);
-
+                // 1. Critical Fetch: Core Profile Data
+                const profileRes = await api.get(`/profile/${targetId}`);
                 setProfile(profileRes.data);
-                setPortfolioData(portfolioRes.data.portfolio);
-                setPortfolioStats(portfolioRes.data.stats);
-                setRecommendations(recRes.data);
                 
-                // Set Follow Data
-                setIsFollowing(followRes.data.isFollowing);
-                setFollowStats({
-                    followers: followRes.data.followersCount,
-                    following: followRes.data.followingCount
-                });
+                // 2. Asynchronous Secondary Fetches
+                api.get(`/profile/${targetId}/portfolio`)
+                    .then(res => {
+                        setPortfolioData(res.data.portfolio || []);
+                        setPortfolioStats(res.data.stats || { shots: 0, likes: 0 });
+                    }).catch(err => console.warn("Portfolio unavailable"));
+
+                api.get(`/recommendations/peers?userId=${targetId}`)
+                    .then(res => setRecommendations(res.data || []))
+                    .catch(err => console.warn("Recommendations unavailable"));
+
+                api.get(`/profile/${targetId}/follow-stats?currentUserId=${currentUserId}`)
+                    .then(res => {
+                        setIsFollowing(res.data.isFollowing);
+                        setFollowStats({
+                            followers: res.data.followersCount || 0,
+                            following: res.data.followingCount || 0
+                        });
+                    }).catch(err => console.warn("Follow stats unavailable"));
 
             } catch (error) {
-                console.error("Error loading profile:", error);
+                console.error("Error loading core profile data:", error);
             } finally {
                 setLoading(false);
             }
@@ -152,6 +156,9 @@ const SignatureProfile = () => {
         return num;
     };
 
+    // ==========================================
+    // 📸 THIS IS THE PHOTOGRAPHER PROFILE RENDER
+    // ==========================================
     return (
         <div className="sig-page-wrapper">
             <Navbar />
@@ -288,4 +295,57 @@ const SignatureProfile = () => {
     );
 };
 
-export default SignatureProfile;
+// ==========================================
+// 🚀 PROFILE ROUTER (DISPATCHER)
+// ==========================================
+// Intercepts the route to render Client vs Photographer profile
+const ProfileRouter = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [userType, setUserType] = useState(null);
+
+    useEffect(() => {
+        const fetchUserType = async () => {
+             const targetId = id || localStorage.getItem('user_id');
+             if (!targetId) { 
+                 navigate('/login'); 
+                 return; 
+             }
+             
+             // ⚡ FAST-TRACK: If viewing own profile, we already know the role!
+             if (!id || id === localStorage.getItem('user_id')) {
+                 setUserType(localStorage.getItem('userRole'));
+                 setLoading(false);
+                 return;
+             }
+
+             try {
+                 const res = await api.get(`/profile/${targetId}`);
+                 // Profile is returned as res.data
+                 setUserType(res.data.user_type);
+             } catch (err) {
+                 console.error("Error determining user type:", err);
+             } finally {
+                 setLoading(false);
+             }
+        };
+
+        fetchUserType();
+    }, [id, navigate]);
+
+    if (loading) return (
+        <div className="min-h-screen bg-black flex items-center justify-center">
+            <Loader2 className="animate-spin text-purple-500" size={40} />
+        </div>
+    );
+
+    // Render ClientProfile if client, else default to standard SignatureProfile (Photographer)
+    if (userType === 'client') {
+        return <ClientProfile profileId={id} />;
+    }
+
+    return <SignatureProfile />;
+};
+
+export default ProfileRouter;

@@ -17,7 +17,7 @@ const Navbar = () => {
 
   // ⚡ 2. Read role directly from storage
   const [userRole, setUserRole] = useState(() => {
-    return localStorage.getItem("userRole"); 
+    return localStorage.getItem("userRole");
   });
 
   const [userName, setUserName] = useState(() => {
@@ -38,7 +38,7 @@ const Navbar = () => {
   // --- 3. MENU DEFINITIONS ---
   const photographerLinks = [
     { path: "/dashboard", label: "Dashboard" },
-    { path: "/portfolio", label: "Portfolio" }, 
+    { path: "/portfolio", label: "Portfolio" },
     //{ path: "/booking", label: "Bookings" },    
     { path: "/community", label: "Community" },
     { path: "/explore-photographers", label: "Explore" },
@@ -49,14 +49,15 @@ const Navbar = () => {
 
   const clientLinks = [
     { path: "/dashboard", label: "Home" },
-    { path: "/explore", label: "Explore" },      
-    { path: "/my-bookings", label: "My Bookings" }, 
+    { path: "/explore", label: "Explore" },
+    { path: "/my-bookings", label: "My Bookings" },
+    { path: "/portfolio", label: "Portfolio" },
     { path: "/saved", label: "Saved" },
     { path: "/messages", label: "Messages" },
   ];
 
   // ⚡ 4. DYNAMIC ROUTING LOGIC
-  const navLinks = isAuthenticated 
+  const navLinks = isAuthenticated
     ? (userRole === "photographer" ? photographerLinks : clientLinks)
     : [];
 
@@ -65,10 +66,10 @@ const Navbar = () => {
   // ⚡ 5. LOGOUT LOGIC
   const handleLogout = () => {
     localStorage.removeItem("userToken");
-    localStorage.removeItem("userRole"); 
+    localStorage.removeItem("userRole");
     localStorage.removeItem("userName");
     localStorage.removeItem("user_id");
-    
+
     setIsAuthenticated(false);
     setUserRole(null);
     navigate("/auth");
@@ -77,7 +78,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="container navbar-container">
-        
+
         {/* === LOGO === */}
         <Link to="/" className="navbar-logo">
           <div className="logo-icon-wrapper">
@@ -86,12 +87,12 @@ const Navbar = () => {
               <circle cx="12" cy="13" r="3" />
             </svg>
           </div>
-          <span className="logo-text">CLICKSY</span> 
+          <span className="logo-text">CLICKSY</span>
         </Link>
 
         {/* === DESKTOP NAVIGATION === */}
         <div className="nav-links-desktop hidden md:flex" style={{ display: 'flex', flexGrow: 1, justifyContent: navLinks.length > 0 ? 'space-between' : 'flex-end', alignItems: 'center' }}>
-          
+
           {/* Render Links (Only visible if logged in) */}
           {navLinks.length > 0 && (
             <div className="navbar-links flex gap-6 mx-auto">
@@ -112,20 +113,20 @@ const Navbar = () => {
             {isAuthenticated ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
                 {/* Profile Link */}
-                <Link 
-                    to="/profiles" 
-                    style={{ 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        gap: '0.4rem', 
-                        color: '#e5e7eb', 
-                        textDecoration: 'none', 
-                        fontWeight: 500, 
-                        fontSize: '0.95rem', 
-                        transition: 'color 0.2s' 
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = '#7c3aed'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = '#e5e7eb'}
+                <Link
+                  to="/profiles"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    color: '#e5e7eb',
+                    textDecoration: 'none',
+                    fontWeight: 500,
+                    fontSize: '0.95rem',
+                    transition: 'color 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#7c3aed'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#e5e7eb'}
                 >
                   <AvatarFallback name={userName} imageUrl={null} size="sm" /> Profile
                 </Link>
@@ -145,7 +146,7 @@ const Navbar = () => {
 
         {/* === MOBILE MENU TOGGLE BUTTON === */}
         <button
-          className="mobile-menu-button md:hidden" 
+          className="mobile-menu-button md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? (
@@ -165,7 +166,7 @@ const Navbar = () => {
 
       {/* === MOBILE MENU DROPDOWN === */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        
+
         {/* Render Mobile Links */}
         <div className="flex flex-col mb-4">
           {navLinks.map((link) => (
@@ -182,29 +183,29 @@ const Navbar = () => {
 
         {/* Mobile Auth Buttons */}
         <div className="nav-auth-mobile flex flex-col gap-3 border-t border-gray-800 pt-4">
-            {isAuthenticated ? (
-                <>
-                    <Link 
-                        to="/profiles" 
-                        className="mobile-menu-link" 
-                        onClick={() => setMobileMenuOpen(false)}
-                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-                    >
-                        <AvatarFallback name={userName} imageUrl={null} size="sm" /> Profile
-                    </Link>
-                    <button 
-                        onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
-                        className="btn-signup w-full"
-                    >
-                        Logout
-                    </button>
-                </>
-            ) : (
-                <>
-                    <Link to="/auth" className="btn-login w-full text-center" onClick={() => setMobileMenuOpen(false)}>Login</Link>
-                    <Link to="/auth" className="btn-signup w-full text-center" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
-                </>
-            )}
+          {isAuthenticated ? (
+            <>
+              <Link
+                to="/profiles"
+                className="mobile-menu-link"
+                onClick={() => setMobileMenuOpen(false)}
+                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+              >
+                <AvatarFallback name={userName} imageUrl={null} size="sm" /> Profile
+              </Link>
+              <button
+                onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
+                className="btn-signup w-full"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/auth" className="btn-login w-full text-center" onClick={() => setMobileMenuOpen(false)}>Login</Link>
+              <Link to="/auth" className="btn-signup w-full text-center" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
