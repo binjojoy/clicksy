@@ -101,7 +101,8 @@ const ExplorePhotographer = () => {
             location: p.location || "Location Private",
             image: p.avatar_url || null,
             rating: 4.9,
-            skills: p.skills || []
+            skills: p.skills || [],
+            hourly_rate: p.hourly_rate || null
           }))
       );
 
@@ -121,9 +122,19 @@ const ExplorePhotographer = () => {
     const term = searchTerm.toLowerCase();
     const matchesSearch = pg.name.toLowerCase().includes(term) ||
       pg.location.toLowerCase().includes(term) ||
-      pg.category.toLowerCase().includes(term);
+      (pg.skills && pg.skills.some(s => s.toLowerCase().includes(term))) ||
+      (pg.category && pg.category.toLowerCase().includes(term));
+      
+    const activeCatLower = activeCategory.toLowerCase();
+    const searchCat = activeCatLower === "events" ? "event" : activeCatLower;
+
     const matchesCategory = activeCategory === "All" ||
-      (pg.category && pg.category.toLowerCase() === activeCategory.toLowerCase());
+      (pg.skills && pg.skills.some(skill => {
+        const sLower = skill.toLowerCase();
+        return sLower === searchCat || (searchCat === "event" && sLower === "events");
+      })) ||
+      (pg.category && pg.category.toLowerCase() === searchCat);
+
     return matchesSearch && matchesCategory;
   });
 
@@ -224,15 +235,21 @@ const ExplorePhotographer = () => {
           <section className="locations-section">
             <h3 className="section-label">Popular Locations</h3>
             <div className="locations-scroll">
-              {locations.map((loc, index) => (
-                <div key={index} className="location-bubble dynamic" onClick={() => setSelectedLocation(loc.name)}>
+              {locations.map((loc, index) => {
+                const rawName = loc.name || String(loc);
+                const match = rawName.match(/^(.*?)(\d+)$/);
+                const displayName = match ? match[1] : rawName;
+                const displayCount = match ? match[2] : (loc.count || 1);
+
+                return (
+                <div key={index} className="location-bubble dynamic" onClick={() => setSelectedLocation(displayName)}>
                   <div className="bubble-icon-wrapper"><MapPin size={24} /></div>
                   <div className="bubble-text">
-                    <span className="loc-name">{loc.name}</span>
-                    <span className="loc-count">{loc.count} Pros</span>
+                    <span className="loc-name">{displayName}</span>
+                    <span className="loc-count">{displayCount} Pros</span>
                   </div>
                 </div>
-              ))}
+              )})}
             </div>
           </section>
 
@@ -273,7 +290,9 @@ const ExplorePhotographer = () => {
                         <div className="pg-overlay-top" style={{ justifyContent: 'flex-end', padding: '12px' }}>
                         </div>
                         <div className="pg-overlay-bottom">
-                          <span className="pg-price-tag" style={{ background: '#7c3aed', color: '#fff' }}>{pg.category}</span>
+                          <span className="pg-price-tag" style={{ background: '#7c3aed', color: '#fff' }}>
+                            {pg.hourly_rate ? `₹${pg.hourly_rate}/hr` : pg.category}
+                          </span>
                         </div>
                       </div>
                     </div>
