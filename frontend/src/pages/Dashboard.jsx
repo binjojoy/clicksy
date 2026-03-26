@@ -6,7 +6,7 @@ import Footer from "../components/Footer.jsx";
 import api from "../services/api.js";
 import {
     // Standard Icons
-    Camera, Calendar, Users, DollarSign, Image as ImageIcon, Upload, X, Clock, MapPin, ArrowRight, Search, Heart, Star,
+    Camera, Calendar, Users, IndianRupee, Image as ImageIcon, Upload, X, Clock, MapPin, ArrowRight, Search, Heart, Star,
     // Widget Icons
     MoreVertical, MessageSquare, CheckCircle, AlertCircle, Sparkles, Bell,
     // New Icons for Pro UI
@@ -141,7 +141,7 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                     onClick={() => setShowFollowers(true)}
                 />
 
-                <StatCard title="Total Revenue" icon={DollarSign} value={totalRevenue.toFixed(2)} valuePrefix="₹" footerText="From completed bookings" />
+                <StatCard title="Total Revenue" icon={IndianRupee} value={totalRevenue.toFixed(2)} valuePrefix="₹" footerText="From completed bookings" />
             </div>
 
             <div className="tabs-container">

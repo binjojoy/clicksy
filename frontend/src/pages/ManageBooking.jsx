@@ -165,7 +165,7 @@ const ManageBookings = () => {
                                     </p>
                                     
                                     <p className="booking-price">
-                                        💰 Total: ${booking.total_price.toFixed(2)}
+                                        💰 Total: ₹{booking.total_price.toFixed(2)}
                                     </p>
                                     
                                     {booking.special_requirements && (

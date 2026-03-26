@@ -141,7 +141,7 @@ const ItemDetails = () => {
             
             <div className="details-price-row">
                <span className="details-price">
-                 ${item.price.toLocaleString()}
+                 ₹{item.price.toLocaleString()}
                  {item.listing_type === 'For Rent' && item.rent_period && (
                    <span className="text-sm text-gray-400"> / {item.rent_period}</span>
                  )}
