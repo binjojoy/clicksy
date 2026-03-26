@@ -53,6 +53,7 @@ const Navbar = () => {
     { path: "/my-bookings", label: "My Bookings" },
     { path: "/portfolio", label: "Portfolio" },
     { path: "/saved", label: "Saved" },
+    { path: "/marketplace", label: "Marketplace" },
     { path: "/messages", label: "Messages" },
   ];
 
