@@ -235,21 +235,14 @@ const ExplorePhotographer = () => {
           <section className="locations-section">
             <h3 className="section-label">Popular Locations</h3>
             <div className="locations-scroll">
-              {locations.map((loc, index) => {
-                const rawName = loc.name || String(loc);
-                const match = rawName.match(/^(.*?)(\d+)$/);
-                const displayName = match ? match[1] : rawName;
-                const displayCount = match ? match[2] : (loc.count || 1);
-
-                return (
-                <div key={index} className="location-bubble dynamic" onClick={() => setSelectedLocation(displayName)}>
+              {locations.map((loc, index) => (
+                <div key={index} className="location-bubble dynamic" onClick={() => setSelectedLocation(loc.name)}>
                   <div className="bubble-icon-wrapper"><MapPin size={24} /></div>
-                  <div className="bubble-text">
-                    <span className="loc-name">{displayName}</span>
-                    <span className="loc-count">{displayCount} Pros</span>
+                  <div className="bubble-text" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <span className="loc-name" style={{ fontWeight: '600' }}>{loc.name}</span>
                   </div>
                 </div>
-              )})}
+              ))}
             </div>
           </section>
 

@@ -7,6 +7,7 @@ import { toast } from "../components/Toaster.jsx";
 import { 
   Search, MapPin, Star, Heart, ArrowUpRight, Camera, Sparkles, X 
 } from "lucide-react";
+import AvatarFallback from "../components/AvatarFallback.jsx";
 import "../styles/ExplorePage.css";
 
 const API_BASE_URL = 'http://localhost:5000/api/v1';
@@ -90,7 +91,7 @@ const ExplorePage = () => {
         location: p.location || "Location Private",
         hourly_rate: p.hourly_rate || 0, // Fallback to 0
         price: p.hourly_rate && p.hourly_rate > 0 ? `₹${p.hourly_rate}/hr` : "Contact for Rates",
-        image: p.avatar_url || "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=400",
+        image: p.avatar_url || null,
         rating: 4.9,
         skills: p.skills || []
       })));
@@ -110,9 +111,20 @@ const ExplorePage = () => {
   const filteredPhotographers = photographers.filter(pg => {
     const term = searchTerm.toLowerCase();
     const matchesSearch = pg.name.toLowerCase().includes(term) || 
-                          pg.location.toLowerCase().includes(term);
+                          pg.location.toLowerCase().includes(term) ||
+                          (pg.skills && pg.skills.some(s => s.toLowerCase().includes(term))) ||
+                          (pg.category && pg.category.toLowerCase().includes(term));
+                          
+    const activeCatLower = activeCategory.toLowerCase();
+    const searchCat = activeCatLower === "events" ? "event" : activeCatLower;
+
     const matchesCategory = activeCategory === "All" || 
-                            (pg.category && pg.category.toLowerCase() === activeCategory.toLowerCase());
+                            (pg.skills && pg.skills.some(skill => {
+                                const sLower = skill.toLowerCase();
+                                return sLower === searchCat || (searchCat === "event" && sLower === "events");
+                            })) ||
+                            (pg.category && pg.category.toLowerCase() === searchCat);
+                            
     return matchesSearch && matchesCategory;
   });
 
@@ -152,7 +164,7 @@ const ExplorePage = () => {
             <div className="glass-content-grid">
               {(selectedLocation ? photographersInLocation : photographersInCollection).map(pg => (
                 <div key={pg.id} className="pg-card-sm" onClick={() => navigate(`/profile/${pg.id}`)}>
-                  <div className="pg-sm-img-wrapper"><img src={pg.image} alt={pg.name} /></div>
+                  <div className="pg-sm-img-wrapper"><AvatarFallback name={pg.name} imageUrl={pg.image} size="sm" /></div>
                   <div className="pg-sm-details">
                     <h5>{pg.name}</h5>
                     <span className="pg-sm-cat">{pg.category}</span>
@@ -188,9 +200,8 @@ const ExplorePage = () => {
                     {locations.map((loc, index) => (
                         <div key={index} className="location-bubble dynamic" onClick={() => setSelectedLocation(loc.name)}>
                             <div className="bubble-icon-wrapper"><MapPin size={24} /></div>
-                            <div className="bubble-text">
-                              <span className="loc-name">{loc.name}</span>
-                              <span className="loc-count">{loc.count} Pros</span>
+                            <div className="bubble-text" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                              <span className="loc-name" style={{ fontWeight: '600' }}>{loc.name}</span>
                             </div>
                         </div>
                     ))}
@@ -218,8 +229,15 @@ const ExplorePage = () => {
                     <div className="photographer-grid-lg">
                         {filteredPhotographers.map(pg => (
                             <div key={pg.id} className="pg-card-lg" onClick={() => navigate(`/profile/${pg.id}`)}>
-                                <div className="pg-card-image">
-                                    <img src={pg.image} alt={pg.name} />
+                                <div className="pg-card-image" style={!pg.image ? { background: 'linear-gradient(145deg, #1a1025, #2d1b4e)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' } : {}}>
+                                     {pg.image ? (
+                                        <img src={pg.image} alt={pg.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                     ) : (
+                                        <>
+                                            <Camera size={80} style={{ position: 'absolute', opacity: 0.06 }} />
+                                            <AvatarFallback name={pg.name} imageUrl={null} size="xl" style={{ position: 'relative', zIndex: 1 }} />
+                                        </>
+                                     )}
                                     <div className="pg-card-overlay">
                                         <div className="pg-overlay-top">
                                             <button 
