@@ -183,9 +183,11 @@ const UploadPortfolio = () => {
                             <select name="category" className="form-select"
                                 onChange={handleChange} value={formData.category} disabled={loading}>
                                 <option value="Nature">Nature</option>
+                                <option value="Architecture">Architecture</option>
                                 <option value="Portrait">Portrait</option>
-                                <option value="Wedding">Wedding</option>
+                                <option value="Wildlife">Wildlife</option>
                                 <option value="Street">Street</option>
+                                <option value="Fashion">Fashion</option>
                             </select>
                         </div>
 

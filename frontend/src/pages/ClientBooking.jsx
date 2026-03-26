@@ -101,6 +101,14 @@ const ClientBooking = () => {
               <div className="compact-grid">
                 {filteredBookings.map(booking => {
                   const dateInfo = formatStubDate(booking.start_time);
+                  
+                  // Translate raw DB status into user-friendly text
+                  let displayStatus = booking.status;
+                  if (booking.status === 'pending') displayStatus = "Awaiting Approval";
+                  if (booking.status === 'confirmed') displayStatus = "Accepted";
+                  if (booking.status === 'cancelled') displayStatus = "Declined";
+                  if (booking.status === 'completed') displayStatus = "Completed";
+
                   return (
                     <div key={booking.id} className="compact-glass-card">
                       <div className="compact-stub">
@@ -110,7 +118,7 @@ const ClientBooking = () => {
                       <div className="compact-body">
                         <div className="body-top">
                           <span className="ref-id">REF: {booking.id.slice(0, 8)}</span>
-                          <span className={`mini-badge status-${booking.status}`}>{booking.status}</span>
+                          <span className={`mini-badge status-${booking.status}`}>{displayStatus}</span>
                         </div>
                         <h3 className="compact-event-title">{booking.booking_title}</h3>
                         <div className="compact-meta">
@@ -122,7 +130,11 @@ const ClientBooking = () => {
                           <span className="price">₹{booking.total_price}</span>
                           <div className="action-row">
                             <button className="icon-btn-glass"><MessageSquare size={14} /></button>
-                            <button className="compact-btn-details" onClick={() => navigate(`/booking-details/${booking.id}`)}>Details</button>
+                            {booking.status === 'completed' ? (
+                                <button className="compact-btn-details" style={{ background: '#10b981', color: 'white', borderColor: '#10b981' }}>Leave Review</button>
+                            ) : (
+                                <button className="compact-btn-details" onClick={() => navigate(`/booking-details/${booking.id}`)}>Details</button>
+                            )}
                           </div>
                         </div>
                       </div>

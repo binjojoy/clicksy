@@ -185,3 +185,17 @@
   padding: 0.4rem 1rem; border-radius: 0.5rem;
   font-size: 0.8rem; font-weight: 700; cursor: pointer;
 }
+
+/* --- BADGE STYLES --- */
+.mini-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.status-pending { background: rgba(234, 179, 8, 0.15); color: #eab308; }
+.status-confirmed { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.status-completed { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+.status-cancelled { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
