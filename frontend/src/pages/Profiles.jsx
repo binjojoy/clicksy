@@ -8,6 +8,7 @@ import {
     Bookmark, Sparkles, ArrowRight, Loader2, UserPlus, Check
 } from 'lucide-react'; // Added UserPlus, Check icons
 import { supabase } from '../services/supabaseClient';
+import AvatarFallback from '../components/AvatarFallback.jsx';
 import '../styles/Profiles.css';
 
 const SignatureProfile = () => {
@@ -140,7 +141,6 @@ const SignatureProfile = () => {
     if (loading) return <div className="min-h-screen bg-black flex items-center justify-center"><Loader2 className="animate-spin text-purple-500" size={40} /></div>;
     if (!profile) return <div className="text-white text-center pt-20">Profile not found.</div>;
 
-    const displayAvatar = profile.avatar_url || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80";
     const displayBanner = profile.banner_url || "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1600&q=80";
     const isOwnProfile = localStorage.getItem('user_id') === profile.user_id;
 
@@ -160,7 +160,7 @@ const SignatureProfile = () => {
             <div className="sig-container">
                 <div className="sig-card">
                     <div className="sig-avatar-wrapper">
-                        <img src={displayAvatar} alt="Profile" className="sig-avatar" />
+                        <AvatarFallback name={profile.full_name} imageUrl={profile.avatar_url} size="xl" className="sig-avatar" />
                         {profile.is_verified && <div className="sig-verified"><ShieldCheck size={20} /></div>}
                     </div>
 
@@ -247,7 +247,7 @@ const SignatureProfile = () => {
                     <div className="sig-rec-list">
                         {recommendations.slice(0, 5).map((rec) => (
                             <div key={rec.id} className="sig-rec-card">
-                                <img src={rec.avatar || `https://ui-avatars.com/api/?name=${rec.name}&background=random`} alt={rec.name} className="sig-rec-avatar" />
+                                <AvatarFallback name={rec.name} imageUrl={rec.avatar} size="lg" className="sig-rec-avatar" />
                                 <h4 className="sig-rec-name">{rec.name}</h4>
                                 <span className="sig-rec-role">{rec.role}</span>
                                 <button className="sig-btn-follow" onClick={() => navigate(`/profile/${rec.id}`)}>View</button>

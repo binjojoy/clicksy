@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import './Navbar.css';
 import { User } from "lucide-react";
+import AvatarFallback from "./AvatarFallback.jsx";
 
 const Navbar = () => {
   const location = useLocation();
@@ -19,11 +20,16 @@ const Navbar = () => {
     return localStorage.getItem("userRole"); 
   });
 
+  const [userName, setUserName] = useState(() => {
+    return localStorage.getItem("userName") || "User";
+  });
+
   // Listen for storage changes across tabs (keeps Navbar synced)
   useEffect(() => {
     const handleStorageChange = () => {
       setIsAuthenticated(!!localStorage.getItem("userToken"));
       setUserRole(localStorage.getItem("userRole"));
+      setUserName(localStorage.getItem("userName") || "User");
     };
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
@@ -121,7 +127,7 @@ const Navbar = () => {
                     onMouseEnter={(e) => e.currentTarget.style.color = '#7c3aed'}
                     onMouseLeave={(e) => e.currentTarget.style.color = '#e5e7eb'}
                 >
-                  <User size={18} /> Profile
+                  <AvatarFallback name={userName} imageUrl={null} size="sm" /> Profile
                 </Link>
                 {/* Logout Button */}
                 <button onClick={handleLogout} className="btn-signup" style={{ cursor: 'pointer' }}>
@@ -184,7 +190,7 @@ const Navbar = () => {
                         onClick={() => setMobileMenuOpen(false)}
                         style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                     >
-                        <User size={18} /> Profile
+                        <AvatarFallback name={userName} imageUrl={null} size="sm" /> Profile
                     </Link>
                     <button 
                         onClick={() => { handleLogout(); setMobileMenuOpen(false); }}

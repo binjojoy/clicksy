@@ -1,0 +1,73 @@
+/* Base styles for the image version */
+.avatar-image {
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Base styles for the fallback version */
+.avatar-fallback {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 0 1.5px rgba(255, 255, 255, 0.08);
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+/* Gradient Variants */
+.avatar-fallback.variant-0 {
+  background: linear-gradient(135deg, #7C3AED, #4F46E5);
+}
+.avatar-fallback.variant-1 {
+  background: linear-gradient(135deg, #9333EA, #6D28D9);
+}
+.avatar-fallback.variant-2 {
+  background: linear-gradient(135deg, #A855F7, #7C3AED);
+}
+.avatar-fallback.variant-3 {
+  background: linear-gradient(135deg, #6366F1, #4338CA);
+}
+.avatar-fallback.variant-4 {
+  background: linear-gradient(135deg, #8B5CF6, #5B21B6);
+}
+.avatar-fallback.variant-5 {
+  background: linear-gradient(135deg, #C084FC, #7C3AED);
+}
+
+/* Size utility classes */
+.avatar-fallback.size-sm, .avatar-image.size-sm {
+  width: 32px;
+  height: 32px;
+}
+.avatar-fallback.size-sm span {
+  font-size: 12px;
+}
+
+.avatar-fallback.size-md, .avatar-image.size-md {
+  width: 44px;
+  height: 44px;
+}
+.avatar-fallback.size-md span {
+  font-size: 16px;
+}
+
+.avatar-fallback.size-lg, .avatar-image.size-lg {
+  width: 64px;
+  height: 64px;
+}
+.avatar-fallback.size-lg span {
+  font-size: 22px;
+}
+
+.avatar-fallback.size-xl, .avatar-image.size-xl {
+  width: 96px;
+  height: 96px;
+}
+.avatar-fallback.size-xl span {
+  font-size: 32px;
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import Navbar from '../components/Navbar.jsx';
+import AvatarFallback from '../components/AvatarFallback.jsx';
 import '../styles/Inbox.css';
 
 // ─── Helper: relative time ──────────────────────────────────
@@ -192,13 +193,7 @@ const InboxPage = () => {
                   onClick={() => navigate(`/messages/${thread.id}`)}
                 >
                   <div className="thread-avatar">
-                    {thread.otherPerson?.avatar_url ? (
-                      <img src={thread.otherPerson.avatar_url} alt={thread.otherPerson.full_name} />
-                    ) : (
-                      <div className="thread-avatar-fallback">
-                        {getInitials(thread.otherPerson?.full_name)}
-                      </div>
-                    )}
+                    <AvatarFallback name={thread.otherPerson?.full_name} imageUrl={thread.otherPerson?.avatar_url} size="md" />
                   </div>
                   <div className="thread-content">
                     <div className="thread-top-row">
@@ -541,13 +536,7 @@ const ChatPanel = ({ threadId, currentUser, onBack, onMessageSent }) => {
         <div key={msg.id} className={wrapperClasses}>
           {!isSent && (
             <div className={`msg-avatar ${isGrouped ? 'hidden' : ''}`}>
-              {thread.otherPerson?.avatar_url ? (
-                <img src={thread.otherPerson.avatar_url} alt="" />
-              ) : (
-                <div className="msg-avatar-fallback">
-                  {getInitials(thread.otherPerson?.full_name)}
-                </div>
-              )}
+              <AvatarFallback name={thread.otherPerson?.full_name} imageUrl={thread.otherPerson?.avatar_url} size="sm" />
             </div>
           )}
 
@@ -583,13 +572,7 @@ const ChatPanel = ({ threadId, currentUser, onBack, onMessageSent }) => {
         </button>
 
         <div className="chat-header-avatar">
-          {thread.otherPerson?.avatar_url ? (
-            <img src={thread.otherPerson.avatar_url} alt={thread.otherPerson.full_name} />
-          ) : (
-            <div className="chat-header-avatar-fallback">
-              {getInitials(thread.otherPerson?.full_name)}
-            </div>
-          )}
+          <AvatarFallback name={thread.otherPerson?.full_name} imageUrl={thread.otherPerson?.avatar_url} size="md" />
         </div>
 
         <div className="chat-header-info">
