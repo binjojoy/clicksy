@@ -34,12 +34,7 @@ const ActionButton = ({ icon: Icon, label, isPrimary = false, onClick }) => (
     </button>
 );
 
-// ==========================================
-// 📸 PHOTOGRAPHER DASHBOARD (PRO UI INTEGRATED)
-// ==========================================
 const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollowers, showBookings, setShowBookings }) => {
-    const [activeTab, setActiveTab] = useState('Overview');
-
     // --- REAL DATA STATE ---
     const [photoCount, setPhotoCount] = useState(0);
     const [followerCount, setFollowerCount] = useState(0);
@@ -142,14 +137,6 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                 />
 
                 <StatCard title="Total Revenue" icon={IndianRupee} value={totalRevenue.toFixed(2)} valuePrefix="₹" footerText="From completed bookings" />
-            </div>
-
-            <div className="tabs-container">
-                <div className="tab-buttons">
-                    {['Overview', 'Bookings', 'Recent Photos'].map((tab) => (
-                        <button key={tab} className={`tab-button ${activeTab === tab ? 'active' : ''}`} onClick={() => setActiveTab(tab)}>{tab}</button>
-                    ))}
-                </div>
             </div>
 
             <div className="content-section">
