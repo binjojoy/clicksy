@@ -303,4 +303,68 @@ router.get('/client/:userId', async (req, res) => {
     }
 });
 
+// --- GET /api/v1/bookings/photographer-dashboard/:userId ---
+// Returns aggregated stats + upcoming bookings list for the dashboard
+router.get('/photographer-dashboard/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // 1. All bookings for this photographer (as provider)
+        const { data: allBookings, error } = await supabase
+            .from('bookings')
+            .select('*')
+            .eq('provider_id', userId)
+            .order('start_time', { ascending: true });
+
+        if (error) throw error;
+
+        let pendingCount = 0;
+        let confirmedCount = 0;
+        let totalRevenue = 0;
+        const upcomingBookings = []; // Only confirmed bookings
+
+        (allBookings || []).forEach(b => {
+            if (b.status === 'pending') {
+                pendingCount++;
+            }
+            // Upcoming Jobs = only confirmed bookings (matches Manage Bookings > Upcoming Jobs tab)
+            if (b.status === 'confirmed') {
+                confirmedCount++;
+                upcomingBookings.push(b);
+            }
+            if (b.status === 'completed') {
+                totalRevenue += (b.total_price || 0);
+            }
+        });
+
+        // 2. Fetch client names for the upcoming bookings
+        const clientIds = [...new Set(upcomingBookings.map(b => b.client_id))];
+        let profileMap = {};
+        if (clientIds.length > 0) {
+            const { data: profiles } = await supabase
+                .from('profiles')
+                .select('user_id, full_name, avatar_url')
+                .in('user_id', clientIds);
+            (profiles || []).forEach(p => { profileMap[p.user_id] = p; });
+        }
+
+        const enrichedUpcoming = upcomingBookings.map(b => ({
+            ...b,
+            client_name: profileMap[b.client_id]?.full_name || 'Unknown Client',
+            client_avatar: profileMap[b.client_id]?.avatar_url || null,
+            listing_title: b.booking_title
+        }));
+
+        res.status(200).json({
+            upcomingCount: confirmedCount,
+            pendingCount,
+            totalRevenue,
+            upcomingBookings: enrichedUpcoming
+        });
+    } catch (err) {
+        console.error('Error fetching photographer dashboard stats:', err.message);
+        res.status(500).json({ error: 'Server Error' });
+    }
+});
+
 module.exports = router;

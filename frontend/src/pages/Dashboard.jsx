@@ -44,6 +44,7 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
     const [photoCount, setPhotoCount] = useState(0);
     const [followerCount, setFollowerCount] = useState(0);
     const [bookings, setBookings] = useState([]);
+    const [dashboardStats, setDashboardStats] = useState({ upcomingCount: 0, pendingCount: 0, totalRevenue: 0 });
 
     // Followers Modal State
     const [followersList, setFollowersList] = useState([]);
@@ -66,26 +67,29 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
             if (!userId) return;
 
             try {
-                const [statsRes, followRes, bookingRes] = await Promise.all([
+                const [statsRes, followRes, dashStatsRes] = await Promise.all([
                     api.get(`/user/stats/${userId}`).catch(() => ({ data: { photoCount: 0 } })),
                     api.get(`/profile/${userId}/follow-stats`).catch(() => ({ data: { followersCount: 0 } })),
-                    api.get(`/bookings/user/${userId}`).catch(() => ({ data: [] }))
+                    api.get(`/bookings/photographer-dashboard/${userId}`).catch(() => ({ data: { upcomingCount: 0, pendingCount: 0, totalRevenue: 0, upcomingBookings: [] } }))
                 ]);
 
                 setPhotoCount(statsRes.data.photoCount);
                 setFollowerCount(followRes.data.followersCount);
 
-                const formattedBookings = bookingRes.data.map(b => {
+                const formattedBookings = (dashStatsRes.data.upcomingBookings || []).map(b => {
                     const { day, month, time } = formatDate(b.start_time);
                     return {
                         id: b.id,
-                        title: b.booking_title,
+                        title: b.booking_title || b.listing_title,
+                        client_name: b.client_name,
                         day, month, time,
                         location: b.special_requirements || "On Location",
-                        status: b.status
+                        status: b.status,
+                        total_price: b.total_price
                     };
                 });
                 setBookings(formattedBookings);
+                setDashboardStats(dashStatsRes.data);
 
             } catch (error) {
                 console.error("Error fetching dashboard data:", error);
@@ -114,7 +118,7 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
         }
     }, [showFollowers]);
 
-    const totalRevenue = 0;
+    const totalRevenue = dashboardStats.totalRevenue || 0;
 
     return (
         <>
@@ -124,8 +128,8 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
                 <StatCard
                     title="Upcoming Bookings"
                     icon={Calendar}
-                    value={bookings.length}
-                    footerText="Click to view schedule"
+                    value={dashboardStats.upcomingCount}
+                    footerText={`${dashboardStats.pendingCount} pending · Click to view`}
                     onClick={() => setShowBookings(true)}
                 />
 
@@ -237,37 +241,100 @@ const PhotographerDashboard = ({ profile, navigate, showFollowers, setShowFollow
 
             {showBookings && (
                 <div className="modal-overlay" onClick={() => setShowBookings(false)}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                    <div className="modal-content bookings-modal-pro" onClick={(e) => e.stopPropagation()}>
                         <div className="modal-header">
-                            <h2 className="modal-title">Upcoming Schedule</h2>
+                            <div>
+                                <h2 className="modal-title">Upcoming Jobs</h2>
+                                <p className="text-muted text-sm" style={{ marginTop: '4px' }}>
+                                    {bookings.length} confirmed booking{bookings.length !== 1 ? 's' : ''}
+                                </p>
+                            </div>
                             <button className="close-btn" onClick={() => setShowBookings(false)}><X size={24} /></button>
                         </div>
 
-                        <div className="booking-list">
+                        {/* Summary Stats Strip */}
+                        <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.25rem' }}>
+                            <div style={{ flex: 1, background: 'rgba(124, 58, 237, 0.1)', border: '1px solid rgba(124, 58, 237, 0.2)', borderRadius: '0.5rem', padding: '0.6rem 0.75rem', textAlign: 'center' }}>
+                                <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#a78bfa' }}>{bookings.length}</span>
+                                <span style={{ display: 'block', fontSize: '0.7rem', color: '#9ca3af', marginTop: '2px' }}>Active Jobs</span>
+                            </div>
+                            <div style={{ flex: 1, background: 'rgba(234, 179, 8, 0.08)', border: '1px solid rgba(234, 179, 8, 0.15)', borderRadius: '0.5rem', padding: '0.6rem 0.75rem', textAlign: 'center' }}>
+                                <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#eab308' }}>{dashboardStats.pendingCount}</span>
+                                <span style={{ display: 'block', fontSize: '0.7rem', color: '#9ca3af', marginTop: '2px' }}>Pending</span>
+                            </div>
+                            <div style={{ flex: 1, background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.15)', borderRadius: '0.5rem', padding: '0.6rem 0.75rem', textAlign: 'center' }}>
+                                <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#10b981' }}>₹{bookings.reduce((sum, b) => sum + (b.total_price || 0), 0).toLocaleString()}</span>
+                                <span style={{ display: 'block', fontSize: '0.7rem', color: '#9ca3af', marginTop: '2px' }}>Expected</span>
+                            </div>
+                        </div>
+
+                        {/* Booking Cards */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', maxHeight: '320px', overflowY: 'auto', marginBottom: '1rem', paddingRight: '4px' }}>
                             {bookings.length === 0 ? (
-                                <p className="text-muted text-center py-4">No upcoming bookings found.</p>
+                                <div style={{ textAlign: 'center', padding: '2.5rem 1rem' }}>
+                                    <Calendar size={36} style={{ opacity: 0.2, margin: '0 auto 0.75rem' }} />
+                                    <p style={{ color: '#71717a', fontSize: '0.9rem' }}>No confirmed bookings yet</p>
+                                    <p style={{ color: '#52525b', fontSize: '0.8rem' }}>Accepted bookings will appear here</p>
+                                </div>
                             ) : (
                                 bookings.map((booking) => (
-                                    <div key={booking.id} className="booking-item">
-                                        <div className="booking-left">
-                                            <div className="date-box">
-                                                <span className="date-day">{booking.day}</span>
-                                                <span className="date-month">{booking.month}</span>
-                                            </div>
-                                            <div className="booking-info">
-                                                <h4>{booking.title}</h4>
-                                                <p>
-                                                    <Clock size={12} /> {booking.time} <span className="mx-1">•</span> <MapPin size={12} /> {booking.location}
-                                                </p>
-                                            </div>
+                                    <div key={booking.id} style={{
+                                        background: '#18181b', border: '1px solid #27272a', borderRadius: '0.75rem',
+                                        padding: '0.85rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem',
+                                        transition: 'all 0.2s', cursor: 'pointer'
+                                    }}
+                                    onMouseEnter={e => { e.currentTarget.style.borderColor = '#7c3aed'; e.currentTarget.style.background = '#1f1f23'; }}
+                                    onMouseLeave={e => { e.currentTarget.style.borderColor = '#27272a'; e.currentTarget.style.background = '#18181b'; }}
+                                    >
+                                        {/* Client Avatar */}
+                                        <div style={{
+                                            width: 40, height: 40, borderRadius: '50%', flexShrink: 0,
+                                            background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            color: 'white', fontWeight: 700, fontSize: '0.85rem'
+                                        }}>
+                                            {booking.client_name ? booking.client_name.charAt(0).toUpperCase() : 'C'}
                                         </div>
-                                        <span className={`status-badge status-${booking.status}`}>{booking.status}</span>
+
+                                        {/* Info */}
+                                        <div style={{ flex: 1, minWidth: 0 }}>
+                                            <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: 600, margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                {booking.title}
+                                            </h4>
+                                            <p style={{ color: '#a1a1aa', fontSize: '0.78rem', margin: '3px 0 0', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                                                {booking.client_name} <span style={{ opacity: 0.4 }}>•</span> {booking.day} {booking.month} <span style={{ opacity: 0.4 }}>•</span> {booking.time}
+                                            </p>
+                                        </div>
+
+                                        {/* Price Tag */}
+                                        <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                                            <span style={{ color: '#10b981', fontWeight: 700, fontSize: '0.9rem' }}>
+                                                ₹{(booking.total_price || 0).toLocaleString()}
+                                            </span>
+                                            <span className={`status-badge status-${booking.status}`} style={{ display: 'block', marginTop: '4px', fontSize: '0.6rem' }}>
+                                                {booking.status}
+                                            </span>
+                                        </div>
                                     </div>
                                 ))
                             )}
                         </div>
-                        <button className="btn-view-all" onClick={() => navigate('/manage-bookings')}>
-                            View Full Calendar <ArrowRight size={16} />
+
+                        {/* CTA Button */}
+                        <button
+                            style={{
+                                width: '100%', padding: '0.75rem',
+                                background: 'linear-gradient(135deg, #7c3aed, #6d28d9)',
+                                border: 'none', borderRadius: '0.5rem',
+                                color: 'white', fontWeight: 600, fontSize: '0.9rem',
+                                cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                                transition: 'all 0.2s'
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.background = 'linear-gradient(135deg, #8b5cf6, #7c3aed)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.background = 'linear-gradient(135deg, #7c3aed, #6d28d9)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+                            onClick={() => navigate('/manage-bookings')}
+                        >
+                            Manage All Bookings <ArrowRight size={16} />
                         </button>
                     </div>
                 </div>
