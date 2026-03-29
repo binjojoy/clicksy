@@ -4,10 +4,9 @@ import axios from "axios";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { toast } from "../components/Toaster.jsx";
-import {
-  Search, MapPin, Star, UserPlus, ArrowUpRight, Camera, Sparkles, X
-} from "lucide-react";
+import { Search, MapPin, Star, UserPlus, ArrowUpRight, Camera, Sparkles, X } from "lucide-react";
 import AvatarFallback from "../components/AvatarFallback.jsx";
+import { supabase } from '../services/supabaseClient';
 import "../styles/ExplorePage.css";
 
 const API_BASE_URL = 'http://localhost:5000/api/v1';
@@ -54,31 +53,74 @@ const ExplorePhotographer = () => {
 
     const isCurrentlyConnected = connectedIds.includes(photographerId);
 
-    // Optimistic Update
-    if (isCurrentlyConnected) {
-      setConnectedIds(prev => prev.filter(id => id !== photographerId));
-    } else {
-      setConnectedIds(prev => [...prev, photographerId]);
-    }
-
     try {
-      // Use the proper explore follow toggle endpoint
-      await axios.post(`${API_BASE_URL}/profile/${photographerId}/follow`, { userId });
-
-      if (isCurrentlyConnected) {
-        toast.success("Unfollowed.");
-      } else {
+      // 1. If not connected yet, follow them
+      if (!isCurrentlyConnected) {
+        setConnectedIds(prev => [...prev, photographerId]); // Optimistic Update
+        await axios.post(`${API_BASE_URL}/profile/${photographerId}/follow`, { userId });
         toast.success("Following request sent!");
       }
-    } catch (err) {
-      console.error("Connection error:", err);
-      // Revert on error
-      if (isCurrentlyConnected) {
-        setConnectedIds(prev => [...prev, photographerId]);
+
+      // 2. Start messaging flow for direct messages
+      // Check for existing thread
+      let existingThreadId = null;
+
+      const { data: existingThread, error: threadError } = await supabase
+        .from('listing_threads')
+        .select('id')
+        .is('listing_id', null)
+        .eq('buyer_id', userId)
+        .eq('seller_id', photographerId)
+        .maybeSingle();
+
+      if (threadError) throw threadError;
+
+      if (existingThread) {
+        existingThreadId = existingThread.id;
       } else {
+        // Check reverse case if they messaged us first
+        const { data: existingRevThread, error: revThreadError } = await supabase
+          .from('listing_threads')
+          .select('id')
+          .is('listing_id', null)
+          .eq('buyer_id', photographerId)
+          .eq('seller_id', userId)
+          .maybeSingle();
+
+        if (revThreadError) throw revThreadError;
+        if (existingRevThread) {
+          existingThreadId = existingRevThread.id;
+        }
+      }
+
+      if (existingThreadId) {
+        navigate(`/messages/${existingThreadId}`);
+        return;
+      }
+
+      // 3. Create new thread since none exists
+      const { data: newThread, error: insertError } = await supabase
+        .from('listing_threads')
+        .insert({
+          listing_id: null, // null for direct messages
+          buyer_id: userId,
+          seller_id: photographerId,
+        })
+        .select('id')
+        .single();
+
+      if (insertError) throw insertError;
+
+      navigate(`/messages/${newThread.id}`);
+
+    } catch (err) {
+      console.error("Connection/Messaging error:", err);
+      
+      // Revert optimism if it failed
+      if (!isCurrentlyConnected) {
         setConnectedIds(prev => prev.filter(id => id !== photographerId));
       }
-      toast.error("Failed to update connection.");
+      toast.error(`Failed to connect or open message: ${err.message || err.toString()}`);
     }
   };
 

@@ -204,7 +204,7 @@ const InboxPage = () => {
                     </div>
                     <div className="thread-listing-tag">
                       <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {thread.listings?.name || 'Listing'}
+                        {thread.listing_id === null ? 'Direct Message' : (thread.listings?.name || 'Listing')}
                       </span>
                       {thread.listings?.listing_type && (
                         <span className={`tag-pill ${thread.listings.listing_type === 'For Sale' ? 'sale' : 'rent'}`}>
@@ -579,14 +579,18 @@ const ChatPanel = ({ threadId, currentUser, onBack, onMessageSent }) => {
           <div className="chat-header-name">
             {thread.otherPerson?.full_name || 'Unknown'}
           </div>
-          {thread.listings && (
+          {thread.listing_id === null ? (
+            <span className="chat-header-listing" style={{ color: '#9ca3af', fontSize: '13px', textDecoration: 'none', cursor: 'default' }}>
+              Direct Message
+            </span>
+          ) : thread.listings ? (
             <Link
               to={`/marketplace/item/${thread.listings.id}`}
               className="chat-header-listing"
             >
               {thread.listings.name}
             </Link>
-          )}
+          ) : null}
         </div>
 
         <span className={`status-pill ${thread.status}`}>
