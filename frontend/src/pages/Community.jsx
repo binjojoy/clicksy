@@ -19,7 +19,6 @@ const Community = () => {
 
     // Sidebar Inputs
     const [newPostTitle, setNewPostTitle] = useState("");
-    const [newPostContent, setNewPostContent] = useState("");
 
     // Comment State
     const [activeCommentId, setActiveCommentId] = useState(null);
@@ -80,18 +79,17 @@ const Community = () => {
     const handleCreatePost = async () => {
         const userId = getCurrentUserId();
         if (!userId) return alert("Please log in to post.");
-        if (!newPostTitle.trim() || !newPostContent.trim()) return;
+        if (!newPostTitle.trim()) return;
 
         try {
             await api.post('/community/posts', {
                 user_id: userId,
                 title: newPostTitle,
-                content: newPostContent,
+                content: "",
                 category: "General"
             });
             
             setNewPostTitle("");
-            setNewPostContent("");
             // Refresh feed
             const res = await api.get(`/community/posts?userId=${userId}`);
             setDiscussions(res.data);
@@ -257,14 +255,6 @@ const Community = () => {
                                 value={newPostTitle}
                                 onChange={(e) => setNewPostTitle(e.target.value)}
                             />
-                            <textarea 
-                                className="create-input" 
-                                placeholder="Content..." 
-                                rows="3" 
-                                style={{ resize: 'none' }}
-                                value={newPostContent}
-                                onChange={(e) => setNewPostContent(e.target.value)}
-                            ></textarea>
                             
                             <button className="btn-create-post" onClick={handleCreatePost}>Post to Forum</button>
                         </div>

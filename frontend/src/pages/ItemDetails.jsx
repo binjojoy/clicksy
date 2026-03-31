@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { supabase } from '../services/supabaseClient';
@@ -7,8 +7,10 @@ import '../styles/ItemDetails.css';
 
 const ItemDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [contactLoading, setContactLoading] = useState(false);
 
   useEffect(() => {
     fetchItemDetails();
@@ -31,25 +33,63 @@ const ItemDetails = () => {
     }
   };
 
-  // --- THE NEW CONTACT LOGIC ---
-  const handleContact = () => {
-    if (!item) return;
+  // --- IN-APP MESSAGING CONTACT LOGIC ---
+  const handleContact = async () => {
+    if (!item || contactLoading) return;
 
-    // 1. Define the Seller's Email
-    // ideally, you'd fetch this from the 'profiles' table using item.user_id.
-    // For now, we use a placeholder or the user_id to simulate it.
-    const sellerEmail = "seller@example.com"; 
-    
-    // 2. Create a professional Subject Line
-    const subject = encodeURIComponent(`Inquiry regarding: ${item.name}`);
-    
-    // 3. Create a polite Body Message
-    const body = encodeURIComponent(
-      `Hi,\n\nI am interested in your listing for "${item.name}" listed on the Marketplace.\n\nIs it still available?\n\nBest regards,`
-    );
+    try {
+      setContactLoading(true);
 
-    // 4. Open the User's Email Client
-    window.location.href = `mailto:${sellerEmail}?subject=${subject}&body=${body}`;
+      // 1. Check if user is logged in (localStorage-based auth)
+      const userId = localStorage.getItem("user_id");
+      if (!userId) {
+        navigate('/auth');
+        return;
+      }
+
+      // 2. Guard: can't message your own listing
+      if (String(userId).trim() === String(item.user_id).trim()) {
+        alert('This is your own listing');
+        return;
+      }
+
+      // 3. Check for existing thread
+      const { data: existingThread, error: threadError } = await supabase
+        .from('listing_threads')
+        .select('id')
+        .eq('listing_id', item.id)
+        .eq('buyer_id', userId)
+        .maybeSingle();
+
+      if (threadError) throw threadError;
+
+      if (existingThread) {
+        // Thread exists — navigate to it
+        navigate(`/messages/${existingThread.id}`);
+        return;
+      }
+
+      // 4. Create new thread
+      const { data: newThread, error: insertError } = await supabase
+        .from('listing_threads')
+        .insert({
+          listing_id: item.id,
+          buyer_id: userId,
+          seller_id: item.user_id,
+        })
+        .select('id')
+        .single();
+
+      if (insertError) throw insertError;
+
+      navigate(`/messages/${newThread.id}`);
+    } catch (error) {
+      console.error('Error starting conversation:', error);
+      console.error('Error details:', JSON.stringify(error, null, 2));
+      alert(`Could not start conversation: ${error.message || error}`);
+    } finally {
+      setContactLoading(false);
+    }
   };
 
   if (loading) return (
@@ -101,7 +141,7 @@ const ItemDetails = () => {
             
             <div className="details-price-row">
                <span className="details-price">
-                 ${item.price.toLocaleString()}
+                 ₹{item.price.toLocaleString()}
                  {item.listing_type === 'For Rent' && item.rent_period && (
                    <span className="text-sm text-gray-400"> / {item.rent_period}</span>
                  )}
@@ -124,8 +164,16 @@ const ItemDetails = () => {
 
             {/* --- SINGLE ACTION BUTTON --- */}
             <div className="details-actions">
-              <button onClick={handleContact} className="btn-primary-action full-width">
-                {item.listing_type === 'For Sale' ? 'Contact Seller' : 'Request Booking'}
+              <button 
+                onClick={handleContact} 
+                className="btn-primary-action full-width"
+                disabled={contactLoading}
+                style={{ opacity: contactLoading ? 0.7 : 1 }}
+              >
+                {contactLoading 
+                  ? 'Opening chat...' 
+                  : (item.listing_type === 'For Sale' ? 'Contact Seller' : 'Request Booking')
+                }
               </button>
             </div>
 

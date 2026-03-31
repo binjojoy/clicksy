@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
-import { predictPriceKNN } from '../utils/knnPricePredictor'; // 1. Import the K-NN Algorithm
+import { predictPriceKNN } from '../utils/knnPricePredictor';
 import '../styles/SellItem.css';
 
 const SellItem = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState(null);
-    const [predictedPrice, setPredictedPrice] = useState(null); // State for Smart Price
+    const [predictedPrice, setPredictedPrice] = useState(null);
 
-    // Form State
     const [formData, setFormData] = useState({
         name: '',        
         price: '',
@@ -19,16 +18,13 @@ const SellItem = () => {
         description: '',
         listing_type: 'For Sale', 
         rent_period: 'daily',
-        
-        // --- NEW FIELDS FOR ALGORITHM ---
-        // Defaults ensure the algorithm has data to start with
         category: 'Camera Body',
         brand: 'Sony',
         condition: 'Good',
         purchaseYear: ''
     });
 
-    // 1. CHECK AUTH
+    // CHECK AUTH
     useEffect(() => {
         const user = localStorage.getItem('userName');
         if (!user) {
@@ -37,20 +33,27 @@ const SellItem = () => {
         }
     }, [navigate]);
 
-    // 2. K-NN ALGORITHM TRIGGER
-    // Automatically runs when Brand, Category, Condition, or Year changes
+    // K-NN ALGORITHM TRIGGER — async API call
     useEffect(() => {
-        if (formData.listing_type === 'For Sale' && formData.purchaseYear) {
-            const estimate = predictPriceKNN({
+        if (formData.listing_type !== 'For Sale' || !formData.purchaseYear) {
+            setPredictedPrice(null);
+            return;
+        }
+
+        let cancelled = false;
+
+        (async () => {
+            const estimate = await predictPriceKNN({
                 brand: formData.brand,
                 category: formData.category,
                 condition: formData.condition,
-                purchaseYear: formData.purchaseYear
+                purchaseYear: formData.purchaseYear,
             });
-            setPredictedPrice(estimate);
-        } else {
-            setPredictedPrice(null); // Clear if renting or missing year
-        }
+            if (!cancelled) setPredictedPrice(estimate);
+        })();
+
+        return () => { cancelled = true; };
+
     }, [formData.purchaseYear, formData.condition, formData.category, formData.brand, formData.listing_type]);
 
     const handleChange = (e) => {
@@ -78,17 +81,14 @@ const SellItem = () => {
         try {
             setLoading(true);
 
-            // SMART USER ID LOGIC
-            let finalUserId;
-            const { data: { user } } = await supabase.auth.getUser();
-
-            if (user) {
-                finalUserId = user.id;
-            } else {
-                finalUserId = "00000000-0000-0000-0000-000000000000"; 
+            // Use localStorage user_id (same as what the backend stores)
+            const finalUserId = localStorage.getItem('user_id');
+            if (!finalUserId) {
+                alert("You must be logged in to list an item.");
+                navigate('/auth');
+                return;
             }
 
-            // UPLOAD IMAGE
             const fileExt = file.name.split('.').pop();
             const fileName = `${Date.now()}.${fileExt}`;
             const filePath = `listings/${fileName}`;
@@ -103,29 +103,23 @@ const SellItem = () => {
                 .from('marketplace')
                 .getPublicUrl(filePath);
 
-            // INSERT INTO DB
             const rentPeriodValue = formData.listing_type === 'For Rent' ? formData.rent_period : null;
-
-            // Combine extra details into description or store in separate columns if DB allows
-            // For now, we append the machine-readable details to the description for context
             const finalDescription = `${formData.description}\n\n[Details: ${formData.brand} ${formData.category}, ${formData.condition}, Bought in ${formData.purchaseYear}]`;
 
             const { error: dbError } = await supabase
                 .from('listings')
-                .insert([
-                    {
-                        user_id: finalUserId, 
-                        name: formData.name,
-                        description: finalDescription,
-                        price: parseFloat(formData.price),
-                        location: formData.location,
-                        listing_type: formData.listing_type,
-                        rent_period: rentPeriodValue,       
-                        image_url: publicUrl,
-                        currency: 'USD',
-                        status: 'active'
-                    }
-                ]);
+                .insert([{
+                    user_id: finalUserId, 
+                    name: formData.name,
+                    description: finalDescription,
+                    price: parseFloat(formData.price),
+                    location: formData.location,
+                    listing_type: formData.listing_type,
+                    rent_period: rentPeriodValue,       
+                    image_url: publicUrl,
+                    currency: 'USD',
+                    status: 'active'
+                }]);
 
             if (dbError) throw dbError;
 
@@ -158,7 +152,6 @@ const SellItem = () => {
                             <input name="name" type="text" className="form-input" placeholder="e.g. Sony A7 III Body" onChange={handleChange} required disabled={loading} />
                         </div>
 
-                        {/* --- ALGORITHM INPUTS (Integrated into your Grid Layout) --- */}
                         <div className="form-grid">
                             <div className="form-group">
                                 <label className="form-label">Category</label>
@@ -234,10 +227,9 @@ const SellItem = () => {
                         <div className="form-group">
                             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
                                 <label className="form-label">Price ($)</label>
-                                {/* --- ALGORITHM RESULT DISPLAY --- */}
                                 {predictedPrice && (
                                     <span className="smart-price-hint">
-                                        ✨ Market Value: ${predictedPrice}
+                                        ✨ Market Value: ₹{predictedPrice.toLocaleString('en-IN')}
                                     </span>
                                 )}
                             </div>

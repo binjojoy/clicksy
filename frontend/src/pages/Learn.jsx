@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import '../styles/Learn.css';
-
+import portrait from '../assets/portrait.jpg';
 const Learn = () => {
   // 1. FILTER STATE
   const [activeFilter, setActiveFilter] = useState("All");
 
-  // 2. RICH DATA (Images + difficulty levels)
+  // 2. RICH DATA (Updated with specific YouTube URLs & better lighting image)
   const resources = [
     {
       id: 1,
@@ -16,7 +16,8 @@ const Learn = () => {
       category: "Beginner",
       type: "Basics",
       duration: "45 min",
-      image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
+      image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      youtubeUrl: "https://www.youtube.com/watch?v=TcpQ4OAKVpQ" 
     },
     {
       id: 2,
@@ -25,7 +26,9 @@ const Learn = () => {
       category: "Intermediate",
       type: "Lighting",
       duration: "1.5 hours",
-      image: "https://images.unsplash.com/photo-1554048612-387768052bf7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
+      // Changed to an image that actually shows a studio light/softbox setup
+      image: portrait,
+      youtubeUrl: "https://www.youtube.com/watch?v=vwz5b-12tG0" 
     },
     {
       id: 3,
@@ -34,7 +37,8 @@ const Learn = () => {
       category: "Advanced",
       type: "Business",
       duration: "2 hours",
-      image: "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
+      image: "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      youtubeUrl: "https://www.youtube.com/watch?v=dxbtXOt43fI" 
     },
     {
       id: 4,
@@ -43,7 +47,8 @@ const Learn = () => {
       category: "Intermediate",
       type: "Editing",
       duration: "55 min",
-      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
+      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      youtubeUrl: "https://www.youtube.com/watch?v=7iqHG1GDUHY" 
     },
     {
       id: 5,
@@ -52,7 +57,8 @@ const Learn = () => {
       category: "Beginner",
       type: "Portrait",
       duration: "30 min",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      youtubeUrl: "https://www.youtube.com/watch?v=piJtA0qE67s" 
     },
     {
       id: 6,
@@ -61,7 +67,8 @@ const Learn = () => {
       category: "Beginner",
       type: "Gear",
       duration: "1.2 hours",
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
+      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      youtubeUrl: "https://www.youtube.com/watch?v=8q31z0QvE10" 
     },
   ];
 
@@ -71,6 +78,11 @@ const Learn = () => {
   const filteredResources = activeFilter === "All" 
     ? resources 
     : resources.filter(r => r.type === activeFilter);
+
+  // Helper function to handle external redirects safely
+  const handleRedirect = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="learn-page">
@@ -87,7 +99,12 @@ const Learn = () => {
                     Join 5,000+ photographers in our comprehensive 4-week bootcamp. 
                     Master your camera, understand light, and edit like a pro.
                 </p>
-                <button className="btn-hero">Start Watching Now</button>
+                <button 
+                  className="btn-hero"
+                  onClick={() => handleRedirect("https://www.youtube.com/watch?v=V7z7BAZdt2M")}
+                >
+                  Start Watching Now
+                </button>
             </div>
         </div>
 
@@ -115,7 +132,6 @@ const Learn = () => {
             {filteredResources.map((resource) => (
                 <div key={resource.id} className="resource-card">
                     
-                    {/* Thumbnail Image */}
                     <div className="card-thumbnail">
                         <img src={resource.image} alt={resource.title} loading="lazy" />
                     </div>
@@ -129,7 +145,10 @@ const Learn = () => {
                         <h3 className="card-title">{resource.title}</h3>
                         <p className="card-description">{resource.description}</p>
                         
-                        <button className="btn-start">
+                        <button 
+                          className="btn-start"
+                          onClick={() => handleRedirect(resource.youtubeUrl)}
+                        >
                             View Lesson
                         </button>
                     </div>

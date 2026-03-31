@@ -33,9 +33,9 @@ const Marketplace = () => {
 
   const formatPrice = (item) => {
     if (item.listing_type === 'For Rent' && item.rent_period) {
-      return `$${item.price}/${item.rent_period}`;
+      return `₹${item.price}/${item.rent_period}`;
     }
-    return `$${item.price.toLocaleString()}`;
+    return `₹${item.price.toLocaleString()}`;
   };
 
   return (

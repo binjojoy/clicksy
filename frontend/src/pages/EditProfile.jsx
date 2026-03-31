@@ -1,79 +1,90 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-import { toast } from "../components/Toaster.jsx"; 
-import api from '../services/api'; 
-import { supabase } from '../services/supabaseClient'; 
+import { toast } from "../components/Toaster.jsx";
+import api from '../services/api';
+import { supabase } from '../services/supabaseClient';
 import { Camera, MapPin, Globe, Instagram, Twitter, User, Briefcase, Link as LinkIcon, Save, Loader2, Image as ImageIcon } from "lucide-react";
 import '../styles/EditProfile.css';
+
+// 1. Define the 6 domain options
+const DOMAIN_OPTIONS = ["Wedding", "Portrait", "Fashion", "Product", "Event", "Travel"];
 
 const EditProfile = () => {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    
+
     // Upload States
     const [uploadingAvatar, setUploadingAvatar] = useState(false);
     const [uploadingBanner, setUploadingBanner] = useState(false);
 
-    // Tab State (Fixes the "Irresponsive Tab" issue)
-    const [activeTab, setActiveTab] = useState('personal'); // Options: 'personal', 'professional', 'social'
+    // Tab State
+    const [activeTab, setActiveTab] = useState('personal');
+
+    // New State for Domains & Custom Skills
+    const [selectedDomains, setSelectedDomains] = useState([]);
+    const [skillsInput, setSkillsInput] = useState("");
 
     // Profile State
     const [profile, setProfile] = useState({
         user_id: null,
         full_name: "",
         email: "",
-        user_type: "Client", 
+        user_type: "Client",
         avatar_url: null,
-        banner_url: null, 
+        banner_url: null,
         bio: "",
         location: "",
         phone_number: "",
-        skills: [], 
+        skills: [],
         hourly_rate: "",
         portfolio_intro: "",
-        social_links: { instagram: "", twitter: "", website: "" }, 
+        social_links: { instagram: "", twitter: "", website: "" },
         is_verified: false
     });
-
-    const [skillsInput, setSkillsInput] = useState("");
 
     // 1. FETCH PROFILE
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const localUserId = localStorage.getItem('user_id'); 
+                const localUserId = localStorage.getItem('user_id');
                 const localUserName = localStorage.getItem('userName');
                 const localUserRole = localStorage.getItem('userRole');
 
                 if (!localUserId) {
                     toast.error("Please login first.");
-                    return; 
+                    return;
                 }
 
                 const response = await api.get(`/profile/${localUserId}`);
                 const dbData = response.data;
 
                 if (dbData) {
-                    // FIX: Explicitly checking and setting URL fields ensures they pre-render
                     setProfile(prev => ({
-                        ...prev, 
+                        ...prev,
                         ...dbData,
-                        user_id: localUserId, 
+                        user_id: localUserId,
                         full_name: dbData.full_name || localUserName || "",
                         user_type: dbData.user_type || localUserRole || "Client",
-                        
-                        // Crucial Fix for Images:
-                        avatar_url: dbData.avatar_url || null, 
+                        avatar_url: dbData.avatar_url || null,
                         banner_url: dbData.banner_url || null,
-                        
                         social_links: dbData.social_links || { instagram: "", twitter: "", website: "" },
                         skills: dbData.skills || [],
                         hourly_rate: dbData.hourly_rate ? String(dbData.hourly_rate) : ""
                     }));
 
+                    // Safely split domains from other custom skills on load
                     if (dbData.skills && Array.isArray(dbData.skills)) {
-                        setSkillsInput(dbData.skills.join(", "));
+                        // Find matches ignoring case just in case
+                        const domains = dbData.skills.filter(s =>
+                            DOMAIN_OPTIONS.some(d => d.toLowerCase() === s.toLowerCase())
+                        );
+                        const otherSkills = dbData.skills.filter(s =>
+                            !DOMAIN_OPTIONS.some(d => d.toLowerCase() === s.toLowerCase())
+                        );
+
+                        setSelectedDomains(domains.map(d => d.charAt(0).toUpperCase() + d.slice(1).toLowerCase())); // Normalize casing
+                        setSkillsInput(otherSkills.join(", "));
                     }
                 }
 
@@ -101,6 +112,15 @@ const EditProfile = () => {
         }));
     };
 
+    // Handle Checkbox Toggles for Domains
+    const handleDomainToggle = (domain) => {
+        setSelectedDomains(prev =>
+            prev.includes(domain)
+                ? prev.filter(d => d !== domain)
+                : [...prev, domain]
+        );
+    };
+
     // 3. IMAGE UPLOAD LOGIC
     const uploadImage = async (file, bucket) => {
         const uid = profile.user_id || localStorage.getItem('user_id');
@@ -108,10 +128,10 @@ const EditProfile = () => {
 
         const fileExt = file.name.split('.').pop();
         const fileName = `${uid}-${Date.now()}.${fileExt}`;
-        const filePath = `${fileName}`; 
+        const filePath = `${fileName}`;
 
         const { error: uploadError } = await supabase.storage
-            .from(bucket) 
+            .from(bucket)
             .upload(filePath, file, { upsert: true });
 
         if (uploadError) throw uploadError;
@@ -119,7 +139,7 @@ const EditProfile = () => {
         const { data: { publicUrl } } = supabase.storage
             .from(bucket)
             .getPublicUrl(filePath);
-            
+
         return publicUrl;
     };
 
@@ -160,9 +180,14 @@ const EditProfile = () => {
         e.preventDefault();
         setSaving(true);
         try {
-            const skillsArray = skillsInput.split(',').map(s => s.trim()).filter(s => s);
-            const payload = { ...profile, skills: skillsArray };
-            
+            // Clean up custom skills input
+            const customSkillsArray = skillsInput.split(',').map(s => s.trim()).filter(s => s);
+
+            // Merge Domains and Custom Skills into one array for the backend
+            const finalSkillsArray = [...new Set([...selectedDomains, ...customSkillsArray])];
+
+            const payload = { ...profile, skills: finalSkillsArray };
+
             const response = await api.put('/profile', payload);
             if (response.status === 200) {
                 toast.success("Profile saved successfully!");
@@ -184,19 +209,19 @@ const EditProfile = () => {
     return (
         <div className="edit-profile-page">
             <Navbar />
-            
+
             <div className="edit-layout">
                 {/* --- SIDEBAR --- */}
                 <aside>
                     <div className="sidebar-card">
-                        
+
                         {/* BANNER PREVIEW */}
                         <div className="banner-edit-section" style={{
                             backgroundImage: profile.banner_url ? `url(${profile.banner_url})` : 'linear-gradient(to right, #27272a, #3f3f46)',
                             height: '80px', borderRadius: '12px', marginBottom: '-40px', position: 'relative', overflow: 'hidden', backgroundSize: 'cover', backgroundPosition: 'center'
                         }}>
                             <label className="banner-edit-btn" title="Change Banner">
-                                {uploadingBanner ? <Loader2 size={14} className="animate-spin"/> : <ImageIcon size={14} />}
+                                {uploadingBanner ? <Loader2 size={14} className="animate-spin" /> : <ImageIcon size={14} />}
                                 <input type="file" accept="image/*" hidden onChange={handleBannerUpload} disabled={uploadingBanner} />
                             </label>
                         </div>
@@ -209,39 +234,39 @@ const EditProfile = () => {
                                 ) : (
                                     <div className="avatar-placeholder">{profile.full_name?.charAt(0) || "U"}</div>
                                 )}
-                                
+
                                 <label className="avatar-edit-badge">
-                                    {uploadingAvatar ? <Loader2 size={16} className="animate-spin"/> : <Camera size={16} />}
+                                    {uploadingAvatar ? <Loader2 size={16} className="animate-spin" /> : <Camera size={16} />}
                                     <input type="file" accept="image/*" hidden onChange={handleAvatarUpload} disabled={uploadingAvatar} />
                                 </label>
                             </div>
-                            
+
                             <h2 className="profile-name">{profile.full_name || "Your Name"}</h2>
                             <div className="profile-role-badge">{profile.user_type}</div>
                         </div>
 
-                        {/* NAV TABS (FIXED: Now they actually work) */}
+                        {/* NAV TABS */}
                         <div className="sidebar-nav">
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className={`nav-item ${activeTab === 'personal' ? 'active' : ''}`}
                                 onClick={() => setActiveTab('personal')}
                             >
                                 <User size={18} /> Personal Info
                             </button>
-                            
-                            {profile.user_type === 'Photographer' && (
-                                <button 
-                                    type="button" 
+
+                            {profile.user_type?.toLowerCase() === 'photographer' && (
+                                <button
+                                    type="button"
                                     className={`nav-item ${activeTab === 'professional' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('professional')}
                                 >
                                     <Briefcase size={18} /> Professional Details
                                 </button>
                             )}
-                            
-                            <button 
-                                type="button" 
+
+                            <button
+                                type="button"
                                 className={`nav-item ${activeTab === 'social' ? 'active' : ''}`}
                                 onClick={() => setActiveTab('social')}
                             >
@@ -254,7 +279,7 @@ const EditProfile = () => {
                 {/* --- MAIN FORM CONTENT --- */}
                 <main>
                     <form onSubmit={handleSubmit} className="profile-form">
-                        
+
                         {/* TAB 1: PERSONAL INFO */}
                         {activeTab === 'personal' && (
                             <div className="form-section fade-in">
@@ -296,7 +321,7 @@ const EditProfile = () => {
                         )}
 
                         {/* TAB 2: PROFESSIONAL INFO */}
-                        {activeTab === 'professional' && profile.user_type === 'Photographer' && (
+                        {activeTab === 'professional' && profile.user_type?.toLowerCase() === 'photographer' && (
                             <div className="form-section mt-8 fade-in">
                                 <div className="section-header">
                                     <h3>Professional Portfolio</h3>
@@ -304,14 +329,59 @@ const EditProfile = () => {
                                 </div>
 
                                 <div className="form-grid">
-                                    <div className="form-group">
-                                        <label>Hourly Rate ($)</label>
-                                        <input type="number" name="hourly_rate" value={profile.hourly_rate || ''} onChange={handleChange} placeholder="0.00" />
+                                    <div className="form-group full-width">
+                                        <label>Hourly Rate (₹)</label>
+                                        <input type="number" name="hourly_rate" value={profile.hourly_rate || ''} onChange={handleChange} placeholder="0.00" style={{ maxWidth: '200px' }} />
+                                    </div>
+
+                                    {/* NEW DOMAIN CHECKBOXES */}
+                                    <div className="form-group full-width">
+                                        <label>Domain Expertise (Select one or more)</label>
+                                        <div style={{
+                                            display: 'grid',
+                                            gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))',
+                                            gap: '12px',
+                                            marginTop: '10px',
+                                            padding: '12px',
+                                            background: 'rgba(255, 255, 255, 0.02)',
+                                            borderRadius: '8px',
+                                            border: '1px solid #27272a'
+                                        }}>
+                                            {DOMAIN_OPTIONS.map(domain => (
+                                                <label key={domain} style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '8px',
+                                                    cursor: 'pointer',
+                                                    color: selectedDomains.includes(domain) ? '#fff' : '#a1a1aa',
+                                                    fontSize: '0.9rem',
+                                                    transition: 'color 0.2s ease'
+                                                }}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedDomains.includes(domain)}
+                                                        onChange={() => handleDomainToggle(domain)}
+                                                        style={{
+                                                            accentColor: '#7C3AED',
+                                                            width: '16px',
+                                                            height: '16px',
+                                                            cursor: 'pointer'
+                                                        }}
+                                                    />
+                                                    {domain}
+                                                </label>
+                                            ))}
+                                        </div>
                                     </div>
 
                                     <div className="form-group full-width">
-                                        <label>Skills (Comma separated)</label>
-                                        <input type="text" value={skillsInput} onChange={(e) => setSkillsInput(e.target.value)} placeholder="Wedding, Portrait, Wildlife..." />
+                                        <label>Additional Skills & Equipment (Comma separated)</label>
+                                        <input
+                                            type="text"
+                                            value={skillsInput}
+                                            onChange={(e) => setSkillsInput(e.target.value)}
+                                            placeholder="Drone, Studio Lighting, Photoshop, Lightroom..."
+                                        />
                                     </div>
 
                                     <div className="form-group full-width">
@@ -370,7 +440,7 @@ const EditProfile = () => {
                     </form>
                 </main>
             </div>
-            
+
             <Footer />
         </div>
     );

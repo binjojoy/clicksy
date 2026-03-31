@@ -1,10 +1,10 @@
-// src/pages/ClientBooking.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
+import api from "../services/api.js";
 import { 
-  Calendar, Clock, MapPin, Search, MoreVertical, MessageSquare, XCircle, CheckCircle, AlertCircle, Camera, Star
+  Calendar, Clock, MapPin, Search, CheckCircle, XCircle, AlertCircle, Star, MessageSquare 
 } from "lucide-react";
 import "../styles/ClientBooking.css";
 
@@ -13,47 +13,37 @@ const ClientBooking = () => {
   const [activeTab, setActiveTab] = useState("upcoming");
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
-
-  // Mock Data
-  const [bookings, setBookings] = useState([
-    { 
-      id: "BK-2025-001", photographer: "Elena Fisher", avatar: "EF", category: "Wedding Shoot", 
-      date: "Oct 24, 2025", day: "24", month: "OCT", time: "10:00 AM", duration: "8 Hours",
-      location: "Grand Hyatt, Kochi", status: "confirmed", price: "₹15,000"
-    },
-    { 
-      id: "BK-2025-002", photographer: "Arjun Kapoor", avatar: "AK", category: "Portrait Session", 
-      date: "Nov 02, 2025", day: "02", month: "NOV", time: "02:00 PM", duration: "2 Hours",
-      location: "Cubbon Park, Bangalore", status: "pending", price: "₹4,000"
-    },
-    { 
-      id: "BK-2024-001", photographer: "Sarah Jenkins", avatar: "SJ", category: "Fashion Portfolio", 
-      date: "Sep 15, 2024", day: "15", month: "SEP", time: "09:00 AM", duration: "4 Hours",
-      location: "Hauz Khas, Delhi", status: "completed", price: "₹12,000", rating: 5
-    },
-    { 
-      id: "BK-2024-005", photographer: "David Chen", avatar: "DC", category: "Event Coverage", 
-      date: "Aug 10, 2024", day: "10", month: "AUG", time: "06:00 PM", duration: "5 Hours",
-      location: "Marina Beach, Chennai", status: "cancelled", price: "₹8,000"
-    }
-  ]);
+  const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    // Simulate loading
-    setTimeout(() => setLoading(false), 600);
+    const fetchMyBookings = async () => {
+      setLoading(true);
+      const userId = localStorage.getItem('user_id');
+      try {
+        const { data } = await api.get(`/bookings/client/${userId}`);
+        setBookings(data || []);
+      } catch (error) { console.error(error); } finally { setLoading(false); }
+    };
+    fetchMyBookings();
   }, []);
 
-  // Filter Logic
+  const formatStubDate = (isoString) => {
+    const date = new Date(isoString);
+    return {
+      month: date.toLocaleString('default', { month: 'short' }).toUpperCase(),
+      day: date.getDate().toString().padStart(2, '0'),
+      year: date.getFullYear(),
+      time: date.toLocaleString('default', { hour: '2-digit', minute: '2-digit' })
+    };
+  };
+
   const filteredBookings = bookings.filter(booking => {
     const matchesTab = 
       activeTab === "upcoming" ? ["confirmed", "pending"].includes(booking.status) :
       activeTab === "history" ? ["completed"].includes(booking.status) :
       activeTab === "cancelled" ? ["cancelled"].includes(booking.status) : true;
-
-    const matchesSearch = booking.photographer.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          booking.id.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    return matchesTab && matchesSearch;
+    return matchesTab && (booking.photographer_name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          booking.booking_title?.toLowerCase().includes(searchQuery.toLowerCase()));
   });
 
   const getStatusIcon = (status) => {
@@ -67,139 +57,102 @@ const ClientBooking = () => {
   };
 
   return (
-    <div className="page-container bg-black">
+    <div className="client-booking-root">
       <Navbar />
-
-      <main className="booking-main">
-        <div className="content-wrapper">
+      <main className="booking-main-compact">
+        <div className="compact-wrapper">
           
-          {/* --- HEADER --- */}
-          <div className="booking-header">
+          <header className="compact-header">
             <div>
-              <h1 className="page-title">My Bookings</h1>
-              <p className="text-muted">Manage your sessions and view past history.</p>
+              <h1 className="compact-title">My Bookings</h1>
+              <p className="compact-subtitle">Manage your sessions and view past history</p>
             </div>
-            <button className="btn-new-booking" onClick={() => navigate('/explore')}>
+            <button className="solid-glass-btn" onClick={() => navigate('/explore')}>
               + Book New Session
             </button>
-          </div>
+          </header>
 
-          {/* --- CONTROLS ROW --- */}
-          <div className="controls-row">
-            {/* Tabs */}
-            <div className="booking-tabs">
+          <div className="compact-toolbar glass-panel">
+            <div className="compact-tabs">
               {['upcoming', 'history', 'cancelled'].map(tab => (
                 <button 
                   key={tab} 
-                  className={`tab-pill ${activeTab === tab ? 'active' : ''}`}
+                  className={`compact-tab ${activeTab === tab ? 'active' : ''}`}
                   onClick={() => setActiveTab(tab)}
                 >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  {tab}
                 </button>
               ))}
             </div>
-
-            {/* Search */}
-            <div className="booking-search">
-              <Search size={16} className="search-icon" />
+            <div className="compact-search">
+              <Search size={14} />
               <input 
-                type="text" 
-                placeholder="Search by name or ID..." 
+                placeholder="Search sessions..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
 
-          {/* --- BOOKING LIST --- */}
-          <div className="booking-list-container">
+          <div className="booking-content-area">
             {loading ? (
-               <p className="text-muted text-center py-10">Loading schedule...</p>
+               <div className="compact-loader">Syncing schedule...</div>
             ) : filteredBookings.length > 0 ? (
-              <div className="bookings-grid">
-                {filteredBookings.map(booking => (
-                  <div key={booking.id} className="booking-card">
-                    
-                    {/* Left: Date Ticket Stub */}
-                    <div className="card-stub">
-                      <span className="stub-month">{booking.month}</span>
-                      <span className="stub-day">{booking.day}</span>
-                      <span className="stub-year">{booking.date.split(',')[1]}</span>
-                    </div>
+              <div className="compact-grid">
+                {filteredBookings.map(booking => {
+                  const dateInfo = formatStubDate(booking.start_time);
+                  
+                  // Translate raw DB status into user-friendly text
+                  let displayStatus = booking.status;
+                  if (booking.status === 'pending') displayStatus = "Awaiting Approval";
+                  if (booking.status === 'confirmed') displayStatus = "Accepted";
+                  if (booking.status === 'cancelled') displayStatus = "Declined";
+                  if (booking.status === 'completed') displayStatus = "Completed";
 
-                    {/* Right: Details */}
-                    <div className="card-body">
-                      
-                      {/* Header: ID & Status */}
-                      <div className="card-top-row">
-                        <span className="booking-id">{booking.id}</span>
-                        <div className={`status-badge status-${booking.status}`}>
-                           {getStatusIcon(booking.status)}
-                           {booking.status}
-                        </div>
+                  return (
+                    <div key={booking.id} className="compact-glass-card">
+                      <div className="compact-stub">
+                        <span className="stub-m">{dateInfo.month}</span>
+                        <span className="stub-d">{dateInfo.day}</span>
                       </div>
-
-                      {/* Main Info */}
-                      <h3 className="event-title">{booking.category}</h3>
-                      
-                      <div className="photographer-row">
-                        <div className="pg-avatar-sm">{booking.avatar}</div>
-                        <div className="pg-details">
-                            <span className="pg-name">{booking.photographer}</span>
-                            <span className="pg-label">Photographer</span>
+                      <div className="compact-body">
+                        <div className="body-top">
+                          <span className="ref-id">REF: {booking.id.slice(0, 8)}</span>
+                          <span className={`mini-badge status-${booking.status}`}>{displayStatus}</span>
                         </div>
-                      </div>
-
-                      {/* Meta Details */}
-                      <div className="meta-grid">
-                        <div className="meta-item">
-                            <Clock size={14} className="meta-icon" />
-                            <span>{booking.time} ({booking.duration})</span>
+                        <h3 className="compact-event-title">{booking.booking_title}</h3>
+                        <div className="compact-meta">
+                          <span>{booking.photographer_name}</span>
+                          <span className="meta-sep">•</span>
+                          <span>{dateInfo.time}</span>
                         </div>
-                        <div className="meta-item">
-                            <MapPin size={14} className="meta-icon" />
-                            <span>{booking.location}</span>
-                        </div>
-                      </div>
-
-                      {/* Footer Actions */}
-                      <div className="card-footer">
-                        <span className="price-tag">{booking.price}</span>
-                        
-                        <div className="action-buttons">
+                        <div className="compact-footer">
+                          <span className="price">₹{booking.total_price}</span>
+                          <div className="action-row">
+                            <button className="icon-btn-glass"><MessageSquare size={14} /></button>
                             {booking.status === 'completed' ? (
-                                <button className="btn-action-outline">
-                                    <Star size={14} /> Rate
-                                </button>
+                                <button className="compact-btn-details" style={{ background: '#10b981', color: 'white', borderColor: '#10b981' }}>Leave Review</button>
                             ) : (
-                                <button className="btn-action-outline">
-                                    <MessageSquare size={14} /> Chat
-                                </button>
+                                <button className="compact-btn-details" onClick={() => navigate(`/booking-details/${booking.id}`)}>Details</button>
                             )}
-                            
-                            <button className="btn-action-primary">View Details</button>
+                          </div>
                         </div>
                       </div>
-
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ) : (
-              /* --- EMPTY STATE --- */
-              <div className="empty-booking-state">
-                <div className="empty-icon-circle">
-                    <Calendar size={48} />
-                </div>
-                <h3>No {activeTab} bookings found</h3>
-                <p>Looks like you don't have any sessions in this category.</p>
-                {activeTab === 'upcoming' && (
-                    <button className="btn-explore-link" onClick={() => navigate('/explore')}>Find a Photographer</button>
-                )}
+              <div className="compact-empty-state glass-panel">
+                <div className="empty-icon-box"><Calendar size={32} /></div>
+                <h2 className="empty-h2">No {activeTab} bookings found</h2>
+                <p className="empty-p">Ready to fill your schedule with new sessions?</p>
+                <button className="refined-action-btn" onClick={() => navigate('/explore')}>
+                  Find a Photographer
+                </button>
               </div>
             )}
           </div>
-
         </div>
       </main>
       <Footer />

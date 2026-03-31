@@ -1,0 +1,2533 @@
+brand,category,launch_year,sale_year,age_at_sale,condition,condition_score,new_price_inr,resale_price_inr
+Sony,Camera Body,2021,2021,0,New (Open Box),6,234990,189500
+Sony,Camera Body,2021,2021,0,Like New,5,234990,155000
+Sony,Camera Body,2021,2021,0,Excellent,4,234990,147000
+Sony,Camera Body,2021,2021,0,Good,3,234990,120000
+Sony,Camera Body,2021,2021,0,Fair,2,234990,69500
+Sony,Camera Body,2021,2022,1,New (Open Box),6,234990,144500
+Sony,Camera Body,2021,2022,1,Like New,5,234990,140000
+Sony,Camera Body,2021,2022,1,Excellent,4,234990,116000
+Sony,Camera Body,2021,2022,1,Good,3,234990,95500
+Sony,Camera Body,2021,2022,1,Fair,2,234990,62500
+Sony,Camera Body,2021,2023,2,Excellent,4,234990,106000
+Sony,Camera Body,2021,2023,2,Good,3,234990,85000
+Sony,Camera Body,2021,2023,2,Fair,2,234990,56500
+Sony,Camera Body,2021,2023,2,For Parts,1,234990,28500
+Sony,Camera Body,2021,2024,3,Excellent,4,234990,88500
+Sony,Camera Body,2021,2024,3,Good,3,234990,66000
+Sony,Camera Body,2021,2024,3,Fair,2,234990,49500
+Sony,Camera Body,2021,2024,3,For Parts,1,234990,21500
+Sony,Camera Body,2021,2025,4,Excellent,4,234990,77500
+Sony,Camera Body,2021,2025,4,Good,3,234990,59500
+Sony,Camera Body,2021,2025,4,Fair,2,234990,40500
+Sony,Camera Body,2021,2025,4,For Parts,1,234990,18500
+Sony,Camera Body,2019,2021,2,Excellent,4,159990,73500
+Sony,Camera Body,2019,2021,2,Good,3,159990,55000
+Sony,Camera Body,2019,2021,2,Fair,2,159990,37500
+Sony,Camera Body,2019,2021,2,For Parts,1,159990,18000
+Sony,Camera Body,2019,2022,3,Excellent,4,159990,60500
+Sony,Camera Body,2019,2022,3,Good,3,159990,48500
+Sony,Camera Body,2019,2022,3,Fair,2,159990,33500
+Sony,Camera Body,2019,2022,3,For Parts,1,159990,16000
+Sony,Camera Body,2019,2023,4,Excellent,4,159990,56500
+Sony,Camera Body,2019,2023,4,Good,3,159990,39500
+Sony,Camera Body,2019,2023,4,Fair,2,159990,27000
+Sony,Camera Body,2019,2023,4,For Parts,1,159990,12500
+Sony,Camera Body,2019,2024,5,Excellent,4,159990,44000
+Sony,Camera Body,2019,2024,5,Good,3,159990,36500
+Sony,Camera Body,2019,2024,5,Fair,2,159990,23500
+Sony,Camera Body,2019,2024,5,For Parts,1,159990,10500
+Sony,Camera Body,2019,2025,6,Excellent,4,159990,34000
+Sony,Camera Body,2019,2025,6,Good,3,159990,30000
+Sony,Camera Body,2019,2025,6,Fair,2,159990,21000
+Sony,Camera Body,2019,2025,6,For Parts,1,159990,10000
+Sony,Camera Body,2022,2022,0,New (Open Box),6,84990,64500
+Sony,Camera Body,2022,2022,0,Like New,5,84990,60500
+Sony,Camera Body,2022,2022,0,Excellent,4,84990,51000
+Sony,Camera Body,2022,2022,0,Good,3,84990,41500
+Sony,Camera Body,2022,2022,0,Fair,2,84990,30000
+Sony,Camera Body,2022,2023,1,New (Open Box),6,84990,57500
+Sony,Camera Body,2022,2023,1,Like New,5,84990,52500
+Sony,Camera Body,2022,2023,1,Excellent,4,84990,43000
+Sony,Camera Body,2022,2023,1,Good,3,84990,35000
+Sony,Camera Body,2022,2023,1,Fair,2,84990,25000
+Sony,Camera Body,2022,2024,2,Excellent,4,84990,33000
+Sony,Camera Body,2022,2024,2,Good,3,84990,29000
+Sony,Camera Body,2022,2024,2,Fair,2,84990,20000
+Sony,Camera Body,2022,2024,2,For Parts,1,84990,9500
+Sony,Camera Body,2022,2025,3,Excellent,4,84990,30500
+Sony,Camera Body,2022,2025,3,Good,3,84990,27500
+Sony,Camera Body,2022,2025,3,Fair,2,84990,16500
+Sony,Camera Body,2022,2025,3,For Parts,1,84990,8500
+Sony,Camera Body,2020,2021,1,New (Open Box),6,299990,179500
+Sony,Camera Body,2020,2021,1,Like New,5,299990,174000
+Sony,Camera Body,2020,2021,1,Excellent,4,299990,152500
+Sony,Camera Body,2020,2021,1,Good,3,299990,126500
+Sony,Camera Body,2020,2021,1,Fair,2,299990,88000
+Sony,Camera Body,2020,2022,2,Excellent,4,299990,134500
+Sony,Camera Body,2020,2022,2,Good,3,299990,102000
+Sony,Camera Body,2020,2022,2,Fair,2,299990,70000
+Sony,Camera Body,2020,2022,2,For Parts,1,299990,36000
+Sony,Camera Body,2020,2023,3,Excellent,4,299990,109000
+Sony,Camera Body,2020,2023,3,Good,3,299990,82500
+Sony,Camera Body,2020,2023,3,Fair,2,299990,57500
+Sony,Camera Body,2020,2023,3,For Parts,1,299990,27500
+Sony,Camera Body,2020,2024,4,Excellent,4,299990,96500
+Sony,Camera Body,2020,2024,4,Good,3,299990,76500
+Sony,Camera Body,2020,2024,4,Fair,2,299990,54500
+Sony,Camera Body,2020,2024,4,For Parts,1,299990,24000
+Sony,Camera Body,2020,2025,5,Excellent,4,299990,80500
+Sony,Camera Body,2020,2025,5,Good,3,299990,67000
+Sony,Camera Body,2020,2025,5,Fair,2,299990,43500
+Sony,Camera Body,2020,2025,5,For Parts,1,299990,21500
+Sony,Camera Body,2018,2021,3,Excellent,4,74990,26500
+Sony,Camera Body,2018,2021,3,Good,3,74990,22000
+Sony,Camera Body,2018,2021,3,Fair,2,74990,15000
+Sony,Camera Body,2018,2021,3,For Parts,1,74990,7000
+Sony,Camera Body,2018,2022,4,Excellent,4,74990,24000
+Sony,Camera Body,2018,2022,4,Good,3,74990,18500
+Sony,Camera Body,2018,2022,4,Fair,2,74990,13000
+Sony,Camera Body,2018,2022,4,For Parts,1,74990,6500
+Sony,Camera Body,2018,2023,5,Excellent,4,74990,20500
+Sony,Camera Body,2018,2023,5,Good,3,74990,16500
+Sony,Camera Body,2018,2023,5,Fair,2,74990,11000
+Sony,Camera Body,2018,2023,5,For Parts,1,74990,5000
+Sony,Camera Body,2018,2024,6,Excellent,4,74990,16500
+Sony,Camera Body,2018,2024,6,Good,3,74990,12000
+Sony,Camera Body,2018,2024,6,Fair,2,74990,8500
+Sony,Camera Body,2018,2024,6,For Parts,1,74990,4000
+Sony,Camera Body,2018,2025,7,Excellent,4,74990,13500
+Sony,Camera Body,2018,2025,7,Good,3,74990,12000
+Sony,Camera Body,2018,2025,7,Fair,2,74990,7500
+Sony,Camera Body,2018,2025,7,For Parts,1,74990,3500
+Sony,Camera Body,2017,2021,4,Excellent,4,64990,22000
+Sony,Camera Body,2017,2021,4,Good,3,64990,16000
+Sony,Camera Body,2017,2021,4,Fair,2,64990,12000
+Sony,Camera Body,2017,2021,4,For Parts,1,64990,5000
+Sony,Camera Body,2017,2022,5,Excellent,4,64990,17000
+Sony,Camera Body,2017,2022,5,Good,3,64990,13000
+Sony,Camera Body,2017,2022,5,Fair,2,64990,9500
+Sony,Camera Body,2017,2022,5,For Parts,1,64990,5000
+Sony,Camera Body,2017,2023,6,Excellent,4,64990,13000
+Sony,Camera Body,2017,2023,6,Good,3,64990,12000
+Sony,Camera Body,2017,2023,6,Fair,2,64990,8500
+Sony,Camera Body,2017,2023,6,For Parts,1,64990,3500
+Sony,Camera Body,2017,2024,7,Excellent,4,64990,11500
+Sony,Camera Body,2017,2024,7,Good,3,64990,10000
+Sony,Camera Body,2017,2024,7,Fair,2,64990,6500
+Sony,Camera Body,2017,2024,7,For Parts,1,64990,3500
+Sony,Camera Body,2017,2025,8,Excellent,4,64990,11000
+Sony,Camera Body,2017,2025,8,Good,3,64990,10000
+Sony,Camera Body,2017,2025,8,Fair,2,64990,6000
+Sony,Camera Body,2017,2025,8,For Parts,1,64990,2500
+Sony,Camera Body,2023,2023,0,New (Open Box),6,319990,256000
+Sony,Camera Body,2023,2023,0,Like New,5,319990,228000
+Sony,Camera Body,2023,2023,0,Excellent,4,319990,207000
+Sony,Camera Body,2023,2023,0,Good,3,319990,162500
+Sony,Camera Body,2023,2023,0,Fair,2,319990,109500
+Sony,Camera Body,2023,2024,1,New (Open Box),6,319990,232000
+Sony,Camera Body,2023,2024,1,Like New,5,319990,176000
+Sony,Camera Body,2023,2024,1,Excellent,4,319990,155000
+Sony,Camera Body,2023,2024,1,Good,3,319990,123000
+Sony,Camera Body,2023,2024,1,Fair,2,319990,88000
+Sony,Camera Body,2023,2025,2,Excellent,4,319990,126000
+Sony,Camera Body,2023,2025,2,Good,3,319990,115000
+Sony,Camera Body,2023,2025,2,Fair,2,319990,75500
+Sony,Camera Body,2023,2025,2,For Parts,1,319990,33000
+Sony,Camera Body,2016,2021,5,Excellent,4,54990,13500
+Sony,Camera Body,2016,2021,5,Good,3,54990,12000
+Sony,Camera Body,2016,2021,5,Fair,2,54990,8500
+Sony,Camera Body,2016,2021,5,For Parts,1,54990,4500
+Sony,Camera Body,2016,2022,6,Excellent,4,54990,14500
+Sony,Camera Body,2016,2022,6,Good,3,54990,10000
+Sony,Camera Body,2016,2022,6,Fair,2,54990,6500
+Sony,Camera Body,2016,2022,6,For Parts,1,54990,3000
+Sony,Camera Body,2016,2023,7,Excellent,4,54990,10500
+Sony,Camera Body,2016,2023,7,Good,3,54990,8000
+Sony,Camera Body,2016,2023,7,Fair,2,54990,5500
+Sony,Camera Body,2016,2023,7,For Parts,1,54990,2500
+Sony,Camera Body,2016,2024,8,Excellent,4,54990,9500
+Sony,Camera Body,2016,2024,8,Good,3,54990,8000
+Sony,Camera Body,2016,2024,8,Fair,2,54990,5500
+Sony,Camera Body,2016,2024,8,For Parts,1,54990,2500
+Sony,Camera Body,2016,2025,9,Excellent,4,54990,7500
+Sony,Camera Body,2016,2025,9,Good,3,54990,6000
+Sony,Camera Body,2016,2025,9,Fair,2,54990,4500
+Sony,Camera Body,2016,2025,9,For Parts,1,54990,2000
+Canon,Camera Body,2022,2022,0,New (Open Box),6,164990,144500
+Canon,Camera Body,2022,2022,0,Like New,5,164990,117000
+Canon,Camera Body,2022,2022,0,Excellent,4,164990,104500
+Canon,Camera Body,2022,2022,0,Good,3,164990,77500
+Canon,Camera Body,2022,2022,0,Fair,2,164990,51500
+Canon,Camera Body,2022,2023,1,New (Open Box),6,164990,103500
+Canon,Camera Body,2022,2023,1,Like New,5,164990,93500
+Canon,Camera Body,2022,2023,1,Excellent,4,164990,93500
+Canon,Camera Body,2022,2023,1,Good,3,164990,64000
+Canon,Camera Body,2022,2023,1,Fair,2,164990,48500
+Canon,Camera Body,2022,2024,2,Excellent,4,164990,67000
+Canon,Camera Body,2022,2024,2,Good,3,164990,60500
+Canon,Camera Body,2022,2024,2,Fair,2,164990,40500
+Canon,Camera Body,2022,2024,2,For Parts,1,164990,18500
+Canon,Camera Body,2022,2025,3,Excellent,4,164990,60500
+Canon,Camera Body,2022,2025,3,Good,3,164990,47000
+Canon,Camera Body,2022,2025,3,Fair,2,164990,35000
+Canon,Camera Body,2022,2025,3,For Parts,1,164990,15500
+Canon,Camera Body,2021,2021,0,New (Open Box),6,334990,246000
+Canon,Camera Body,2021,2021,0,Like New,5,334990,218000
+Canon,Camera Body,2021,2021,0,Excellent,4,334990,202500
+Canon,Camera Body,2021,2021,0,Good,3,334990,177500
+Canon,Camera Body,2021,2021,0,Fair,2,334990,113000
+Canon,Camera Body,2021,2022,1,New (Open Box),6,334990,221500
+Canon,Camera Body,2021,2022,1,Like New,5,334990,201500
+Canon,Camera Body,2021,2022,1,Excellent,4,334990,182000
+Canon,Camera Body,2021,2022,1,Good,3,334990,138000
+Canon,Camera Body,2021,2022,1,Fair,2,334990,92000
+Canon,Camera Body,2021,2023,2,Excellent,4,334990,153000
+Canon,Camera Body,2021,2023,2,Good,3,334990,119000
+Canon,Camera Body,2021,2023,2,Fair,2,334990,87500
+Canon,Camera Body,2021,2023,2,For Parts,1,334990,38500
+Canon,Camera Body,2021,2024,3,Excellent,4,334990,114000
+Canon,Camera Body,2021,2024,3,Good,3,334990,91500
+Canon,Camera Body,2021,2024,3,Fair,2,334990,75500
+Canon,Camera Body,2021,2024,3,For Parts,1,334990,36000
+Canon,Camera Body,2021,2025,4,Excellent,4,334990,103500
+Canon,Camera Body,2021,2025,4,Good,3,334990,83000
+Canon,Camera Body,2021,2025,4,Fair,2,334990,63500
+Canon,Camera Body,2021,2025,4,For Parts,1,334990,26000
+Canon,Camera Body,2020,2021,1,New (Open Box),6,79990,50500
+Canon,Camera Body,2020,2021,1,Like New,5,79990,49000
+Canon,Camera Body,2020,2021,1,Excellent,4,79990,39500
+Canon,Camera Body,2020,2021,1,Good,3,79990,32500
+Canon,Camera Body,2020,2021,1,Fair,2,79990,22500
+Canon,Camera Body,2020,2022,2,Excellent,4,79990,35000
+Canon,Camera Body,2020,2022,2,Good,3,79990,30000
+Canon,Camera Body,2020,2022,2,Fair,2,79990,19500
+Canon,Camera Body,2020,2022,2,For Parts,1,79990,9500
+Canon,Camera Body,2020,2023,3,Excellent,4,79990,26000
+Canon,Camera Body,2020,2023,3,Good,3,79990,23500
+Canon,Camera Body,2020,2023,3,Fair,2,79990,15500
+Canon,Camera Body,2020,2023,3,For Parts,1,79990,7000
+Canon,Camera Body,2020,2024,4,Excellent,4,79990,23500
+Canon,Camera Body,2020,2024,4,Good,3,79990,20000
+Canon,Camera Body,2020,2024,4,Fair,2,79990,15000
+Canon,Camera Body,2020,2024,4,For Parts,1,79990,6000
+Canon,Camera Body,2020,2025,5,Excellent,4,79990,21500
+Canon,Camera Body,2020,2025,5,Good,3,79990,16500
+Canon,Camera Body,2020,2025,5,Fair,2,79990,11500
+Canon,Camera Body,2020,2025,5,For Parts,1,79990,6000
+Canon,Camera Body,2019,2021,2,Excellent,4,54990,24500
+Canon,Camera Body,2019,2021,2,Good,3,54990,20500
+Canon,Camera Body,2019,2021,2,Fair,2,54990,13000
+Canon,Camera Body,2019,2021,2,For Parts,1,54990,6000
+Canon,Camera Body,2019,2022,3,Excellent,4,54990,20000
+Canon,Camera Body,2019,2022,3,Good,3,54990,16500
+Canon,Camera Body,2019,2022,3,Fair,2,54990,11500
+Canon,Camera Body,2019,2022,3,For Parts,1,54990,5000
+Canon,Camera Body,2019,2023,4,Excellent,4,54990,17500
+Canon,Camera Body,2019,2023,4,Good,3,54990,14000
+Canon,Camera Body,2019,2023,4,Fair,2,54990,11000
+Canon,Camera Body,2019,2023,4,For Parts,1,54990,5000
+Canon,Camera Body,2019,2024,5,Excellent,4,54990,14000
+Canon,Camera Body,2019,2024,5,Good,3,54990,11500
+Canon,Camera Body,2019,2024,5,Fair,2,54990,7500
+Canon,Camera Body,2019,2024,5,For Parts,1,54990,3500
+Canon,Camera Body,2019,2025,6,Excellent,4,54990,12500
+Canon,Camera Body,2019,2025,6,Good,3,54990,10500
+Canon,Camera Body,2019,2025,6,Fair,2,54990,6500
+Canon,Camera Body,2019,2025,6,For Parts,1,54990,3000
+Canon,Camera Body,2022,2022,0,New (Open Box),6,59990,41500
+Canon,Camera Body,2022,2022,0,Like New,5,59990,42000
+Canon,Camera Body,2022,2022,0,Excellent,4,59990,33500
+Canon,Camera Body,2022,2022,0,Good,3,59990,28000
+Canon,Camera Body,2022,2022,0,Fair,2,59990,19000
+Canon,Camera Body,2022,2023,1,New (Open Box),6,59990,39500
+Canon,Camera Body,2022,2023,1,Like New,5,59990,32000
+Canon,Camera Body,2022,2023,1,Excellent,4,59990,27500
+Canon,Camera Body,2022,2023,1,Good,3,59990,27500
+Canon,Camera Body,2022,2023,1,Fair,2,59990,15500
+Canon,Camera Body,2022,2024,2,Excellent,4,59990,24000
+Canon,Camera Body,2022,2024,2,Good,3,59990,23000
+Canon,Camera Body,2022,2024,2,Fair,2,59990,17000
+Canon,Camera Body,2022,2024,2,For Parts,1,59990,6500
+Canon,Camera Body,2022,2025,3,Excellent,4,59990,21500
+Canon,Camera Body,2022,2025,3,Good,3,59990,18000
+Canon,Camera Body,2022,2025,3,Fair,2,59990,13500
+Canon,Camera Body,2022,2025,3,For Parts,1,59990,5500
+Canon,Camera Body,2023,2023,0,New (Open Box),6,239990,187500
+Canon,Camera Body,2023,2023,0,Like New,5,239990,177000
+Canon,Camera Body,2023,2023,0,Excellent,4,239990,147500
+Canon,Camera Body,2023,2023,0,Good,3,239990,113500
+Canon,Camera Body,2023,2023,0,Fair,2,239990,79500
+Canon,Camera Body,2023,2024,1,New (Open Box),6,239990,146500
+Canon,Camera Body,2023,2024,1,Like New,5,239990,140000
+Canon,Camera Body,2023,2024,1,Excellent,4,239990,119000
+Canon,Camera Body,2023,2024,1,Good,3,239990,99000
+Canon,Camera Body,2023,2024,1,Fair,2,239990,65000
+Canon,Camera Body,2023,2025,2,Excellent,4,239990,105500
+Canon,Camera Body,2023,2025,2,Good,3,239990,88000
+Canon,Camera Body,2023,2025,2,Fair,2,239990,58000
+Canon,Camera Body,2023,2025,2,For Parts,1,239990,28000
+Canon,Camera Body,2017,2021,4,Excellent,4,44990,14000
+Canon,Camera Body,2017,2021,4,Good,3,44990,11500
+Canon,Camera Body,2017,2021,4,Fair,2,44990,7500
+Canon,Camera Body,2017,2021,4,For Parts,1,44990,4000
+Canon,Camera Body,2017,2022,5,Excellent,4,44990,12000
+Canon,Camera Body,2017,2022,5,Good,3,44990,11000
+Canon,Camera Body,2017,2022,5,Fair,2,44990,7500
+Canon,Camera Body,2017,2022,5,For Parts,1,44990,3000
+Canon,Camera Body,2017,2023,6,Excellent,4,44990,9500
+Canon,Camera Body,2017,2023,6,Good,3,44990,7500
+Canon,Camera Body,2017,2023,6,Fair,2,44990,6000
+Canon,Camera Body,2017,2023,6,For Parts,1,44990,2500
+Canon,Camera Body,2017,2024,7,Excellent,4,44990,9000
+Canon,Camera Body,2017,2024,7,Good,3,44990,6000
+Canon,Camera Body,2017,2024,7,Fair,2,44990,5000
+Canon,Camera Body,2017,2024,7,For Parts,1,44990,2500
+Canon,Camera Body,2017,2025,8,Excellent,4,44990,7000
+Canon,Camera Body,2017,2025,8,Good,3,44990,6000
+Canon,Camera Body,2017,2025,8,Fair,2,44990,4500
+Canon,Camera Body,2017,2025,8,For Parts,1,44990,2000
+Canon,Camera Body,2016,2021,5,Excellent,4,34990,9000
+Canon,Camera Body,2016,2021,5,Good,3,34990,7500
+Canon,Camera Body,2016,2021,5,Fair,2,34990,5000
+Canon,Camera Body,2016,2021,5,For Parts,1,34990,2500
+Canon,Camera Body,2016,2022,6,Excellent,4,34990,8500
+Canon,Camera Body,2016,2022,6,Good,3,34990,5500
+Canon,Camera Body,2016,2022,6,Fair,2,34990,4500
+Canon,Camera Body,2016,2022,6,For Parts,1,34990,2000
+Canon,Camera Body,2016,2023,7,Excellent,4,34990,7000
+Canon,Camera Body,2016,2023,7,Good,3,34990,5500
+Canon,Camera Body,2016,2023,7,Fair,2,34990,3500
+Canon,Camera Body,2016,2023,7,For Parts,1,34990,2000
+Canon,Camera Body,2016,2024,8,Excellent,4,34990,6500
+Canon,Camera Body,2016,2024,8,Good,3,34990,4500
+Canon,Camera Body,2016,2024,8,Fair,2,34990,3500
+Canon,Camera Body,2016,2024,8,For Parts,1,34990,1500
+Canon,Camera Body,2016,2025,9,Excellent,4,34990,5000
+Canon,Camera Body,2016,2025,9,Good,3,34990,4000
+Canon,Camera Body,2016,2025,9,Fair,2,34990,3000
+Canon,Camera Body,2016,2025,9,For Parts,1,34990,1500
+Nikon,Camera Body,2021,2021,0,New (Open Box),6,549990,451000
+Nikon,Camera Body,2021,2021,0,Like New,5,549990,427500
+Nikon,Camera Body,2021,2021,0,Excellent,4,549990,352500
+Nikon,Camera Body,2021,2021,0,Good,3,549990,273000
+Nikon,Camera Body,2021,2021,0,Fair,2,549990,203000
+Nikon,Camera Body,2021,2022,1,New (Open Box),6,549990,376000
+Nikon,Camera Body,2021,2022,1,Like New,5,549990,342000
+Nikon,Camera Body,2021,2022,1,Excellent,4,549990,272000
+Nikon,Camera Body,2021,2022,1,Good,3,549990,224500
+Nikon,Camera Body,2021,2022,1,Fair,2,549990,148000
+Nikon,Camera Body,2021,2023,2,Excellent,4,549990,249500
+Nikon,Camera Body,2021,2023,2,Good,3,549990,177000
+Nikon,Camera Body,2021,2023,2,Fair,2,549990,138000
+Nikon,Camera Body,2021,2023,2,For Parts,1,549990,61500
+Nikon,Camera Body,2021,2024,3,Excellent,4,549990,216000
+Nikon,Camera Body,2021,2024,3,Good,3,549990,170500
+Nikon,Camera Body,2021,2024,3,Fair,2,549990,125000
+Nikon,Camera Body,2021,2024,3,For Parts,1,549990,56000
+Nikon,Camera Body,2021,2025,4,Excellent,4,549990,156000
+Nikon,Camera Body,2021,2025,4,Good,3,549990,138500
+Nikon,Camera Body,2021,2025,4,Fair,2,549990,89500
+Nikon,Camera Body,2021,2025,4,For Parts,1,549990,44000
+Nikon,Camera Body,2022,2022,0,New (Open Box),6,349990,302500
+Nikon,Camera Body,2022,2022,0,Like New,5,349990,256000
+Nikon,Camera Body,2022,2022,0,Excellent,4,349990,200500
+Nikon,Camera Body,2022,2022,0,Good,3,349990,159000
+Nikon,Camera Body,2022,2022,0,Fair,2,349990,117500
+Nikon,Camera Body,2022,2023,1,New (Open Box),6,349990,216000
+Nikon,Camera Body,2022,2023,1,Like New,5,349990,199000
+Nikon,Camera Body,2022,2023,1,Excellent,4,349990,179500
+Nikon,Camera Body,2022,2023,1,Good,3,349990,152500
+Nikon,Camera Body,2022,2023,1,Fair,2,349990,102000
+Nikon,Camera Body,2022,2024,2,Excellent,4,349990,129500
+Nikon,Camera Body,2022,2024,2,Good,3,349990,123500
+Nikon,Camera Body,2022,2024,2,Fair,2,349990,84000
+Nikon,Camera Body,2022,2024,2,For Parts,1,349990,40500
+Nikon,Camera Body,2022,2025,3,Excellent,4,349990,141000
+Nikon,Camera Body,2022,2025,3,Good,3,349990,91000
+Nikon,Camera Body,2022,2025,3,Fair,2,349990,69500
+Nikon,Camera Body,2022,2025,3,For Parts,1,349990,35000
+Nikon,Camera Body,2020,2021,1,New (Open Box),6,134990,81500
+Nikon,Camera Body,2020,2021,1,Like New,5,134990,87000
+Nikon,Camera Body,2020,2021,1,Excellent,4,134990,69500
+Nikon,Camera Body,2020,2021,1,Good,3,134990,57500
+Nikon,Camera Body,2020,2021,1,Fair,2,134990,36500
+Nikon,Camera Body,2020,2022,2,Excellent,4,134990,60500
+Nikon,Camera Body,2020,2022,2,Good,3,134990,50000
+Nikon,Camera Body,2020,2022,2,Fair,2,134990,33000
+Nikon,Camera Body,2020,2022,2,For Parts,1,134990,15500
+Nikon,Camera Body,2020,2023,3,Excellent,4,134990,50500
+Nikon,Camera Body,2020,2023,3,Good,3,134990,38000
+Nikon,Camera Body,2020,2023,3,Fair,2,134990,27500
+Nikon,Camera Body,2020,2023,3,For Parts,1,134990,13000
+Nikon,Camera Body,2020,2024,4,Excellent,4,134990,43000
+Nikon,Camera Body,2020,2024,4,Good,3,134990,36000
+Nikon,Camera Body,2020,2024,4,Fair,2,134990,22000
+Nikon,Camera Body,2020,2024,4,For Parts,1,134990,11000
+Nikon,Camera Body,2020,2025,5,Excellent,4,134990,39000
+Nikon,Camera Body,2020,2025,5,Good,3,134990,27500
+Nikon,Camera Body,2020,2025,5,Fair,2,134990,19000
+Nikon,Camera Body,2020,2025,5,For Parts,1,134990,9500
+Nikon,Camera Body,2019,2021,2,Excellent,4,94990,43000
+Nikon,Camera Body,2019,2021,2,Good,3,94990,33000
+Nikon,Camera Body,2019,2021,2,Fair,2,94990,24500
+Nikon,Camera Body,2019,2021,2,For Parts,1,94990,11500
+Nikon,Camera Body,2019,2022,3,Excellent,4,94990,36500
+Nikon,Camera Body,2019,2022,3,Good,3,94990,29000
+Nikon,Camera Body,2019,2022,3,Fair,2,94990,22000
+Nikon,Camera Body,2019,2022,3,For Parts,1,94990,9000
+Nikon,Camera Body,2019,2023,4,Excellent,4,94990,26000
+Nikon,Camera Body,2019,2023,4,Good,3,94990,26500
+Nikon,Camera Body,2019,2023,4,Fair,2,94990,16000
+Nikon,Camera Body,2019,2023,4,For Parts,1,94990,8000
+Nikon,Camera Body,2019,2024,5,Excellent,4,94990,27000
+Nikon,Camera Body,2019,2024,5,Good,3,94990,18500
+Nikon,Camera Body,2019,2024,5,Fair,2,94990,13000
+Nikon,Camera Body,2019,2024,5,For Parts,1,94990,6000
+Nikon,Camera Body,2019,2025,6,Excellent,4,94990,20500
+Nikon,Camera Body,2019,2025,6,Good,3,94990,17500
+Nikon,Camera Body,2019,2025,6,Fair,2,94990,12500
+Nikon,Camera Body,2019,2025,6,For Parts,1,94990,5500
+Nikon,Camera Body,2021,2021,0,New (Open Box),6,64990,47000
+Nikon,Camera Body,2021,2021,0,Like New,5,64990,39500
+Nikon,Camera Body,2021,2021,0,Excellent,4,64990,39000
+Nikon,Camera Body,2021,2021,0,Good,3,64990,30500
+Nikon,Camera Body,2021,2021,0,Fair,2,64990,22500
+Nikon,Camera Body,2021,2022,1,New (Open Box),6,64990,45000
+Nikon,Camera Body,2021,2022,1,Like New,5,64990,39000
+Nikon,Camera Body,2021,2022,1,Excellent,4,64990,34000
+Nikon,Camera Body,2021,2022,1,Good,3,64990,27000
+Nikon,Camera Body,2021,2022,1,Fair,2,64990,19000
+Nikon,Camera Body,2021,2023,2,Excellent,4,64990,26500
+Nikon,Camera Body,2021,2023,2,Good,3,64990,22500
+Nikon,Camera Body,2021,2023,2,Fair,2,64990,15500
+Nikon,Camera Body,2021,2023,2,For Parts,1,64990,7500
+Nikon,Camera Body,2021,2024,3,Excellent,4,64990,23500
+Nikon,Camera Body,2021,2024,3,Good,3,64990,20000
+Nikon,Camera Body,2021,2024,3,Fair,2,64990,13000
+Nikon,Camera Body,2021,2024,3,For Parts,1,64990,6500
+Nikon,Camera Body,2021,2025,4,Excellent,4,64990,21500
+Nikon,Camera Body,2021,2025,4,Good,3,64990,14500
+Nikon,Camera Body,2021,2025,4,Fair,2,64990,10500
+Nikon,Camera Body,2021,2025,4,For Parts,1,64990,5000
+Nikon,Camera Body,2018,2021,3,Excellent,4,84990,27000
+Nikon,Camera Body,2018,2021,3,Good,3,84990,24000
+Nikon,Camera Body,2018,2021,3,Fair,2,84990,18000
+Nikon,Camera Body,2018,2021,3,For Parts,1,84990,8000
+Nikon,Camera Body,2018,2022,4,Excellent,4,84990,27000
+Nikon,Camera Body,2018,2022,4,Good,3,84990,23000
+Nikon,Camera Body,2018,2022,4,Fair,2,84990,16000
+Nikon,Camera Body,2018,2022,4,For Parts,1,84990,7000
+Nikon,Camera Body,2018,2023,5,Excellent,4,84990,24500
+Nikon,Camera Body,2018,2023,5,Good,3,84990,18500
+Nikon,Camera Body,2018,2023,5,Fair,2,84990,12000
+Nikon,Camera Body,2018,2023,5,For Parts,1,84990,6000
+Nikon,Camera Body,2018,2024,6,Excellent,4,84990,17500
+Nikon,Camera Body,2018,2024,6,Good,3,84990,14500
+Nikon,Camera Body,2018,2024,6,Fair,2,84990,10500
+Nikon,Camera Body,2018,2024,6,For Parts,1,84990,5500
+Nikon,Camera Body,2018,2025,7,Excellent,4,84990,18000
+Nikon,Camera Body,2018,2025,7,Good,3,84990,12000
+Nikon,Camera Body,2018,2025,7,Fair,2,84990,9500
+Nikon,Camera Body,2018,2025,7,For Parts,1,84990,4000
+Nikon,Camera Body,2017,2021,4,Excellent,4,74990,24000
+Nikon,Camera Body,2017,2021,4,Good,3,74990,19000
+Nikon,Camera Body,2017,2021,4,Fair,2,74990,11500
+Nikon,Camera Body,2017,2021,4,For Parts,1,74990,6500
+Nikon,Camera Body,2017,2022,5,Excellent,4,74990,19000
+Nikon,Camera Body,2017,2022,5,Good,3,74990,15500
+Nikon,Camera Body,2017,2022,5,Fair,2,74990,10500
+Nikon,Camera Body,2017,2022,5,For Parts,1,74990,5000
+Nikon,Camera Body,2017,2023,6,Excellent,4,74990,17500
+Nikon,Camera Body,2017,2023,6,Good,3,74990,13500
+Nikon,Camera Body,2017,2023,6,Fair,2,74990,9500
+Nikon,Camera Body,2017,2023,6,For Parts,1,74990,4500
+Nikon,Camera Body,2017,2024,7,Excellent,4,74990,15500
+Nikon,Camera Body,2017,2024,7,Good,3,74990,11500
+Nikon,Camera Body,2017,2024,7,Fair,2,74990,7500
+Nikon,Camera Body,2017,2024,7,For Parts,1,74990,4000
+Nikon,Camera Body,2017,2025,8,Excellent,4,74990,12500
+Nikon,Camera Body,2017,2025,8,Good,3,74990,11000
+Nikon,Camera Body,2017,2025,8,Fair,2,74990,7500
+Nikon,Camera Body,2017,2025,8,For Parts,1,74990,3500
+Nikon,Camera Body,2016,2021,5,Excellent,4,54990,15000
+Nikon,Camera Body,2016,2021,5,Good,3,54990,13000
+Nikon,Camera Body,2016,2021,5,Fair,2,54990,9000
+Nikon,Camera Body,2016,2021,5,For Parts,1,54990,4000
+Nikon,Camera Body,2016,2022,6,Excellent,4,54990,12500
+Nikon,Camera Body,2016,2022,6,Good,3,54990,10500
+Nikon,Camera Body,2016,2022,6,Fair,2,54990,6500
+Nikon,Camera Body,2016,2022,6,For Parts,1,54990,3500
+Nikon,Camera Body,2016,2023,7,Excellent,4,54990,10500
+Nikon,Camera Body,2016,2023,7,Good,3,54990,8500
+Nikon,Camera Body,2016,2023,7,Fair,2,54990,5500
+Nikon,Camera Body,2016,2023,7,For Parts,1,54990,2500
+Nikon,Camera Body,2016,2024,8,Excellent,4,54990,8000
+Nikon,Camera Body,2016,2024,8,Good,3,54990,7000
+Nikon,Camera Body,2016,2024,8,Fair,2,54990,5000
+Nikon,Camera Body,2016,2024,8,For Parts,1,54990,2500
+Nikon,Camera Body,2016,2025,9,Excellent,4,54990,9000
+Nikon,Camera Body,2016,2025,9,Good,3,54990,7000
+Nikon,Camera Body,2016,2025,9,Fair,2,54990,4500
+Nikon,Camera Body,2016,2025,9,For Parts,1,54990,2000
+Fujifilm,Camera Body,2022,2022,0,New (Open Box),6,154990,120000
+Fujifilm,Camera Body,2022,2022,0,Like New,5,154990,107500
+Fujifilm,Camera Body,2022,2022,0,Excellent,4,154990,94000
+Fujifilm,Camera Body,2022,2022,0,Good,3,154990,78000
+Fujifilm,Camera Body,2022,2022,0,Fair,2,154990,51000
+Fujifilm,Camera Body,2022,2023,1,New (Open Box),6,154990,110000
+Fujifilm,Camera Body,2022,2023,1,Like New,5,154990,85500
+Fujifilm,Camera Body,2022,2023,1,Excellent,4,154990,78000
+Fujifilm,Camera Body,2022,2023,1,Good,3,154990,73000
+Fujifilm,Camera Body,2022,2023,1,Fair,2,154990,44000
+Fujifilm,Camera Body,2022,2024,2,Excellent,4,154990,72000
+Fujifilm,Camera Body,2022,2024,2,Good,3,154990,54000
+Fujifilm,Camera Body,2022,2024,2,Fair,2,154990,38500
+Fujifilm,Camera Body,2022,2024,2,For Parts,1,154990,17500
+Fujifilm,Camera Body,2022,2025,3,Excellent,4,154990,56500
+Fujifilm,Camera Body,2022,2025,3,Good,3,154990,44000
+Fujifilm,Camera Body,2022,2025,3,Fair,2,154990,32500
+Fujifilm,Camera Body,2022,2025,3,For Parts,1,154990,14500
+Fujifilm,Camera Body,2022,2022,0,New (Open Box),6,249990,206000
+Fujifilm,Camera Body,2022,2022,0,Like New,5,249990,187500
+Fujifilm,Camera Body,2022,2022,0,Excellent,4,249990,153000
+Fujifilm,Camera Body,2022,2022,0,Good,3,249990,119000
+Fujifilm,Camera Body,2022,2022,0,Fair,2,249990,86000
+Fujifilm,Camera Body,2022,2023,1,New (Open Box),6,249990,163500
+Fujifilm,Camera Body,2022,2023,1,Like New,5,249990,156500
+Fujifilm,Camera Body,2022,2023,1,Excellent,4,249990,112000
+Fujifilm,Camera Body,2022,2023,1,Good,3,249990,99500
+Fujifilm,Camera Body,2022,2023,1,Fair,2,249990,62000
+Fujifilm,Camera Body,2022,2024,2,Excellent,4,249990,97500
+Fujifilm,Camera Body,2022,2024,2,Good,3,249990,93500
+Fujifilm,Camera Body,2022,2024,2,Fair,2,249990,63000
+Fujifilm,Camera Body,2022,2024,2,For Parts,1,249990,27000
+Fujifilm,Camera Body,2022,2025,3,Excellent,4,249990,83500
+Fujifilm,Camera Body,2022,2025,3,Good,3,249990,61000
+Fujifilm,Camera Body,2022,2025,3,Fair,2,249990,49500
+Fujifilm,Camera Body,2022,2025,3,For Parts,1,249990,28000
+Fujifilm,Camera Body,2021,2021,0,New (Open Box),6,99990,81500
+Fujifilm,Camera Body,2021,2021,0,Like New,5,99990,68000
+Fujifilm,Camera Body,2021,2021,0,Excellent,4,99990,61500
+Fujifilm,Camera Body,2021,2021,0,Good,3,99990,44000
+Fujifilm,Camera Body,2021,2021,0,Fair,2,99990,33000
+Fujifilm,Camera Body,2021,2022,1,New (Open Box),6,99990,67000
+Fujifilm,Camera Body,2021,2022,1,Like New,5,99990,59000
+Fujifilm,Camera Body,2021,2022,1,Excellent,4,99990,52500
+Fujifilm,Camera Body,2021,2022,1,Good,3,99990,41500
+Fujifilm,Camera Body,2021,2022,1,Fair,2,99990,29000
+Fujifilm,Camera Body,2021,2023,2,Excellent,4,99990,41000
+Fujifilm,Camera Body,2021,2023,2,Good,3,99990,36500
+Fujifilm,Camera Body,2021,2023,2,Fair,2,99990,26500
+Fujifilm,Camera Body,2021,2023,2,For Parts,1,99990,10500
+Fujifilm,Camera Body,2021,2024,3,Excellent,4,99990,35000
+Fujifilm,Camera Body,2021,2024,3,Good,3,99990,32000
+Fujifilm,Camera Body,2021,2024,3,Fair,2,99990,20500
+Fujifilm,Camera Body,2021,2024,3,For Parts,1,99990,10500
+Fujifilm,Camera Body,2021,2025,4,Excellent,4,99990,30500
+Fujifilm,Camera Body,2021,2025,4,Good,3,99990,27500
+Fujifilm,Camera Body,2021,2025,4,Fair,2,99990,17500
+Fujifilm,Camera Body,2021,2025,4,For Parts,1,99990,8500
+Fujifilm,Camera Body,2023,2023,0,New (Open Box),6,79990,69500
+Fujifilm,Camera Body,2023,2023,0,Like New,5,79990,55000
+Fujifilm,Camera Body,2023,2023,0,Excellent,4,79990,45000
+Fujifilm,Camera Body,2023,2023,0,Good,3,79990,37500
+Fujifilm,Camera Body,2023,2023,0,Fair,2,79990,27500
+Fujifilm,Camera Body,2023,2024,1,New (Open Box),6,79990,48500
+Fujifilm,Camera Body,2023,2024,1,Like New,5,79990,49000
+Fujifilm,Camera Body,2023,2024,1,Excellent,4,79990,39000
+Fujifilm,Camera Body,2023,2024,1,Good,3,79990,35000
+Fujifilm,Camera Body,2023,2024,1,Fair,2,79990,19500
+Fujifilm,Camera Body,2023,2025,2,Excellent,4,79990,32500
+Fujifilm,Camera Body,2023,2025,2,Good,3,79990,25000
+Fujifilm,Camera Body,2023,2025,2,Fair,2,79990,18000
+Fujifilm,Camera Body,2023,2025,2,For Parts,1,79990,9000
+Fujifilm,Camera Body,2020,2021,1,New (Open Box),6,59990,39500
+Fujifilm,Camera Body,2020,2021,1,Like New,5,59990,35000
+Fujifilm,Camera Body,2020,2021,1,Excellent,4,59990,30000
+Fujifilm,Camera Body,2020,2021,1,Good,3,59990,24500
+Fujifilm,Camera Body,2020,2021,1,Fair,2,59990,16000
+Fujifilm,Camera Body,2020,2022,2,Excellent,4,59990,27000
+Fujifilm,Camera Body,2020,2022,2,Good,3,59990,21500
+Fujifilm,Camera Body,2020,2022,2,Fair,2,59990,14500
+Fujifilm,Camera Body,2020,2022,2,For Parts,1,59990,7000
+Fujifilm,Camera Body,2020,2023,3,Excellent,4,59990,22500
+Fujifilm,Camera Body,2020,2023,3,Good,3,59990,20000
+Fujifilm,Camera Body,2020,2023,3,Fair,2,59990,12000
+Fujifilm,Camera Body,2020,2023,3,For Parts,1,59990,5500
+Fujifilm,Camera Body,2020,2024,4,Excellent,4,59990,18000
+Fujifilm,Camera Body,2020,2024,4,Good,3,59990,14000
+Fujifilm,Camera Body,2020,2024,4,Fair,2,59990,9500
+Fujifilm,Camera Body,2020,2024,4,For Parts,1,59990,4500
+Fujifilm,Camera Body,2020,2025,5,Excellent,4,59990,16000
+Fujifilm,Camera Body,2020,2025,5,Good,3,59990,13000
+Fujifilm,Camera Body,2020,2025,5,Fair,2,59990,9000
+Fujifilm,Camera Body,2020,2025,5,For Parts,1,59990,4000
+Fujifilm,Camera Body,2019,2021,2,Excellent,4,44990,20500
+Fujifilm,Camera Body,2019,2021,2,Good,3,44990,16500
+Fujifilm,Camera Body,2019,2021,2,Fair,2,44990,10500
+Fujifilm,Camera Body,2019,2021,2,For Parts,1,44990,5000
+Fujifilm,Camera Body,2019,2022,3,Excellent,4,44990,17000
+Fujifilm,Camera Body,2019,2022,3,Good,3,44990,13500
+Fujifilm,Camera Body,2019,2022,3,Fair,2,44990,8500
+Fujifilm,Camera Body,2019,2022,3,For Parts,1,44990,4500
+Fujifilm,Camera Body,2019,2023,4,Excellent,4,44990,14500
+Fujifilm,Camera Body,2019,2023,4,Good,3,44990,11000
+Fujifilm,Camera Body,2019,2023,4,Fair,2,44990,8000
+Fujifilm,Camera Body,2019,2023,4,For Parts,1,44990,3500
+Fujifilm,Camera Body,2019,2024,5,Excellent,4,44990,13000
+Fujifilm,Camera Body,2019,2024,5,Good,3,44990,10500
+Fujifilm,Camera Body,2019,2024,5,Fair,2,44990,6500
+Fujifilm,Camera Body,2019,2024,5,For Parts,1,44990,3000
+Fujifilm,Camera Body,2019,2025,6,Excellent,4,44990,8500
+Fujifilm,Camera Body,2019,2025,6,Good,3,44990,7500
+Fujifilm,Camera Body,2019,2025,6,Fair,2,44990,5500
+Fujifilm,Camera Body,2019,2025,6,For Parts,1,44990,2500
+Fujifilm,Camera Body,2017,2021,4,Excellent,4,39990,13000
+Fujifilm,Camera Body,2017,2021,4,Good,3,39990,11500
+Fujifilm,Camera Body,2017,2021,4,Fair,2,39990,6500
+Fujifilm,Camera Body,2017,2021,4,For Parts,1,39990,3000
+Fujifilm,Camera Body,2017,2022,5,Excellent,4,39990,11000
+Fujifilm,Camera Body,2017,2022,5,Good,3,39990,9500
+Fujifilm,Camera Body,2017,2022,5,Fair,2,39990,5500
+Fujifilm,Camera Body,2017,2022,5,For Parts,1,39990,3000
+Fujifilm,Camera Body,2017,2023,6,Excellent,4,39990,10000
+Fujifilm,Camera Body,2017,2023,6,Good,3,39990,6500
+Fujifilm,Camera Body,2017,2023,6,Fair,2,39990,4500
+Fujifilm,Camera Body,2017,2023,6,For Parts,1,39990,2500
+Fujifilm,Camera Body,2017,2024,7,Excellent,4,39990,7500
+Fujifilm,Camera Body,2017,2024,7,Good,3,39990,6500
+Fujifilm,Camera Body,2017,2024,7,Fair,2,39990,4500
+Fujifilm,Camera Body,2017,2024,7,For Parts,1,39990,2000
+Fujifilm,Camera Body,2017,2025,8,Excellent,4,39990,7000
+Fujifilm,Camera Body,2017,2025,8,Good,3,39990,5500
+Fujifilm,Camera Body,2017,2025,8,Fair,2,39990,4000
+Fujifilm,Camera Body,2017,2025,8,For Parts,1,39990,1500
+Leica,Camera Body,2022,2022,0,New (Open Box),6,799990,609500
+Leica,Camera Body,2022,2022,0,Like New,5,799990,581500
+Leica,Camera Body,2022,2022,0,Excellent,4,799990,500500
+Leica,Camera Body,2022,2022,0,Good,3,799990,397500
+Leica,Camera Body,2022,2022,0,Fair,2,799990,240500
+Leica,Camera Body,2022,2023,1,New (Open Box),6,799990,550000
+Leica,Camera Body,2022,2023,1,Like New,5,799990,444000
+Leica,Camera Body,2022,2023,1,Excellent,4,799990,408000
+Leica,Camera Body,2022,2023,1,Good,3,799990,298000
+Leica,Camera Body,2022,2023,1,Fair,2,799990,231000
+Leica,Camera Body,2022,2024,2,Excellent,4,799990,326000
+Leica,Camera Body,2022,2024,2,Good,3,799990,256000
+Leica,Camera Body,2022,2024,2,Fair,2,799990,199500
+Leica,Camera Body,2022,2024,2,For Parts,1,799990,92000
+Leica,Camera Body,2022,2025,3,Excellent,4,799990,283000
+Leica,Camera Body,2022,2025,3,Good,3,799990,258500
+Leica,Camera Body,2022,2025,3,Fair,2,799990,160000
+Leica,Camera Body,2022,2025,3,For Parts,1,799990,78000
+Leica,Camera Body,2020,2021,1,New (Open Box),6,649990,440000
+Leica,Camera Body,2020,2021,1,Like New,5,649990,370500
+Leica,Camera Body,2020,2021,1,Excellent,4,649990,336500
+Leica,Camera Body,2020,2021,1,Good,3,649990,256000
+Leica,Camera Body,2020,2021,1,Fair,2,649990,178500
+Leica,Camera Body,2020,2022,2,Excellent,4,649990,301000
+Leica,Camera Body,2020,2022,2,Good,3,649990,211000
+Leica,Camera Body,2020,2022,2,Fair,2,649990,133000
+Leica,Camera Body,2020,2022,2,For Parts,1,649990,81000
+Leica,Camera Body,2020,2023,3,Excellent,4,649990,275000
+Leica,Camera Body,2020,2023,3,Good,3,649990,188500
+Leica,Camera Body,2020,2023,3,Fair,2,649990,118000
+Leica,Camera Body,2020,2023,3,For Parts,1,649990,62000
+Leica,Camera Body,2020,2024,4,Excellent,4,649990,200000
+Leica,Camera Body,2020,2024,4,Good,3,649990,162500
+Leica,Camera Body,2020,2024,4,Fair,2,649990,106000
+Leica,Camera Body,2020,2024,4,For Parts,1,649990,55500
+Leica,Camera Body,2020,2025,5,Excellent,4,649990,178000
+Leica,Camera Body,2020,2025,5,Good,3,649990,127000
+Leica,Camera Body,2020,2025,5,Fair,2,649990,100500
+Leica,Camera Body,2020,2025,5,For Parts,1,649990,51000
+Leica,Camera Body,2023,2023,0,New (Open Box),6,999990,800000
+Leica,Camera Body,2023,2023,0,Like New,5,999990,689500
+Leica,Camera Body,2023,2023,0,Excellent,4,999990,593500
+Leica,Camera Body,2023,2023,0,Good,3,999990,502000
+Leica,Camera Body,2023,2023,0,Fair,2,999990,299500
+Leica,Camera Body,2023,2024,1,New (Open Box),6,999990,672500
+Leica,Camera Body,2023,2024,1,Like New,5,999990,578000
+Leica,Camera Body,2023,2024,1,Excellent,4,999990,559000
+Leica,Camera Body,2023,2024,1,Good,3,999990,402500
+Leica,Camera Body,2023,2024,1,Fair,2,999990,309500
+Leica,Camera Body,2023,2025,2,Excellent,4,999990,400000
+Leica,Camera Body,2023,2025,2,Good,3,999990,358500
+Leica,Camera Body,2023,2025,2,Fair,2,999990,244000
+Leica,Camera Body,2023,2025,2,For Parts,1,999990,107500
+Leica,Camera Body,2019,2021,2,Excellent,4,549990,238000
+Leica,Camera Body,2019,2021,2,Good,3,549990,204500
+Leica,Camera Body,2019,2021,2,Fair,2,549990,129000
+Leica,Camera Body,2019,2021,2,For Parts,1,549990,56000
+Leica,Camera Body,2019,2022,3,Excellent,4,549990,201500
+Leica,Camera Body,2019,2022,3,Good,3,549990,154500
+Leica,Camera Body,2019,2022,3,Fair,2,549990,110500
+Leica,Camera Body,2019,2022,3,For Parts,1,549990,53000
+Leica,Camera Body,2019,2023,4,Excellent,4,549990,154500
+Leica,Camera Body,2019,2023,4,Good,3,549990,125500
+Leica,Camera Body,2019,2023,4,Fair,2,549990,99000
+Leica,Camera Body,2019,2023,4,For Parts,1,549990,44000
+Leica,Camera Body,2019,2024,5,Excellent,4,549990,123500
+Leica,Camera Body,2019,2024,5,Good,3,549990,123500
+Leica,Camera Body,2019,2024,5,Fair,2,549990,83000
+Leica,Camera Body,2019,2024,5,For Parts,1,549990,37000
+Leica,Camera Body,2019,2025,6,Excellent,4,549990,113500
+Leica,Camera Body,2019,2025,6,Good,3,549990,105000
+Leica,Camera Body,2019,2025,6,Fair,2,549990,70500
+Leica,Camera Body,2019,2025,6,For Parts,1,549990,37500
+GoPro,Camera Body,2023,2023,0,New (Open Box),6,44990,36500
+GoPro,Camera Body,2023,2023,0,Like New,5,44990,32500
+GoPro,Camera Body,2023,2023,0,Excellent,4,44990,26500
+GoPro,Camera Body,2023,2023,0,Good,3,44990,23000
+GoPro,Camera Body,2023,2023,0,Fair,2,44990,15500
+GoPro,Camera Body,2023,2024,1,New (Open Box),6,44990,32000
+GoPro,Camera Body,2023,2024,1,Like New,5,44990,26000
+GoPro,Camera Body,2023,2024,1,Excellent,4,44990,22000
+GoPro,Camera Body,2023,2024,1,Good,3,44990,18000
+GoPro,Camera Body,2023,2024,1,Fair,2,44990,13500
+GoPro,Camera Body,2023,2025,2,Excellent,4,44990,21000
+GoPro,Camera Body,2023,2025,2,Good,3,44990,15000
+GoPro,Camera Body,2023,2025,2,Fair,2,44990,10500
+GoPro,Camera Body,2023,2025,2,For Parts,1,44990,5000
+GoPro,Camera Body,2022,2022,0,New (Open Box),6,34990,27500
+GoPro,Camera Body,2022,2022,0,Like New,5,34990,26000
+GoPro,Camera Body,2022,2022,0,Excellent,4,34990,18000
+GoPro,Camera Body,2022,2022,0,Good,3,34990,16000
+GoPro,Camera Body,2022,2022,0,Fair,2,34990,11000
+GoPro,Camera Body,2022,2023,1,New (Open Box),6,34990,20000
+GoPro,Camera Body,2022,2023,1,Like New,5,34990,19500
+GoPro,Camera Body,2022,2023,1,Excellent,4,34990,16500
+GoPro,Camera Body,2022,2023,1,Good,3,34990,14000
+GoPro,Camera Body,2022,2023,1,Fair,2,34990,10500
+GoPro,Camera Body,2022,2024,2,Excellent,4,34990,15000
+GoPro,Camera Body,2022,2024,2,Good,3,34990,11500
+GoPro,Camera Body,2022,2024,2,Fair,2,34990,8500
+GoPro,Camera Body,2022,2024,2,For Parts,1,34990,4000
+GoPro,Camera Body,2022,2025,3,Excellent,4,34990,12000
+GoPro,Camera Body,2022,2025,3,Good,3,34990,10000
+GoPro,Camera Body,2022,2025,3,Fair,2,34990,7500
+GoPro,Camera Body,2022,2025,3,For Parts,1,34990,3500
+GoPro,Camera Body,2021,2021,0,New (Open Box),6,29990,24500
+GoPro,Camera Body,2021,2021,0,Like New,5,29990,21000
+GoPro,Camera Body,2021,2021,0,Excellent,4,29990,18500
+GoPro,Camera Body,2021,2021,0,Good,3,29990,13500
+GoPro,Camera Body,2021,2021,0,Fair,2,29990,10000
+GoPro,Camera Body,2021,2022,1,New (Open Box),6,29990,19500
+GoPro,Camera Body,2021,2022,1,Like New,5,29990,16500
+GoPro,Camera Body,2021,2022,1,Excellent,4,29990,13500
+GoPro,Camera Body,2021,2022,1,Good,3,29990,12500
+GoPro,Camera Body,2021,2022,1,Fair,2,29990,8500
+GoPro,Camera Body,2021,2023,2,Excellent,4,29990,12000
+GoPro,Camera Body,2021,2023,2,Good,3,29990,10500
+GoPro,Camera Body,2021,2023,2,Fair,2,29990,7500
+GoPro,Camera Body,2021,2023,2,For Parts,1,29990,3000
+GoPro,Camera Body,2021,2024,3,Excellent,4,29990,10000
+GoPro,Camera Body,2021,2024,3,Good,3,29990,8500
+GoPro,Camera Body,2021,2024,3,Fair,2,29990,6500
+GoPro,Camera Body,2021,2024,3,For Parts,1,29990,3000
+GoPro,Camera Body,2021,2025,4,Excellent,4,29990,10000
+GoPro,Camera Body,2021,2025,4,Good,3,29990,7000
+GoPro,Camera Body,2021,2025,4,Fair,2,29990,5000
+GoPro,Camera Body,2021,2025,4,For Parts,1,29990,2500
+GoPro,Camera Body,2019,2021,2,Excellent,4,24990,10500
+GoPro,Camera Body,2019,2021,2,Good,3,24990,9000
+GoPro,Camera Body,2019,2021,2,Fair,2,24990,6000
+GoPro,Camera Body,2019,2021,2,For Parts,1,24990,3000
+GoPro,Camera Body,2019,2022,3,Excellent,4,24990,9500
+GoPro,Camera Body,2019,2022,3,Good,3,24990,8000
+GoPro,Camera Body,2019,2022,3,Fair,2,24990,5500
+GoPro,Camera Body,2019,2022,3,For Parts,1,24990,2000
+GoPro,Camera Body,2019,2023,4,Excellent,4,24990,7000
+GoPro,Camera Body,2019,2023,4,Good,3,24990,6500
+GoPro,Camera Body,2019,2023,4,Fair,2,24990,4500
+GoPro,Camera Body,2019,2023,4,For Parts,1,24990,2000
+GoPro,Camera Body,2019,2024,5,Excellent,4,24990,6000
+GoPro,Camera Body,2019,2024,5,Good,3,24990,5500
+GoPro,Camera Body,2019,2024,5,Fair,2,24990,4000
+GoPro,Camera Body,2019,2024,5,For Parts,1,24990,2000
+GoPro,Camera Body,2019,2025,6,Excellent,4,24990,6000
+GoPro,Camera Body,2019,2025,6,Good,3,24990,4500
+GoPro,Camera Body,2019,2025,6,Fair,2,24990,3000
+GoPro,Camera Body,2019,2025,6,For Parts,1,24990,1500
+GoPro,Camera Body,2018,2021,3,Excellent,4,19990,7000
+GoPro,Camera Body,2018,2021,3,Good,3,19990,5500
+GoPro,Camera Body,2018,2021,3,Fair,2,19990,4500
+GoPro,Camera Body,2018,2021,3,For Parts,1,19990,2000
+GoPro,Camera Body,2018,2022,4,Excellent,4,19990,6500
+GoPro,Camera Body,2018,2022,4,Good,3,19990,5000
+GoPro,Camera Body,2018,2022,4,Fair,2,19990,3500
+GoPro,Camera Body,2018,2022,4,For Parts,1,19990,1500
+GoPro,Camera Body,2018,2023,5,Excellent,4,19990,5500
+GoPro,Camera Body,2018,2023,5,Good,3,19990,4500
+GoPro,Camera Body,2018,2023,5,Fair,2,19990,3000
+GoPro,Camera Body,2018,2023,5,For Parts,1,19990,1500
+GoPro,Camera Body,2018,2024,6,Excellent,4,19990,4500
+GoPro,Camera Body,2018,2024,6,Good,3,19990,3500
+GoPro,Camera Body,2018,2024,6,Fair,2,19990,2000
+GoPro,Camera Body,2018,2024,6,For Parts,1,19990,1000
+GoPro,Camera Body,2018,2025,7,Excellent,4,19990,3500
+GoPro,Camera Body,2018,2025,7,Good,3,19990,3000
+GoPro,Camera Body,2018,2025,7,Fair,2,19990,2500
+GoPro,Camera Body,2018,2025,7,For Parts,1,19990,1000
+Sony,Lens,2021,2021,0,New (Open Box),6,134990,115500
+Sony,Lens,2021,2021,0,Like New,5,134990,96500
+Sony,Lens,2021,2021,0,Excellent,4,134990,87500
+Sony,Lens,2021,2021,0,Good,3,134990,65500
+Sony,Lens,2021,2021,0,Fair,2,134990,45500
+Sony,Lens,2021,2022,1,New (Open Box),6,134990,84000
+Sony,Lens,2021,2022,1,Like New,5,134990,82000
+Sony,Lens,2021,2022,1,Excellent,4,134990,68000
+Sony,Lens,2021,2022,1,Good,3,134990,50500
+Sony,Lens,2021,2022,1,Fair,2,134990,38000
+Sony,Lens,2021,2023,2,Excellent,4,134990,57500
+Sony,Lens,2021,2023,2,Good,3,134990,52000
+Sony,Lens,2021,2023,2,Fair,2,134990,34000
+Sony,Lens,2021,2023,2,For Parts,1,134990,15500
+Sony,Lens,2021,2024,3,Excellent,4,134990,50500
+Sony,Lens,2021,2024,3,Good,3,134990,40000
+Sony,Lens,2021,2024,3,Fair,2,134990,27500
+Sony,Lens,2021,2024,3,For Parts,1,134990,12500
+Sony,Lens,2021,2025,4,Excellent,4,134990,42000
+Sony,Lens,2021,2025,4,Good,3,134990,32500
+Sony,Lens,2021,2025,4,Fair,2,134990,22000
+Sony,Lens,2021,2025,4,For Parts,1,134990,11500
+Sony,Lens,2019,2021,2,Excellent,4,94990,41500
+Sony,Lens,2019,2021,2,Good,3,94990,29500
+Sony,Lens,2019,2021,2,Fair,2,94990,22500
+Sony,Lens,2019,2021,2,For Parts,1,94990,11500
+Sony,Lens,2019,2022,3,Excellent,4,94990,37000
+Sony,Lens,2019,2022,3,Good,3,94990,30000
+Sony,Lens,2019,2022,3,Fair,2,94990,19500
+Sony,Lens,2019,2022,3,For Parts,1,94990,9000
+Sony,Lens,2019,2023,4,Excellent,4,94990,28000
+Sony,Lens,2019,2023,4,Good,3,94990,24500
+Sony,Lens,2019,2023,4,Fair,2,94990,17000
+Sony,Lens,2019,2023,4,For Parts,1,94990,8500
+Sony,Lens,2019,2024,5,Excellent,4,94990,27000
+Sony,Lens,2019,2024,5,Good,3,94990,20000
+Sony,Lens,2019,2024,5,Fair,2,94990,13000
+Sony,Lens,2019,2024,5,For Parts,1,94990,6500
+Sony,Lens,2019,2025,6,Excellent,4,94990,21500
+Sony,Lens,2019,2025,6,Good,3,94990,17000
+Sony,Lens,2019,2025,6,Fair,2,94990,11500
+Sony,Lens,2019,2025,6,For Parts,1,94990,5500
+Sony,Lens,2017,2021,4,Excellent,4,64990,19500
+Sony,Lens,2017,2021,4,Good,3,64990,16000
+Sony,Lens,2017,2021,4,Fair,2,64990,11500
+Sony,Lens,2017,2021,4,For Parts,1,64990,5500
+Sony,Lens,2017,2022,5,Excellent,4,64990,17500
+Sony,Lens,2017,2022,5,Good,3,64990,14000
+Sony,Lens,2017,2022,5,Fair,2,64990,9000
+Sony,Lens,2017,2022,5,For Parts,1,64990,4500
+Sony,Lens,2017,2023,6,Excellent,4,64990,16000
+Sony,Lens,2017,2023,6,Good,3,64990,11000
+Sony,Lens,2017,2023,6,Fair,2,64990,7000
+Sony,Lens,2017,2023,6,For Parts,1,64990,3500
+Sony,Lens,2017,2024,7,Excellent,4,64990,12500
+Sony,Lens,2017,2024,7,Good,3,64990,10000
+Sony,Lens,2017,2024,7,Fair,2,64990,7000
+Sony,Lens,2017,2024,7,For Parts,1,64990,3500
+Sony,Lens,2017,2025,8,Excellent,4,64990,9500
+Sony,Lens,2017,2025,8,Good,3,64990,9000
+Sony,Lens,2017,2025,8,Fair,2,64990,7000
+Sony,Lens,2017,2025,8,For Parts,1,64990,2500
+Sony,Lens,2022,2022,0,New (Open Box),6,74990,58000
+Sony,Lens,2022,2022,0,Like New,5,74990,50500
+Sony,Lens,2022,2022,0,Excellent,4,74990,42500
+Sony,Lens,2022,2022,0,Good,3,74990,35500
+Sony,Lens,2022,2022,0,Fair,2,74990,27000
+Sony,Lens,2022,2023,1,New (Open Box),6,74990,55500
+Sony,Lens,2022,2023,1,Like New,5,74990,43500
+Sony,Lens,2022,2023,1,Excellent,4,74990,42000
+Sony,Lens,2022,2023,1,Good,3,74990,30500
+Sony,Lens,2022,2023,1,Fair,2,74990,23500
+Sony,Lens,2022,2024,2,Excellent,4,74990,32000
+Sony,Lens,2022,2024,2,Good,3,74990,26000
+Sony,Lens,2022,2024,2,Fair,2,74990,18500
+Sony,Lens,2022,2024,2,For Parts,1,74990,10000
+Sony,Lens,2022,2025,3,Excellent,4,74990,29000
+Sony,Lens,2022,2025,3,Good,3,74990,21500
+Sony,Lens,2022,2025,3,Fair,2,74990,16500
+Sony,Lens,2022,2025,3,For Parts,1,74990,7000
+Sony,Lens,2018,2021,3,Excellent,4,84990,30500
+Sony,Lens,2018,2021,3,Good,3,84990,26500
+Sony,Lens,2018,2021,3,Fair,2,84990,17500
+Sony,Lens,2018,2021,3,For Parts,1,84990,8500
+Sony,Lens,2018,2022,4,Excellent,4,84990,26500
+Sony,Lens,2018,2022,4,Good,3,84990,22000
+Sony,Lens,2018,2022,4,Fair,2,84990,15000
+Sony,Lens,2018,2022,4,For Parts,1,84990,6000
+Sony,Lens,2018,2023,5,Excellent,4,84990,23500
+Sony,Lens,2018,2023,5,Good,3,84990,17000
+Sony,Lens,2018,2023,5,Fair,2,84990,11500
+Sony,Lens,2018,2023,5,For Parts,1,84990,6000
+Sony,Lens,2018,2024,6,Excellent,4,84990,19000
+Sony,Lens,2018,2024,6,Good,3,84990,15000
+Sony,Lens,2018,2024,6,Fair,2,84990,11000
+Sony,Lens,2018,2024,6,For Parts,1,84990,4500
+Sony,Lens,2018,2025,7,Excellent,4,84990,16000
+Sony,Lens,2018,2025,7,Good,3,84990,12500
+Sony,Lens,2018,2025,7,Fair,2,84990,9000
+Sony,Lens,2018,2025,7,For Parts,1,84990,4500
+Sony,Lens,2020,2021,1,New (Open Box),6,34990,22000
+Sony,Lens,2020,2021,1,Like New,5,34990,21500
+Sony,Lens,2020,2021,1,Excellent,4,34990,17500
+Sony,Lens,2020,2021,1,Good,3,34990,12500
+Sony,Lens,2020,2021,1,Fair,2,34990,8500
+Sony,Lens,2020,2022,2,Excellent,4,34990,15000
+Sony,Lens,2020,2022,2,Good,3,34990,12000
+Sony,Lens,2020,2022,2,Fair,2,34990,8500
+Sony,Lens,2020,2022,2,For Parts,1,34990,4000
+Sony,Lens,2020,2023,3,Excellent,4,34990,13000
+Sony,Lens,2020,2023,3,Good,3,34990,11000
+Sony,Lens,2020,2023,3,Fair,2,34990,6500
+Sony,Lens,2020,2023,3,For Parts,1,34990,3000
+Sony,Lens,2020,2024,4,Excellent,4,34990,10000
+Sony,Lens,2020,2024,4,Good,3,34990,9000
+Sony,Lens,2020,2024,4,Fair,2,34990,6500
+Sony,Lens,2020,2024,4,For Parts,1,34990,3000
+Sony,Lens,2020,2025,5,Excellent,4,34990,8000
+Sony,Lens,2020,2025,5,Good,3,34990,6500
+Sony,Lens,2020,2025,5,Fair,2,34990,5000
+Sony,Lens,2020,2025,5,For Parts,1,34990,2500
+Sony,Lens,2019,2021,2,Excellent,4,44990,19000
+Sony,Lens,2019,2021,2,Good,3,44990,15500
+Sony,Lens,2019,2021,2,Fair,2,44990,10500
+Sony,Lens,2019,2021,2,For Parts,1,44990,5500
+Sony,Lens,2019,2022,3,Excellent,4,44990,16000
+Sony,Lens,2019,2022,3,Good,3,44990,12500
+Sony,Lens,2019,2022,3,Fair,2,44990,9500
+Sony,Lens,2019,2022,3,For Parts,1,44990,4000
+Sony,Lens,2019,2023,4,Excellent,4,44990,14500
+Sony,Lens,2019,2023,4,Good,3,44990,11500
+Sony,Lens,2019,2023,4,Fair,2,44990,8000
+Sony,Lens,2019,2023,4,For Parts,1,44990,4000
+Sony,Lens,2019,2024,5,Excellent,4,44990,11500
+Sony,Lens,2019,2024,5,Good,3,44990,11000
+Sony,Lens,2019,2024,5,Fair,2,44990,6500
+Sony,Lens,2019,2024,5,For Parts,1,44990,3000
+Sony,Lens,2019,2025,6,Excellent,4,44990,10000
+Sony,Lens,2019,2025,6,Good,3,44990,7500
+Sony,Lens,2019,2025,6,Fair,2,44990,5500
+Sony,Lens,2019,2025,6,For Parts,1,44990,2500
+Sony,Lens,2017,2021,4,Excellent,4,24990,8000
+Sony,Lens,2017,2021,4,Good,3,24990,6000
+Sony,Lens,2017,2021,4,Fair,2,24990,4500
+Sony,Lens,2017,2021,4,For Parts,1,24990,2000
+Sony,Lens,2017,2022,5,Excellent,4,24990,7000
+Sony,Lens,2017,2022,5,Good,3,24990,5500
+Sony,Lens,2017,2022,5,Fair,2,24990,4000
+Sony,Lens,2017,2022,5,For Parts,1,24990,1500
+Sony,Lens,2017,2023,6,Excellent,4,24990,5500
+Sony,Lens,2017,2023,6,Good,3,24990,4500
+Sony,Lens,2017,2023,6,Fair,2,24990,3000
+Sony,Lens,2017,2023,6,For Parts,1,24990,1500
+Sony,Lens,2017,2024,7,Excellent,4,24990,4500
+Sony,Lens,2017,2024,7,Good,3,24990,4500
+Sony,Lens,2017,2024,7,Fair,2,24990,2500
+Sony,Lens,2017,2024,7,For Parts,1,24990,1500
+Sony,Lens,2017,2025,8,Excellent,4,24990,4000
+Sony,Lens,2017,2025,8,Good,3,24990,3500
+Sony,Lens,2017,2025,8,Fair,2,24990,2500
+Sony,Lens,2017,2025,8,For Parts,1,24990,1000
+Canon,Lens,2020,2021,1,New (Open Box),6,109990,78500
+Canon,Lens,2020,2021,1,Like New,5,109990,71500
+Canon,Lens,2020,2021,1,Excellent,4,109990,56500
+Canon,Lens,2020,2021,1,Good,3,109990,46500
+Canon,Lens,2020,2021,1,Fair,2,109990,29000
+Canon,Lens,2020,2022,2,Excellent,4,109990,47000
+Canon,Lens,2020,2022,2,Good,3,109990,40500
+Canon,Lens,2020,2022,2,Fair,2,109990,27500
+Canon,Lens,2020,2022,2,For Parts,1,109990,12500
+Canon,Lens,2020,2023,3,Excellent,4,109990,42500
+Canon,Lens,2020,2023,3,Good,3,109990,33500
+Canon,Lens,2020,2023,3,Fair,2,109990,24000
+Canon,Lens,2020,2023,3,For Parts,1,109990,11000
+Canon,Lens,2020,2024,4,Excellent,4,109990,33500
+Canon,Lens,2020,2024,4,Good,3,109990,28500
+Canon,Lens,2020,2024,4,Fair,2,109990,16000
+Canon,Lens,2020,2024,4,For Parts,1,109990,9500
+Canon,Lens,2020,2025,5,Excellent,4,109990,23000
+Canon,Lens,2020,2025,5,Good,3,109990,21000
+Canon,Lens,2020,2025,5,Fair,2,109990,16500
+Canon,Lens,2020,2025,5,For Parts,1,109990,8000
+Canon,Lens,2019,2021,2,Excellent,4,79990,32000
+Canon,Lens,2019,2021,2,Good,3,79990,26500
+Canon,Lens,2019,2021,2,Fair,2,79990,20500
+Canon,Lens,2019,2021,2,For Parts,1,79990,9000
+Canon,Lens,2019,2022,3,Excellent,4,79990,33500
+Canon,Lens,2019,2022,3,Good,3,79990,24000
+Canon,Lens,2019,2022,3,Fair,2,79990,17000
+Canon,Lens,2019,2022,3,For Parts,1,79990,8500
+Canon,Lens,2019,2023,4,Excellent,4,79990,25000
+Canon,Lens,2019,2023,4,Good,3,79990,19000
+Canon,Lens,2019,2023,4,Fair,2,79990,14000
+Canon,Lens,2019,2023,4,For Parts,1,79990,6500
+Canon,Lens,2019,2024,5,Excellent,4,79990,19500
+Canon,Lens,2019,2024,5,Good,3,79990,17000
+Canon,Lens,2019,2024,5,Fair,2,79990,11500
+Canon,Lens,2019,2024,5,For Parts,1,79990,6000
+Canon,Lens,2019,2025,6,Excellent,4,79990,18000
+Canon,Lens,2019,2025,6,Good,3,79990,14500
+Canon,Lens,2019,2025,6,Fair,2,79990,10000
+Canon,Lens,2019,2025,6,For Parts,1,79990,5000
+Canon,Lens,2021,2021,0,New (Open Box),6,149990,123000
+Canon,Lens,2021,2021,0,Like New,5,149990,99500
+Canon,Lens,2021,2021,0,Excellent,4,149990,84000
+Canon,Lens,2021,2021,0,Good,3,149990,77500
+Canon,Lens,2021,2021,0,Fair,2,149990,49000
+Canon,Lens,2021,2022,1,New (Open Box),6,149990,91500
+Canon,Lens,2021,2022,1,Like New,5,149990,91000
+Canon,Lens,2021,2022,1,Excellent,4,149990,77500
+Canon,Lens,2021,2022,1,Good,3,149990,55500
+Canon,Lens,2021,2022,1,Fair,2,149990,43000
+Canon,Lens,2021,2023,2,Excellent,4,149990,67000
+Canon,Lens,2021,2023,2,Good,3,149990,53000
+Canon,Lens,2021,2023,2,Fair,2,149990,37500
+Canon,Lens,2021,2023,2,For Parts,1,149990,15500
+Canon,Lens,2021,2024,3,Excellent,4,149990,56000
+Canon,Lens,2021,2024,3,Good,3,149990,43500
+Canon,Lens,2021,2024,3,Fair,2,149990,30000
+Canon,Lens,2021,2024,3,For Parts,1,149990,15500
+Canon,Lens,2021,2025,4,Excellent,4,149990,51000
+Canon,Lens,2021,2025,4,Good,3,149990,42000
+Canon,Lens,2021,2025,4,Fair,2,149990,28500
+Canon,Lens,2021,2025,4,For Parts,1,149990,12500
+Canon,Lens,2022,2022,0,New (Open Box),6,39990,32500
+Canon,Lens,2022,2022,0,Like New,5,39990,29500
+Canon,Lens,2022,2022,0,Excellent,4,39990,24000
+Canon,Lens,2022,2022,0,Good,3,39990,19500
+Canon,Lens,2022,2022,0,Fair,2,39990,14000
+Canon,Lens,2022,2023,1,New (Open Box),6,39990,26500
+Canon,Lens,2022,2023,1,Like New,5,39990,22500
+Canon,Lens,2022,2023,1,Excellent,4,39990,19500
+Canon,Lens,2022,2023,1,Good,3,39990,17000
+Canon,Lens,2022,2023,1,Fair,2,39990,11000
+Canon,Lens,2022,2024,2,Excellent,4,39990,17500
+Canon,Lens,2022,2024,2,Good,3,39990,14500
+Canon,Lens,2022,2024,2,Fair,2,39990,9500
+Canon,Lens,2022,2024,2,For Parts,1,39990,4500
+Canon,Lens,2022,2025,3,Excellent,4,39990,15000
+Canon,Lens,2022,2025,3,Good,3,39990,11000
+Canon,Lens,2022,2025,3,Fair,2,39990,9000
+Canon,Lens,2022,2025,3,For Parts,1,39990,4000
+Canon,Lens,2020,2021,1,New (Open Box),6,54990,33000
+Canon,Lens,2020,2021,1,Like New,5,54990,30500
+Canon,Lens,2020,2021,1,Excellent,4,54990,26000
+Canon,Lens,2020,2021,1,Good,3,54990,22500
+Canon,Lens,2020,2021,1,Fair,2,54990,15000
+Canon,Lens,2020,2022,2,Excellent,4,54990,23000
+Canon,Lens,2020,2022,2,Good,3,54990,20000
+Canon,Lens,2020,2022,2,Fair,2,54990,13500
+Canon,Lens,2020,2022,2,For Parts,1,54990,6500
+Canon,Lens,2020,2023,3,Excellent,4,54990,20500
+Canon,Lens,2020,2023,3,Good,3,54990,17000
+Canon,Lens,2020,2023,3,Fair,2,54990,10000
+Canon,Lens,2020,2023,3,For Parts,1,54990,5000
+Canon,Lens,2020,2024,4,Excellent,4,54990,15000
+Canon,Lens,2020,2024,4,Good,3,54990,14000
+Canon,Lens,2020,2024,4,Fair,2,54990,9500
+Canon,Lens,2020,2024,4,For Parts,1,54990,5000
+Canon,Lens,2020,2025,5,Excellent,4,54990,15500
+Canon,Lens,2020,2025,5,Good,3,54990,12000
+Canon,Lens,2020,2025,5,Fair,2,54990,8000
+Canon,Lens,2020,2025,5,For Parts,1,54990,4000
+Canon,Lens,2018,2021,3,Excellent,4,44990,16000
+Canon,Lens,2018,2021,3,Good,3,44990,13500
+Canon,Lens,2018,2021,3,Fair,2,44990,10000
+Canon,Lens,2018,2021,3,For Parts,1,44990,4000
+Canon,Lens,2018,2022,4,Excellent,4,44990,15000
+Canon,Lens,2018,2022,4,Good,3,44990,12000
+Canon,Lens,2018,2022,4,Fair,2,44990,7500
+Canon,Lens,2018,2022,4,For Parts,1,44990,4000
+Canon,Lens,2018,2023,5,Excellent,4,44990,12500
+Canon,Lens,2018,2023,5,Good,3,44990,9500
+Canon,Lens,2018,2023,5,Fair,2,44990,6500
+Canon,Lens,2018,2023,5,For Parts,1,44990,3000
+Canon,Lens,2018,2024,6,Excellent,4,44990,10000
+Canon,Lens,2018,2024,6,Good,3,44990,8500
+Canon,Lens,2018,2024,6,Fair,2,44990,5500
+Canon,Lens,2018,2024,6,For Parts,1,44990,2500
+Canon,Lens,2018,2025,7,Excellent,4,44990,8000
+Canon,Lens,2018,2025,7,Good,3,44990,7000
+Canon,Lens,2018,2025,7,Fair,2,44990,5000
+Canon,Lens,2018,2025,7,For Parts,1,44990,2500
+Canon,Lens,2017,2021,4,Excellent,4,34990,10000
+Canon,Lens,2017,2021,4,Good,3,34990,9500
+Canon,Lens,2017,2021,4,Fair,2,34990,6000
+Canon,Lens,2017,2021,4,For Parts,1,34990,3000
+Canon,Lens,2017,2022,5,Excellent,4,34990,9500
+Canon,Lens,2017,2022,5,Good,3,34990,7500
+Canon,Lens,2017,2022,5,Fair,2,34990,5000
+Canon,Lens,2017,2022,5,For Parts,1,34990,2500
+Canon,Lens,2017,2023,6,Excellent,4,34990,7500
+Canon,Lens,2017,2023,6,Good,3,34990,7000
+Canon,Lens,2017,2023,6,Fair,2,34990,4000
+Canon,Lens,2017,2023,6,For Parts,1,34990,2000
+Canon,Lens,2017,2024,7,Excellent,4,34990,6000
+Canon,Lens,2017,2024,7,Good,3,34990,5500
+Canon,Lens,2017,2024,7,Fair,2,34990,4000
+Canon,Lens,2017,2024,7,For Parts,1,34990,2000
+Canon,Lens,2017,2025,8,Excellent,4,34990,6000
+Canon,Lens,2017,2025,8,Good,3,34990,4500
+Canon,Lens,2017,2025,8,Fair,2,34990,3500
+Canon,Lens,2017,2025,8,For Parts,1,34990,1500
+Nikon,Lens,2021,2021,0,New (Open Box),6,84990,63500
+Nikon,Lens,2021,2021,0,Like New,5,84990,60500
+Nikon,Lens,2021,2021,0,Excellent,4,84990,55000
+Nikon,Lens,2021,2021,0,Good,3,84990,48000
+Nikon,Lens,2021,2021,0,Fair,2,84990,27500
+Nikon,Lens,2021,2022,1,New (Open Box),6,84990,61500
+Nikon,Lens,2021,2022,1,Like New,5,84990,51000
+Nikon,Lens,2021,2022,1,Excellent,4,84990,42500
+Nikon,Lens,2021,2022,1,Good,3,84990,35500
+Nikon,Lens,2021,2022,1,Fair,2,84990,24000
+Nikon,Lens,2021,2023,2,Excellent,4,84990,36500
+Nikon,Lens,2021,2023,2,Good,3,84990,28500
+Nikon,Lens,2021,2023,2,Fair,2,84990,18500
+Nikon,Lens,2021,2023,2,For Parts,1,84990,8500
+Nikon,Lens,2021,2024,3,Excellent,4,84990,32500
+Nikon,Lens,2021,2024,3,Good,3,84990,25000
+Nikon,Lens,2021,2024,3,Fair,2,84990,17000
+Nikon,Lens,2021,2024,3,For Parts,1,84990,8500
+Nikon,Lens,2021,2025,4,Excellent,4,84990,28000
+Nikon,Lens,2021,2025,4,Good,3,84990,21500
+Nikon,Lens,2021,2025,4,Fair,2,84990,14500
+Nikon,Lens,2021,2025,4,For Parts,1,84990,7500
+Nikon,Lens,2020,2021,1,New (Open Box),6,59990,43500
+Nikon,Lens,2020,2021,1,Like New,5,59990,36500
+Nikon,Lens,2020,2021,1,Excellent,4,59990,32000
+Nikon,Lens,2020,2021,1,Good,3,59990,26000
+Nikon,Lens,2020,2021,1,Fair,2,59990,18000
+Nikon,Lens,2020,2022,2,Excellent,4,59990,26500
+Nikon,Lens,2020,2022,2,Good,3,59990,21500
+Nikon,Lens,2020,2022,2,Fair,2,59990,15000
+Nikon,Lens,2020,2022,2,For Parts,1,59990,6500
+Nikon,Lens,2020,2023,3,Excellent,4,59990,23000
+Nikon,Lens,2020,2023,3,Good,3,59990,16500
+Nikon,Lens,2020,2023,3,Fair,2,59990,11500
+Nikon,Lens,2020,2023,3,For Parts,1,59990,6500
+Nikon,Lens,2020,2024,4,Excellent,4,59990,19500
+Nikon,Lens,2020,2024,4,Good,3,59990,16500
+Nikon,Lens,2020,2024,4,Fair,2,59990,10500
+Nikon,Lens,2020,2024,4,For Parts,1,59990,4500
+Nikon,Lens,2020,2025,5,Excellent,4,59990,15500
+Nikon,Lens,2020,2025,5,Good,3,59990,13000
+Nikon,Lens,2020,2025,5,Fair,2,59990,9000
+Nikon,Lens,2020,2025,5,For Parts,1,59990,4500
+Nikon,Lens,2022,2022,0,New (Open Box),6,99990,77500
+Nikon,Lens,2022,2022,0,Like New,5,99990,72000
+Nikon,Lens,2022,2022,0,Excellent,4,99990,56500
+Nikon,Lens,2022,2022,0,Good,3,99990,49500
+Nikon,Lens,2022,2022,0,Fair,2,99990,33500
+Nikon,Lens,2022,2023,1,New (Open Box),6,99990,63500
+Nikon,Lens,2022,2023,1,Like New,5,99990,58500
+Nikon,Lens,2022,2023,1,Excellent,4,99990,50000
+Nikon,Lens,2022,2023,1,Good,3,99990,40000
+Nikon,Lens,2022,2023,1,Fair,2,99990,31000
+Nikon,Lens,2022,2024,2,Excellent,4,99990,42500
+Nikon,Lens,2022,2024,2,Good,3,99990,34000
+Nikon,Lens,2022,2024,2,Fair,2,99990,21000
+Nikon,Lens,2022,2024,2,For Parts,1,99990,10500
+Nikon,Lens,2022,2025,3,Excellent,4,99990,36000
+Nikon,Lens,2022,2025,3,Good,3,99990,28500
+Nikon,Lens,2022,2025,3,Fair,2,99990,22000
+Nikon,Lens,2022,2025,3,For Parts,1,99990,9500
+Nikon,Lens,2019,2021,2,Excellent,4,44990,21000
+Nikon,Lens,2019,2021,2,Good,3,44990,15500
+Nikon,Lens,2019,2021,2,Fair,2,44990,11000
+Nikon,Lens,2019,2021,2,For Parts,1,44990,5000
+Nikon,Lens,2019,2022,3,Excellent,4,44990,16500
+Nikon,Lens,2019,2022,3,Good,3,44990,14500
+Nikon,Lens,2019,2022,3,Fair,2,44990,8000
+Nikon,Lens,2019,2022,3,For Parts,1,44990,4000
+Nikon,Lens,2019,2023,4,Excellent,4,44990,13500
+Nikon,Lens,2019,2023,4,Good,3,44990,11500
+Nikon,Lens,2019,2023,4,Fair,2,44990,8000
+Nikon,Lens,2019,2023,4,For Parts,1,44990,4000
+Nikon,Lens,2019,2024,5,Excellent,4,44990,11500
+Nikon,Lens,2019,2024,5,Good,3,44990,10000
+Nikon,Lens,2019,2024,5,Fair,2,44990,7000
+Nikon,Lens,2019,2024,5,For Parts,1,44990,3000
+Nikon,Lens,2019,2025,6,Excellent,4,44990,10500
+Nikon,Lens,2019,2025,6,Good,3,44990,8500
+Nikon,Lens,2019,2025,6,Fair,2,44990,5500
+Nikon,Lens,2019,2025,6,For Parts,1,44990,3000
+Nikon,Lens,2018,2021,3,Excellent,4,54990,20500
+Nikon,Lens,2018,2021,3,Good,3,54990,16500
+Nikon,Lens,2018,2021,3,Fair,2,54990,12500
+Nikon,Lens,2018,2021,3,For Parts,1,54990,4500
+Nikon,Lens,2018,2022,4,Excellent,4,54990,15500
+Nikon,Lens,2018,2022,4,Good,3,54990,13000
+Nikon,Lens,2018,2022,4,Fair,2,54990,9500
+Nikon,Lens,2018,2022,4,For Parts,1,54990,4500
+Nikon,Lens,2018,2023,5,Excellent,4,54990,13500
+Nikon,Lens,2018,2023,5,Good,3,54990,11000
+Nikon,Lens,2018,2023,5,Fair,2,54990,7500
+Nikon,Lens,2018,2023,5,For Parts,1,54990,4500
+Nikon,Lens,2018,2024,6,Excellent,4,54990,13500
+Nikon,Lens,2018,2024,6,Good,3,54990,9500
+Nikon,Lens,2018,2024,6,Fair,2,54990,6500
+Nikon,Lens,2018,2024,6,For Parts,1,54990,3000
+Nikon,Lens,2018,2025,7,Excellent,4,54990,9500
+Nikon,Lens,2018,2025,7,Good,3,54990,8500
+Nikon,Lens,2018,2025,7,Fair,2,54990,5500
+Nikon,Lens,2018,2025,7,For Parts,1,54990,3000
+Fujifilm,Lens,2021,2021,0,New (Open Box),6,74990,53500
+Fujifilm,Lens,2021,2021,0,Like New,5,74990,50500
+Fujifilm,Lens,2021,2021,0,Excellent,4,74990,45500
+Fujifilm,Lens,2021,2021,0,Good,3,74990,37000
+Fujifilm,Lens,2021,2021,0,Fair,2,74990,25500
+Fujifilm,Lens,2021,2022,1,New (Open Box),6,74990,46000
+Fujifilm,Lens,2021,2022,1,Like New,5,74990,46500
+Fujifilm,Lens,2021,2022,1,Excellent,4,74990,36000
+Fujifilm,Lens,2021,2022,1,Good,3,74990,31500
+Fujifilm,Lens,2021,2022,1,Fair,2,74990,21000
+Fujifilm,Lens,2021,2023,2,Excellent,4,74990,29500
+Fujifilm,Lens,2021,2023,2,Good,3,74990,25500
+Fujifilm,Lens,2021,2023,2,Fair,2,74990,18500
+Fujifilm,Lens,2021,2023,2,For Parts,1,74990,9000
+Fujifilm,Lens,2021,2024,3,Excellent,4,74990,27500
+Fujifilm,Lens,2021,2024,3,Good,3,74990,24500
+Fujifilm,Lens,2021,2024,3,Fair,2,74990,16500
+Fujifilm,Lens,2021,2024,3,For Parts,1,74990,7000
+Fujifilm,Lens,2021,2025,4,Excellent,4,74990,24500
+Fujifilm,Lens,2021,2025,4,Good,3,74990,21000
+Fujifilm,Lens,2021,2025,4,Fair,2,74990,14500
+Fujifilm,Lens,2021,2025,4,For Parts,1,74990,6000
+Fujifilm,Lens,2019,2021,2,Excellent,4,54990,22000
+Fujifilm,Lens,2019,2021,2,Good,3,54990,21000
+Fujifilm,Lens,2019,2021,2,Fair,2,54990,12500
+Fujifilm,Lens,2019,2021,2,For Parts,1,54990,5500
+Fujifilm,Lens,2019,2022,3,Excellent,4,54990,19500
+Fujifilm,Lens,2019,2022,3,Good,3,54990,16500
+Fujifilm,Lens,2019,2022,3,Fair,2,54990,11000
+Fujifilm,Lens,2019,2022,3,For Parts,1,54990,5000
+Fujifilm,Lens,2019,2023,4,Excellent,4,54990,16500
+Fujifilm,Lens,2019,2023,4,Good,3,54990,13500
+Fujifilm,Lens,2019,2023,4,Fair,2,54990,9000
+Fujifilm,Lens,2019,2023,4,For Parts,1,54990,5000
+Fujifilm,Lens,2019,2024,5,Excellent,4,54990,15000
+Fujifilm,Lens,2019,2024,5,Good,3,54990,12500
+Fujifilm,Lens,2019,2024,5,Fair,2,54990,8000
+Fujifilm,Lens,2019,2024,5,For Parts,1,54990,4000
+Fujifilm,Lens,2019,2025,6,Excellent,4,54990,12000
+Fujifilm,Lens,2019,2025,6,Good,3,54990,8500
+Fujifilm,Lens,2019,2025,6,Fair,2,54990,6500
+Fujifilm,Lens,2019,2025,6,For Parts,1,54990,3000
+Fujifilm,Lens,2022,2022,0,New (Open Box),6,44990,31000
+Fujifilm,Lens,2022,2022,0,Like New,5,44990,29500
+Fujifilm,Lens,2022,2022,0,Excellent,4,44990,29000
+Fujifilm,Lens,2022,2022,0,Good,3,44990,21500
+Fujifilm,Lens,2022,2022,0,Fair,2,44990,16000
+Fujifilm,Lens,2022,2023,1,New (Open Box),6,44990,30500
+Fujifilm,Lens,2022,2023,1,Like New,5,44990,28000
+Fujifilm,Lens,2022,2023,1,Excellent,4,44990,21500
+Fujifilm,Lens,2022,2023,1,Good,3,44990,19000
+Fujifilm,Lens,2022,2023,1,Fair,2,44990,13000
+Fujifilm,Lens,2022,2024,2,Excellent,4,44990,18500
+Fujifilm,Lens,2022,2024,2,Good,3,44990,16000
+Fujifilm,Lens,2022,2024,2,Fair,2,44990,11000
+Fujifilm,Lens,2022,2024,2,For Parts,1,44990,5000
+Fujifilm,Lens,2022,2025,3,Excellent,4,44990,15500
+Fujifilm,Lens,2022,2025,3,Good,3,44990,12500
+Fujifilm,Lens,2022,2025,3,Fair,2,44990,9500
+Fujifilm,Lens,2022,2025,3,For Parts,1,44990,4500
+Fujifilm,Lens,2018,2021,3,Excellent,4,34990,12000
+Fujifilm,Lens,2018,2021,3,Good,3,34990,10500
+Fujifilm,Lens,2018,2021,3,Fair,2,34990,7500
+Fujifilm,Lens,2018,2021,3,For Parts,1,34990,3500
+Fujifilm,Lens,2018,2022,4,Excellent,4,34990,12000
+Fujifilm,Lens,2018,2022,4,Good,3,34990,9500
+Fujifilm,Lens,2018,2022,4,Fair,2,34990,5500
+Fujifilm,Lens,2018,2022,4,For Parts,1,34990,3000
+Fujifilm,Lens,2018,2023,5,Excellent,4,34990,9000
+Fujifilm,Lens,2018,2023,5,Good,3,34990,8000
+Fujifilm,Lens,2018,2023,5,Fair,2,34990,5000
+Fujifilm,Lens,2018,2023,5,For Parts,1,34990,2500
+Fujifilm,Lens,2018,2024,6,Excellent,4,34990,7000
+Fujifilm,Lens,2018,2024,6,Good,3,34990,6500
+Fujifilm,Lens,2018,2024,6,Fair,2,34990,4000
+Fujifilm,Lens,2018,2024,6,For Parts,1,34990,2000
+Fujifilm,Lens,2018,2025,7,Excellent,4,34990,7500
+Fujifilm,Lens,2018,2025,7,Good,3,34990,5000
+Fujifilm,Lens,2018,2025,7,Fair,2,34990,4000
+Fujifilm,Lens,2018,2025,7,For Parts,1,34990,1500
+Fujifilm,Lens,2017,2021,4,Excellent,4,29990,9000
+Fujifilm,Lens,2017,2021,4,Good,3,29990,8000
+Fujifilm,Lens,2017,2021,4,Fair,2,29990,5000
+Fujifilm,Lens,2017,2021,4,For Parts,1,29990,2500
+Fujifilm,Lens,2017,2022,5,Excellent,4,29990,7500
+Fujifilm,Lens,2017,2022,5,Good,3,29990,7000
+Fujifilm,Lens,2017,2022,5,Fair,2,29990,4500
+Fujifilm,Lens,2017,2022,5,For Parts,1,29990,2000
+Fujifilm,Lens,2017,2023,6,Excellent,4,29990,6500
+Fujifilm,Lens,2017,2023,6,Good,3,29990,5500
+Fujifilm,Lens,2017,2023,6,Fair,2,29990,3500
+Fujifilm,Lens,2017,2023,6,For Parts,1,29990,1500
+Fujifilm,Lens,2017,2024,7,Excellent,4,29990,6000
+Fujifilm,Lens,2017,2024,7,Good,3,29990,5000
+Fujifilm,Lens,2017,2024,7,Fair,2,29990,3500
+Fujifilm,Lens,2017,2024,7,For Parts,1,29990,1500
+Fujifilm,Lens,2017,2025,8,Excellent,4,29990,5500
+Fujifilm,Lens,2017,2025,8,Good,3,29990,4000
+Fujifilm,Lens,2017,2025,8,Fair,2,29990,3000
+Fujifilm,Lens,2017,2025,8,For Parts,1,29990,1500
+Leica,Lens,2020,2021,1,New (Open Box),6,299990,200000
+Leica,Lens,2020,2021,1,Like New,5,299990,171000
+Leica,Lens,2020,2021,1,Excellent,4,299990,165500
+Leica,Lens,2020,2021,1,Good,3,299990,125000
+Leica,Lens,2020,2021,1,Fair,2,299990,83500
+Leica,Lens,2020,2022,2,Excellent,4,299990,137500
+Leica,Lens,2020,2022,2,Good,3,299990,90500
+Leica,Lens,2020,2022,2,Fair,2,299990,63000
+Leica,Lens,2020,2022,2,For Parts,1,299990,35500
+Leica,Lens,2020,2023,3,Excellent,4,299990,110500
+Leica,Lens,2020,2023,3,Good,3,299990,90500
+Leica,Lens,2020,2023,3,Fair,2,299990,56500
+Leica,Lens,2020,2023,3,For Parts,1,299990,29000
+Leica,Lens,2020,2024,4,Excellent,4,299990,105000
+Leica,Lens,2020,2024,4,Good,3,299990,79500
+Leica,Lens,2020,2024,4,Fair,2,299990,53000
+Leica,Lens,2020,2024,4,For Parts,1,299990,24000
+Leica,Lens,2020,2025,5,Excellent,4,299990,77500
+Leica,Lens,2020,2025,5,Good,3,299990,56000
+Leica,Lens,2020,2025,5,Fair,2,299990,45000
+Leica,Lens,2020,2025,5,For Parts,1,299990,22000
+Leica,Lens,2019,2021,2,Excellent,4,449990,174500
+Leica,Lens,2019,2021,2,Good,3,449990,149500
+Leica,Lens,2019,2021,2,Fair,2,449990,100000
+Leica,Lens,2019,2021,2,For Parts,1,449990,48000
+Leica,Lens,2019,2022,3,Excellent,4,449990,166000
+Leica,Lens,2019,2022,3,Good,3,449990,117000
+Leica,Lens,2019,2022,3,Fair,2,449990,95500
+Leica,Lens,2019,2022,3,For Parts,1,449990,45500
+Leica,Lens,2019,2023,4,Excellent,4,449990,138500
+Leica,Lens,2019,2023,4,Good,3,449990,97000
+Leica,Lens,2019,2023,4,Fair,2,449990,74000
+Leica,Lens,2019,2023,4,For Parts,1,449990,40000
+Leica,Lens,2019,2024,5,Excellent,4,449990,99500
+Leica,Lens,2019,2024,5,Good,3,449990,94500
+Leica,Lens,2019,2024,5,Fair,2,449990,62000
+Leica,Lens,2019,2024,5,For Parts,1,449990,33000
+Leica,Lens,2019,2025,6,Excellent,4,449990,97000
+Leica,Lens,2019,2025,6,Good,3,449990,83500
+Leica,Lens,2019,2025,6,Fair,2,449990,58500
+Leica,Lens,2019,2025,6,For Parts,1,449990,29500
+Leica,Lens,2021,2021,0,New (Open Box),6,199990,156500
+Leica,Lens,2021,2021,0,Like New,5,199990,144000
+Leica,Lens,2021,2021,0,Excellent,4,199990,109000
+Leica,Lens,2021,2021,0,Good,3,199990,103500
+Leica,Lens,2021,2021,0,Fair,2,199990,64000
+Leica,Lens,2021,2022,1,New (Open Box),6,199990,128500
+Leica,Lens,2021,2022,1,Like New,5,199990,118000
+Leica,Lens,2021,2022,1,Excellent,4,199990,91000
+Leica,Lens,2021,2022,1,Good,3,199990,82500
+Leica,Lens,2021,2022,1,Fair,2,199990,59500
+Leica,Lens,2021,2023,2,Excellent,4,199990,87000
+Leica,Lens,2021,2023,2,Good,3,199990,62500
+Leica,Lens,2021,2023,2,Fair,2,199990,47500
+Leica,Lens,2021,2023,2,For Parts,1,199990,23500
+Leica,Lens,2021,2024,3,Excellent,4,199990,65000
+Leica,Lens,2021,2024,3,Good,3,199990,55500
+Leica,Lens,2021,2024,3,Fair,2,199990,43000
+Leica,Lens,2021,2024,3,For Parts,1,199990,20000
+Leica,Lens,2021,2025,4,Excellent,4,199990,64000
+Leica,Lens,2021,2025,4,Good,3,199990,56000
+Leica,Lens,2021,2025,4,Fair,2,199990,36000
+Leica,Lens,2021,2025,4,For Parts,1,199990,17000
+Leica,Lens,2018,2021,3,Excellent,4,349990,149500
+Leica,Lens,2018,2021,3,Good,3,349990,102500
+Leica,Lens,2018,2021,3,Fair,2,349990,68500
+Leica,Lens,2018,2021,3,For Parts,1,349990,35000
+Leica,Lens,2018,2022,4,Excellent,4,349990,112500
+Leica,Lens,2018,2022,4,Good,3,349990,85500
+Leica,Lens,2018,2022,4,Fair,2,349990,57500
+Leica,Lens,2018,2022,4,For Parts,1,349990,33000
+Leica,Lens,2018,2023,5,Excellent,4,349990,94500
+Leica,Lens,2018,2023,5,Good,3,349990,72000
+Leica,Lens,2018,2023,5,Fair,2,349990,54500
+Leica,Lens,2018,2023,5,For Parts,1,349990,24500
+Leica,Lens,2018,2024,6,Excellent,4,349990,77500
+Leica,Lens,2018,2024,6,Good,3,349990,65500
+Leica,Lens,2018,2024,6,Fair,2,349990,40500
+Leica,Lens,2018,2024,6,For Parts,1,349990,21000
+Leica,Lens,2018,2025,7,Excellent,4,349990,74500
+Leica,Lens,2018,2025,7,Good,3,349990,55500
+Leica,Lens,2018,2025,7,Fair,2,349990,36500
+Leica,Lens,2018,2025,7,For Parts,1,349990,17000
+DJI,Drone,2023,2023,0,New (Open Box),6,159990,123500
+DJI,Drone,2023,2023,0,Like New,5,159990,111000
+DJI,Drone,2023,2023,0,Excellent,4,159990,93500
+DJI,Drone,2023,2023,0,Good,3,159990,81500
+DJI,Drone,2023,2023,0,Fair,2,159990,48000
+DJI,Drone,2023,2024,1,New (Open Box),6,159990,112000
+DJI,Drone,2023,2024,1,Like New,5,159990,92500
+DJI,Drone,2023,2024,1,Excellent,4,159990,82500
+DJI,Drone,2023,2024,1,Good,3,159990,60500
+DJI,Drone,2023,2024,1,Fair,2,159990,48500
+DJI,Drone,2023,2025,2,Excellent,4,159990,73500
+DJI,Drone,2023,2025,2,Good,3,159990,58500
+DJI,Drone,2023,2025,2,Fair,2,159990,35000
+DJI,Drone,2023,2025,2,For Parts,1,159990,19000
+DJI,Drone,2022,2022,0,New (Open Box),6,109990,89000
+DJI,Drone,2022,2022,0,Like New,5,109990,70000
+DJI,Drone,2022,2022,0,Excellent,4,109990,65500
+DJI,Drone,2022,2022,0,Good,3,109990,54500
+DJI,Drone,2022,2022,0,Fair,2,109990,38000
+DJI,Drone,2022,2023,1,New (Open Box),6,109990,74000
+DJI,Drone,2022,2023,1,Like New,5,109990,66500
+DJI,Drone,2022,2023,1,Excellent,4,109990,60000
+DJI,Drone,2022,2023,1,Good,3,109990,48000
+DJI,Drone,2022,2023,1,Fair,2,109990,25500
+DJI,Drone,2022,2024,2,Excellent,4,109990,46000
+DJI,Drone,2022,2024,2,Good,3,109990,37500
+DJI,Drone,2022,2024,2,Fair,2,109990,23500
+DJI,Drone,2022,2024,2,For Parts,1,109990,12500
+DJI,Drone,2022,2025,3,Excellent,4,109990,43500
+DJI,Drone,2022,2025,3,Good,3,109990,30500
+DJI,Drone,2022,2025,3,Fair,2,109990,23000
+DJI,Drone,2022,2025,3,For Parts,1,109990,10000
+DJI,Drone,2023,2023,0,New (Open Box),6,54990,42000
+DJI,Drone,2023,2023,0,Like New,5,54990,42000
+DJI,Drone,2023,2023,0,Excellent,4,54990,32000
+DJI,Drone,2023,2023,0,Good,3,54990,27500
+DJI,Drone,2023,2023,0,Fair,2,54990,16500
+DJI,Drone,2023,2024,1,New (Open Box),6,54990,40500
+DJI,Drone,2023,2024,1,Like New,5,54990,33500
+DJI,Drone,2023,2024,1,Excellent,4,54990,27500
+DJI,Drone,2023,2024,1,Good,3,54990,23000
+DJI,Drone,2023,2024,1,Fair,2,54990,14000
+DJI,Drone,2023,2025,2,Excellent,4,54990,25000
+DJI,Drone,2023,2025,2,Good,3,54990,18500
+DJI,Drone,2023,2025,2,Fair,2,54990,13000
+DJI,Drone,2023,2025,2,For Parts,1,54990,6000
+DJI,Drone,2020,2021,1,New (Open Box),6,94990,61000
+DJI,Drone,2020,2021,1,Like New,5,94990,58500
+DJI,Drone,2020,2021,1,Excellent,4,94990,48500
+DJI,Drone,2020,2021,1,Good,3,94990,40000
+DJI,Drone,2020,2021,1,Fair,2,94990,26500
+DJI,Drone,2020,2022,2,Excellent,4,94990,42000
+DJI,Drone,2020,2022,2,Good,3,94990,32000
+DJI,Drone,2020,2022,2,Fair,2,94990,26000
+DJI,Drone,2020,2022,2,For Parts,1,94990,10000
+DJI,Drone,2020,2023,3,Excellent,4,94990,37500
+DJI,Drone,2020,2023,3,Good,3,94990,30500
+DJI,Drone,2020,2023,3,Fair,2,94990,18500
+DJI,Drone,2020,2023,3,For Parts,1,94990,10500
+DJI,Drone,2020,2024,4,Excellent,4,94990,31500
+DJI,Drone,2020,2024,4,Good,3,94990,25500
+DJI,Drone,2020,2024,4,Fair,2,94990,16500
+DJI,Drone,2020,2024,4,For Parts,1,94990,8000
+DJI,Drone,2020,2025,5,Excellent,4,94990,25000
+DJI,Drone,2020,2025,5,Good,3,94990,21000
+DJI,Drone,2020,2025,5,Fair,2,94990,15500
+DJI,Drone,2020,2025,5,For Parts,1,94990,6500
+DJI,Drone,2022,2022,0,New (Open Box),6,49990,37500
+DJI,Drone,2022,2022,0,Like New,5,49990,37000
+DJI,Drone,2022,2022,0,Excellent,4,49990,31500
+DJI,Drone,2022,2022,0,Good,3,49990,25000
+DJI,Drone,2022,2022,0,Fair,2,49990,17500
+DJI,Drone,2022,2023,1,New (Open Box),6,49990,33000
+DJI,Drone,2022,2023,1,Like New,5,49990,28000
+DJI,Drone,2022,2023,1,Excellent,4,49990,24000
+DJI,Drone,2022,2023,1,Good,3,49990,18500
+DJI,Drone,2022,2023,1,Fair,2,49990,14500
+DJI,Drone,2022,2024,2,Excellent,4,49990,21500
+DJI,Drone,2022,2024,2,Good,3,49990,17000
+DJI,Drone,2022,2024,2,Fair,2,49990,10000
+DJI,Drone,2022,2024,2,For Parts,1,49990,5000
+DJI,Drone,2022,2025,3,Excellent,4,49990,19500
+DJI,Drone,2022,2025,3,Good,3,49990,14500
+DJI,Drone,2022,2025,3,Fair,2,49990,10500
+DJI,Drone,2022,2025,3,For Parts,1,49990,4500
+DJI,Drone,2019,2021,2,Excellent,4,129990,60500
+DJI,Drone,2019,2021,2,Good,3,129990,44500
+DJI,Drone,2019,2021,2,Fair,2,129990,31500
+DJI,Drone,2019,2021,2,For Parts,1,129990,17000
+DJI,Drone,2019,2022,3,Excellent,4,129990,52000
+DJI,Drone,2019,2022,3,Good,3,129990,38000
+DJI,Drone,2019,2022,3,Fair,2,129990,25500
+DJI,Drone,2019,2022,3,For Parts,1,129990,12500
+DJI,Drone,2019,2023,4,Excellent,4,129990,42000
+DJI,Drone,2019,2023,4,Good,3,129990,32500
+DJI,Drone,2019,2023,4,Fair,2,129990,22000
+DJI,Drone,2019,2023,4,For Parts,1,129990,11500
+DJI,Drone,2019,2024,5,Excellent,4,129990,34000
+DJI,Drone,2019,2024,5,Good,3,129990,31500
+DJI,Drone,2019,2024,5,Fair,2,129990,19500
+DJI,Drone,2019,2024,5,For Parts,1,129990,10000
+DJI,Drone,2019,2025,6,Excellent,4,129990,30000
+DJI,Drone,2019,2025,6,Good,3,129990,25000
+DJI,Drone,2019,2025,6,Fair,2,129990,15500
+DJI,Drone,2019,2025,6,For Parts,1,129990,7500
+DJI,Drone,2021,2021,0,New (Open Box),6,139990,114000
+DJI,Drone,2021,2021,0,Like New,5,139990,104500
+DJI,Drone,2021,2021,0,Excellent,4,139990,84000
+DJI,Drone,2021,2021,0,Good,3,139990,62500
+DJI,Drone,2021,2021,0,Fair,2,139990,43000
+DJI,Drone,2021,2022,1,New (Open Box),6,139990,85000
+DJI,Drone,2021,2022,1,Like New,5,139990,74000
+DJI,Drone,2021,2022,1,Excellent,4,139990,71000
+DJI,Drone,2021,2022,1,Good,3,139990,61000
+DJI,Drone,2021,2022,1,Fair,2,139990,39500
+DJI,Drone,2021,2023,2,Excellent,4,139990,52000
+DJI,Drone,2021,2023,2,Good,3,139990,48000
+DJI,Drone,2021,2023,2,Fair,2,139990,33000
+DJI,Drone,2021,2023,2,For Parts,1,139990,18000
+DJI,Drone,2021,2024,3,Excellent,4,139990,47000
+DJI,Drone,2021,2024,3,Good,3,139990,40500
+DJI,Drone,2021,2024,3,Fair,2,139990,31500
+DJI,Drone,2021,2024,3,For Parts,1,139990,14000
+DJI,Drone,2021,2025,4,Excellent,4,139990,45500
+DJI,Drone,2021,2025,4,Good,3,139990,35500
+DJI,Drone,2021,2025,4,Fair,2,139990,25000
+DJI,Drone,2021,2025,4,For Parts,1,139990,12000
+DJI,Drone,2023,2023,0,New (Open Box),6,74990,56500
+DJI,Drone,2023,2023,0,Like New,5,74990,55500
+DJI,Drone,2023,2023,0,Excellent,4,74990,41000
+DJI,Drone,2023,2023,0,Good,3,74990,37000
+DJI,Drone,2023,2023,0,Fair,2,74990,25500
+DJI,Drone,2023,2024,1,New (Open Box),6,74990,48000
+DJI,Drone,2023,2024,1,Like New,5,74990,44500
+DJI,Drone,2023,2024,1,Excellent,4,74990,36500
+DJI,Drone,2023,2024,1,Good,3,74990,28500
+DJI,Drone,2023,2024,1,Fair,2,74990,20500
+DJI,Drone,2023,2025,2,Excellent,4,74990,30000
+DJI,Drone,2023,2025,2,Good,3,74990,26500
+DJI,Drone,2023,2025,2,Fair,2,74990,16500
+DJI,Drone,2023,2025,2,For Parts,1,74990,9000
+DJI,Drone,2018,2021,3,Excellent,4,84990,29000
+DJI,Drone,2018,2021,3,Good,3,84990,24500
+DJI,Drone,2018,2021,3,Fair,2,84990,17000
+DJI,Drone,2018,2021,3,For Parts,1,84990,9000
+DJI,Drone,2018,2022,4,Excellent,4,84990,27000
+DJI,Drone,2018,2022,4,Good,3,84990,21000
+DJI,Drone,2018,2022,4,Fair,2,84990,15500
+DJI,Drone,2018,2022,4,For Parts,1,84990,6000
+DJI,Drone,2018,2023,5,Excellent,4,84990,22500
+DJI,Drone,2018,2023,5,Good,3,84990,20500
+DJI,Drone,2018,2023,5,Fair,2,84990,12500
+DJI,Drone,2018,2023,5,For Parts,1,84990,6000
+DJI,Drone,2018,2024,6,Excellent,4,84990,19500
+DJI,Drone,2018,2024,6,Good,3,84990,16500
+DJI,Drone,2018,2024,6,Fair,2,84990,9500
+DJI,Drone,2018,2024,6,For Parts,1,84990,4500
+DJI,Drone,2018,2025,7,Excellent,4,84990,16500
+DJI,Drone,2018,2025,7,Good,3,84990,12500
+DJI,Drone,2018,2025,7,Fair,2,84990,10000
+DJI,Drone,2018,2025,7,For Parts,1,84990,4000
+DJI,Drone,2017,2021,4,Excellent,4,99990,27500
+DJI,Drone,2017,2021,4,Good,3,99990,23500
+DJI,Drone,2017,2021,4,Fair,2,99990,14500
+DJI,Drone,2017,2021,4,For Parts,1,99990,8000
+DJI,Drone,2017,2022,5,Excellent,4,99990,26000
+DJI,Drone,2017,2022,5,Good,3,99990,21000
+DJI,Drone,2017,2022,5,Fair,2,99990,16000
+DJI,Drone,2017,2022,5,For Parts,1,99990,7500
+DJI,Drone,2017,2023,6,Excellent,4,99990,22000
+DJI,Drone,2017,2023,6,Good,3,99990,16000
+DJI,Drone,2017,2023,6,Fair,2,99990,13000
+DJI,Drone,2017,2023,6,For Parts,1,99990,6000
+DJI,Drone,2017,2024,7,Excellent,4,99990,19500
+DJI,Drone,2017,2024,7,Good,3,99990,16500
+DJI,Drone,2017,2024,7,Fair,2,99990,10000
+DJI,Drone,2017,2024,7,For Parts,1,99990,5500
+DJI,Drone,2017,2025,8,Excellent,4,99990,16000
+DJI,Drone,2017,2025,8,Good,3,99990,14500
+DJI,Drone,2017,2025,8,Fair,2,99990,8500
+DJI,Drone,2017,2025,8,For Parts,1,99990,4000
+DJI,Drone,2020,2021,1,New (Open Box),6,44990,32500
+DJI,Drone,2020,2021,1,Like New,5,44990,26000
+DJI,Drone,2020,2021,1,Excellent,4,44990,24000
+DJI,Drone,2020,2021,1,Good,3,44990,18500
+DJI,Drone,2020,2021,1,Fair,2,44990,12500
+DJI,Drone,2020,2022,2,Excellent,4,44990,21000
+DJI,Drone,2020,2022,2,Good,3,44990,15500
+DJI,Drone,2020,2022,2,Fair,2,44990,9500
+DJI,Drone,2020,2022,2,For Parts,1,44990,5000
+DJI,Drone,2020,2023,3,Excellent,4,44990,17000
+DJI,Drone,2020,2023,3,Good,3,44990,13500
+DJI,Drone,2020,2023,3,Fair,2,44990,8500
+DJI,Drone,2020,2023,3,For Parts,1,44990,4000
+DJI,Drone,2020,2024,4,Excellent,4,44990,13500
+DJI,Drone,2020,2024,4,Good,3,44990,11000
+DJI,Drone,2020,2024,4,Fair,2,44990,7000
+DJI,Drone,2020,2024,4,For Parts,1,44990,3500
+DJI,Drone,2020,2025,5,Excellent,4,44990,11500
+DJI,Drone,2020,2025,5,Good,3,44990,10000
+DJI,Drone,2020,2025,5,Fair,2,44990,7000
+DJI,Drone,2020,2025,5,For Parts,1,44990,3000
+GoPro,Drone,2022,2022,0,New (Open Box),6,79990,62000
+GoPro,Drone,2022,2022,0,Like New,5,79990,57000
+GoPro,Drone,2022,2022,0,Excellent,4,79990,45500
+GoPro,Drone,2022,2022,0,Good,3,79990,36000
+GoPro,Drone,2022,2022,0,Fair,2,79990,25000
+GoPro,Drone,2022,2023,1,New (Open Box),6,79990,51000
+GoPro,Drone,2022,2023,1,Like New,5,79990,44000
+GoPro,Drone,2022,2023,1,Excellent,4,79990,40500
+GoPro,Drone,2022,2023,1,Good,3,79990,34000
+GoPro,Drone,2022,2023,1,Fair,2,79990,20500
+GoPro,Drone,2022,2024,2,Excellent,4,79990,34500
+GoPro,Drone,2022,2024,2,Good,3,79990,27500
+GoPro,Drone,2022,2024,2,Fair,2,79990,19500
+GoPro,Drone,2022,2024,2,For Parts,1,79990,9000
+GoPro,Drone,2022,2025,3,Excellent,4,79990,27000
+GoPro,Drone,2022,2025,3,Good,3,79990,22000
+GoPro,Drone,2022,2025,3,Fair,2,79990,16500
+GoPro,Drone,2022,2025,3,For Parts,1,79990,8500
+Profoto,Lighting,2021,2021,0,New (Open Box),6,99990,68500
+Profoto,Lighting,2021,2021,0,Like New,5,99990,72000
+Profoto,Lighting,2021,2021,0,Excellent,4,99990,64000
+Profoto,Lighting,2021,2021,0,Good,3,99990,48000
+Profoto,Lighting,2021,2021,0,Fair,2,99990,34500
+Profoto,Lighting,2021,2022,1,New (Open Box),6,99990,64000
+Profoto,Lighting,2021,2022,1,Like New,5,99990,59000
+Profoto,Lighting,2021,2022,1,Excellent,4,99990,45500
+Profoto,Lighting,2021,2022,1,Good,3,99990,35000
+Profoto,Lighting,2021,2022,1,Fair,2,99990,29500
+Profoto,Lighting,2021,2023,2,Excellent,4,99990,40500
+Profoto,Lighting,2021,2023,2,Good,3,99990,33500
+Profoto,Lighting,2021,2023,2,Fair,2,99990,22000
+Profoto,Lighting,2021,2023,2,For Parts,1,99990,10500
+Profoto,Lighting,2021,2024,3,Excellent,4,99990,36500
+Profoto,Lighting,2021,2024,3,Good,3,99990,28500
+Profoto,Lighting,2021,2024,3,Fair,2,99990,21000
+Profoto,Lighting,2021,2024,3,For Parts,1,99990,10000
+Profoto,Lighting,2021,2025,4,Excellent,4,99990,32000
+Profoto,Lighting,2021,2025,4,Good,3,99990,25500
+Profoto,Lighting,2021,2025,4,Fair,2,99990,19000
+Profoto,Lighting,2021,2025,4,For Parts,1,99990,7500
+Profoto,Lighting,2019,2021,2,Excellent,4,149990,64000
+Profoto,Lighting,2019,2021,2,Good,3,149990,55500
+Profoto,Lighting,2019,2021,2,Fair,2,149990,38500
+Profoto,Lighting,2019,2021,2,For Parts,1,149990,15500
+Profoto,Lighting,2019,2022,3,Excellent,4,149990,54000
+Profoto,Lighting,2019,2022,3,Good,3,149990,48000
+Profoto,Lighting,2019,2022,3,Fair,2,149990,31500
+Profoto,Lighting,2019,2022,3,For Parts,1,149990,14500
+Profoto,Lighting,2019,2023,4,Excellent,4,149990,46500
+Profoto,Lighting,2019,2023,4,Good,3,149990,37000
+Profoto,Lighting,2019,2023,4,Fair,2,149990,26500
+Profoto,Lighting,2019,2023,4,For Parts,1,149990,12000
+Profoto,Lighting,2019,2024,5,Excellent,4,149990,39500
+Profoto,Lighting,2019,2024,5,Good,3,149990,32500
+Profoto,Lighting,2019,2024,5,Fair,2,149990,21500
+Profoto,Lighting,2019,2024,5,For Parts,1,149990,11000
+Profoto,Lighting,2019,2025,6,Excellent,4,149990,39500
+Profoto,Lighting,2019,2025,6,Good,3,149990,24500
+Profoto,Lighting,2019,2025,6,Fair,2,149990,19000
+Profoto,Lighting,2019,2025,6,For Parts,1,149990,8500
+Profoto,Lighting,2022,2022,0,New (Open Box),6,74990,61500
+Profoto,Lighting,2022,2022,0,Like New,5,74990,53000
+Profoto,Lighting,2022,2022,0,Excellent,4,74990,47000
+Profoto,Lighting,2022,2022,0,Good,3,74990,39000
+Profoto,Lighting,2022,2022,0,Fair,2,74990,25500
+Profoto,Lighting,2022,2023,1,New (Open Box),6,74990,53500
+Profoto,Lighting,2022,2023,1,Like New,5,74990,38000
+Profoto,Lighting,2022,2023,1,Excellent,4,74990,41500
+Profoto,Lighting,2022,2023,1,Good,3,74990,31000
+Profoto,Lighting,2022,2023,1,Fair,2,74990,22500
+Profoto,Lighting,2022,2024,2,Excellent,4,74990,30000
+Profoto,Lighting,2022,2024,2,Good,3,74990,24500
+Profoto,Lighting,2022,2024,2,Fair,2,74990,18000
+Profoto,Lighting,2022,2024,2,For Parts,1,74990,8500
+Profoto,Lighting,2022,2025,3,Excellent,4,74990,28000
+Profoto,Lighting,2022,2025,3,Good,3,74990,23500
+Profoto,Lighting,2022,2025,3,Fair,2,74990,14000
+Profoto,Lighting,2022,2025,3,For Parts,1,74990,7500
+Profoto,Lighting,2020,2021,1,New (Open Box),6,54990,36500
+Profoto,Lighting,2020,2021,1,Like New,5,54990,32000
+Profoto,Lighting,2020,2021,1,Excellent,4,54990,25000
+Profoto,Lighting,2020,2021,1,Good,3,54990,23000
+Profoto,Lighting,2020,2021,1,Fair,2,54990,13000
+Profoto,Lighting,2020,2022,2,Excellent,4,54990,24500
+Profoto,Lighting,2020,2022,2,Good,3,54990,17500
+Profoto,Lighting,2020,2022,2,Fair,2,54990,13000
+Profoto,Lighting,2020,2022,2,For Parts,1,54990,6000
+Profoto,Lighting,2020,2023,3,Excellent,4,54990,21500
+Profoto,Lighting,2020,2023,3,Good,3,54990,16000
+Profoto,Lighting,2020,2023,3,Fair,2,54990,11000
+Profoto,Lighting,2020,2023,3,For Parts,1,54990,5000
+Profoto,Lighting,2020,2024,4,Excellent,4,54990,18500
+Profoto,Lighting,2020,2024,4,Good,3,54990,14500
+Profoto,Lighting,2020,2024,4,Fair,2,54990,9500
+Profoto,Lighting,2020,2024,4,For Parts,1,54990,4500
+Profoto,Lighting,2020,2025,5,Excellent,4,54990,13000
+Profoto,Lighting,2020,2025,5,Good,3,54990,12000
+Profoto,Lighting,2020,2025,5,Fair,2,54990,7500
+Profoto,Lighting,2020,2025,5,For Parts,1,54990,4000
+Profoto,Lighting,2018,2021,3,Excellent,4,199990,74000
+Profoto,Lighting,2018,2021,3,Good,3,199990,68000
+Profoto,Lighting,2018,2021,3,Fair,2,199990,38500
+Profoto,Lighting,2018,2021,3,For Parts,1,199990,19500
+Profoto,Lighting,2018,2022,4,Excellent,4,199990,69500
+Profoto,Lighting,2018,2022,4,Good,3,199990,54000
+Profoto,Lighting,2018,2022,4,Fair,2,199990,33500
+Profoto,Lighting,2018,2022,4,For Parts,1,199990,17000
+Profoto,Lighting,2018,2023,5,Excellent,4,199990,53000
+Profoto,Lighting,2018,2023,5,Good,3,199990,43500
+Profoto,Lighting,2018,2023,5,Fair,2,199990,28500
+Profoto,Lighting,2018,2023,5,For Parts,1,199990,14000
+Profoto,Lighting,2018,2024,6,Excellent,4,199990,40500
+Profoto,Lighting,2018,2024,6,Good,3,199990,36500
+Profoto,Lighting,2018,2024,6,Fair,2,199990,26000
+Profoto,Lighting,2018,2024,6,For Parts,1,199990,11500
+Profoto,Lighting,2018,2025,7,Excellent,4,199990,34500
+Profoto,Lighting,2018,2025,7,Good,3,199990,32500
+Profoto,Lighting,2018,2025,7,Fair,2,199990,21500
+Profoto,Lighting,2018,2025,7,For Parts,1,199990,9500
+Godox,Lighting,2022,2022,0,New (Open Box),6,24990,19500
+Godox,Lighting,2022,2022,0,Like New,5,24990,16000
+Godox,Lighting,2022,2022,0,Excellent,4,24990,14000
+Godox,Lighting,2022,2022,0,Good,3,24990,11500
+Godox,Lighting,2022,2022,0,Fair,2,24990,9000
+Godox,Lighting,2022,2023,1,New (Open Box),6,24990,16000
+Godox,Lighting,2022,2023,1,Like New,5,24990,15500
+Godox,Lighting,2022,2023,1,Excellent,4,24990,12000
+Godox,Lighting,2022,2023,1,Good,3,24990,10500
+Godox,Lighting,2022,2023,1,Fair,2,24990,7000
+Godox,Lighting,2022,2024,2,Excellent,4,24990,11500
+Godox,Lighting,2022,2024,2,Good,3,24990,8500
+Godox,Lighting,2022,2024,2,Fair,2,24990,5500
+Godox,Lighting,2022,2024,2,For Parts,1,24990,2500
+Godox,Lighting,2022,2025,3,Excellent,4,24990,9000
+Godox,Lighting,2022,2025,3,Good,3,24990,7000
+Godox,Lighting,2022,2025,3,Fair,2,24990,5500
+Godox,Lighting,2022,2025,3,For Parts,1,24990,2500
+Godox,Lighting,2021,2021,0,New (Open Box),6,14990,13500
+Godox,Lighting,2021,2021,0,Like New,5,14990,9500
+Godox,Lighting,2021,2021,0,Excellent,4,14990,9000
+Godox,Lighting,2021,2021,0,Good,3,14990,7000
+Godox,Lighting,2021,2021,0,Fair,2,14990,5000
+Godox,Lighting,2021,2022,1,New (Open Box),6,14990,10000
+Godox,Lighting,2021,2022,1,Like New,5,14990,7500
+Godox,Lighting,2021,2022,1,Excellent,4,14990,7500
+Godox,Lighting,2021,2022,1,Good,3,14990,7000
+Godox,Lighting,2021,2022,1,Fair,2,14990,4000
+Godox,Lighting,2021,2023,2,Excellent,4,14990,6500
+Godox,Lighting,2021,2023,2,Good,3,14990,5500
+Godox,Lighting,2021,2023,2,Fair,2,14990,3500
+Godox,Lighting,2021,2023,2,For Parts,1,14990,1500
+Godox,Lighting,2021,2024,3,Excellent,4,14990,5000
+Godox,Lighting,2021,2024,3,Good,3,14990,4500
+Godox,Lighting,2021,2024,3,Fair,2,14990,3000
+Godox,Lighting,2021,2024,3,For Parts,1,14990,1500
+Godox,Lighting,2021,2025,4,Excellent,4,14990,4500
+Godox,Lighting,2021,2025,4,Good,3,14990,3500
+Godox,Lighting,2021,2025,4,Fair,2,14990,2500
+Godox,Lighting,2021,2025,4,For Parts,1,14990,1500
+Godox,Lighting,2020,2021,1,New (Open Box),6,8990,5500
+Godox,Lighting,2020,2021,1,Like New,5,8990,5500
+Godox,Lighting,2020,2021,1,Excellent,4,8990,4000
+Godox,Lighting,2020,2021,1,Good,3,8990,3500
+Godox,Lighting,2020,2021,1,Fair,2,8990,3000
+Godox,Lighting,2020,2022,2,Excellent,4,8990,4000
+Godox,Lighting,2020,2022,2,Good,3,8990,3000
+Godox,Lighting,2020,2022,2,Fair,2,8990,2000
+Godox,Lighting,2020,2022,2,For Parts,1,8990,1000
+Godox,Lighting,2020,2023,3,Excellent,4,8990,3500
+Godox,Lighting,2020,2023,3,Good,3,8990,2500
+Godox,Lighting,2020,2023,3,Fair,2,8990,2000
+Godox,Lighting,2020,2023,3,For Parts,1,8990,1000
+Godox,Lighting,2020,2024,4,Excellent,4,8990,3000
+Godox,Lighting,2020,2024,4,Good,3,8990,2000
+Godox,Lighting,2020,2024,4,Fair,2,8990,1500
+Godox,Lighting,2020,2024,4,For Parts,1,8990,1000
+Godox,Lighting,2020,2025,5,Excellent,4,8990,2000
+Godox,Lighting,2020,2025,5,Good,3,8990,2000
+Godox,Lighting,2020,2025,5,Fair,2,8990,1500
+Godox,Lighting,2020,2025,5,For Parts,1,8990,500
+Godox,Lighting,2022,2022,0,New (Open Box),6,34990,27000
+Godox,Lighting,2022,2022,0,Like New,5,34990,27000
+Godox,Lighting,2022,2022,0,Excellent,4,34990,21500
+Godox,Lighting,2022,2022,0,Good,3,34990,15500
+Godox,Lighting,2022,2022,0,Fair,2,34990,12000
+Godox,Lighting,2022,2023,1,New (Open Box),6,34990,22000
+Godox,Lighting,2022,2023,1,Like New,5,34990,20000
+Godox,Lighting,2022,2023,1,Excellent,4,34990,18000
+Godox,Lighting,2022,2023,1,Good,3,34990,14000
+Godox,Lighting,2022,2023,1,Fair,2,34990,10500
+Godox,Lighting,2022,2024,2,Excellent,4,34990,14500
+Godox,Lighting,2022,2024,2,Good,3,34990,11500
+Godox,Lighting,2022,2024,2,Fair,2,34990,8000
+Godox,Lighting,2022,2024,2,For Parts,1,34990,4000
+Godox,Lighting,2022,2025,3,Excellent,4,34990,13500
+Godox,Lighting,2022,2025,3,Good,3,34990,11000
+Godox,Lighting,2022,2025,3,Fair,2,34990,8000
+Godox,Lighting,2022,2025,3,For Parts,1,34990,4000
+Godox,Lighting,2019,2021,2,Excellent,4,44990,18000
+Godox,Lighting,2019,2021,2,Good,3,44990,15500
+Godox,Lighting,2019,2021,2,Fair,2,44990,10000
+Godox,Lighting,2019,2021,2,For Parts,1,44990,5000
+Godox,Lighting,2019,2022,3,Excellent,4,44990,16000
+Godox,Lighting,2019,2022,3,Good,3,44990,12500
+Godox,Lighting,2019,2022,3,Fair,2,44990,8500
+Godox,Lighting,2019,2022,3,For Parts,1,44990,4500
+Godox,Lighting,2019,2023,4,Excellent,4,44990,13000
+Godox,Lighting,2019,2023,4,Good,3,44990,12000
+Godox,Lighting,2019,2023,4,Fair,2,44990,7500
+Godox,Lighting,2019,2023,4,For Parts,1,44990,4500
+Godox,Lighting,2019,2024,5,Excellent,4,44990,11500
+Godox,Lighting,2019,2024,5,Good,3,44990,9500
+Godox,Lighting,2019,2024,5,Fair,2,44990,6000
+Godox,Lighting,2019,2024,5,For Parts,1,44990,3500
+Godox,Lighting,2019,2025,6,Excellent,4,44990,11000
+Godox,Lighting,2019,2025,6,Good,3,44990,8500
+Godox,Lighting,2019,2025,6,Fair,2,44990,5000
+Godox,Lighting,2019,2025,6,For Parts,1,44990,2500
+Godox,Lighting,2021,2021,0,New (Open Box),6,19990,15000
+Godox,Lighting,2021,2021,0,Like New,5,19990,15500
+Godox,Lighting,2021,2021,0,Excellent,4,19990,12500
+Godox,Lighting,2021,2021,0,Good,3,19990,9500
+Godox,Lighting,2021,2021,0,Fair,2,19990,5500
+Godox,Lighting,2021,2022,1,New (Open Box),6,19990,12500
+Godox,Lighting,2021,2022,1,Like New,5,19990,12500
+Godox,Lighting,2021,2022,1,Excellent,4,19990,11000
+Godox,Lighting,2021,2022,1,Good,3,19990,8500
+Godox,Lighting,2021,2022,1,Fair,2,19990,5000
+Godox,Lighting,2021,2023,2,Excellent,4,19990,8500
+Godox,Lighting,2021,2023,2,Good,3,19990,7500
+Godox,Lighting,2021,2023,2,Fair,2,19990,4500
+Godox,Lighting,2021,2023,2,For Parts,1,19990,2500
+Godox,Lighting,2021,2024,3,Excellent,4,19990,7500
+Godox,Lighting,2021,2024,3,Good,3,19990,6000
+Godox,Lighting,2021,2024,3,Fair,2,19990,3500
+Godox,Lighting,2021,2024,3,For Parts,1,19990,2000
+Godox,Lighting,2021,2025,4,Excellent,4,19990,6000
+Godox,Lighting,2021,2025,4,Good,3,19990,5000
+Godox,Lighting,2021,2025,4,Fair,2,19990,3500
+Godox,Lighting,2021,2025,4,For Parts,1,19990,1500
+Godox,Lighting,2020,2021,1,New (Open Box),6,12990,8500
+Godox,Lighting,2020,2021,1,Like New,5,12990,8000
+Godox,Lighting,2020,2021,1,Excellent,4,12990,6500
+Godox,Lighting,2020,2021,1,Good,3,12990,5000
+Godox,Lighting,2020,2021,1,Fair,2,12990,3500
+Godox,Lighting,2020,2022,2,Excellent,4,12990,5000
+Godox,Lighting,2020,2022,2,Good,3,12990,4500
+Godox,Lighting,2020,2022,2,Fair,2,12990,3000
+Godox,Lighting,2020,2022,2,For Parts,1,12990,1500
+Godox,Lighting,2020,2023,3,Excellent,4,12990,5000
+Godox,Lighting,2020,2023,3,Good,3,12990,3500
+Godox,Lighting,2020,2023,3,Fair,2,12990,2500
+Godox,Lighting,2020,2023,3,For Parts,1,12990,1500
+Godox,Lighting,2020,2024,4,Excellent,4,12990,4000
+Godox,Lighting,2020,2024,4,Good,3,12990,3500
+Godox,Lighting,2020,2024,4,Fair,2,12990,2000
+Godox,Lighting,2020,2024,4,For Parts,1,12990,1000
+Godox,Lighting,2020,2025,5,Excellent,4,12990,3500
+Godox,Lighting,2020,2025,5,Good,3,12990,3000
+Godox,Lighting,2020,2025,5,Fair,2,12990,2000
+Godox,Lighting,2020,2025,5,For Parts,1,12990,1000
+Godox,Lighting,2023,2023,0,New (Open Box),6,29990,25000
+Godox,Lighting,2023,2023,0,Like New,5,29990,22500
+Godox,Lighting,2023,2023,0,Excellent,4,29990,18500
+Godox,Lighting,2023,2023,0,Good,3,29990,13500
+Godox,Lighting,2023,2023,0,Fair,2,29990,10500
+Godox,Lighting,2023,2024,1,New (Open Box),6,29990,21000
+Godox,Lighting,2023,2024,1,Like New,5,29990,19500
+Godox,Lighting,2023,2024,1,Excellent,4,29990,14500
+Godox,Lighting,2023,2024,1,Good,3,29990,12000
+Godox,Lighting,2023,2024,1,Fair,2,29990,9000
+Godox,Lighting,2023,2025,2,Excellent,4,29990,13000
+Godox,Lighting,2023,2025,2,Good,3,29990,9500
+Godox,Lighting,2023,2025,2,Fair,2,29990,7500
+Godox,Lighting,2023,2025,2,For Parts,1,29990,3500
+Godox,Lighting,2018,2021,3,Excellent,4,6990,2500
+Godox,Lighting,2018,2021,3,Good,3,6990,2000
+Godox,Lighting,2018,2021,3,Fair,2,6990,1500
+Godox,Lighting,2018,2021,3,For Parts,1,6990,500
+Godox,Lighting,2018,2022,4,Excellent,4,6990,2000
+Godox,Lighting,2018,2022,4,Good,3,6990,1500
+Godox,Lighting,2018,2022,4,Fair,2,6990,1000
+Godox,Lighting,2018,2022,4,For Parts,1,6990,500
+Godox,Lighting,2018,2023,5,Excellent,4,6990,1500
+Godox,Lighting,2018,2023,5,Good,3,6990,1500
+Godox,Lighting,2018,2023,5,Fair,2,6990,1000
+Godox,Lighting,2018,2023,5,For Parts,1,6990,500
+Godox,Lighting,2018,2024,6,Excellent,4,6990,1500
+Godox,Lighting,2018,2024,6,Good,3,6990,1000
+Godox,Lighting,2018,2024,6,Fair,2,6990,1000
+Godox,Lighting,2018,2024,6,For Parts,1,6990,500
+Godox,Lighting,2018,2025,7,Excellent,4,6990,1500
+Godox,Lighting,2018,2025,7,Good,3,6990,1000
+Godox,Lighting,2018,2025,7,Fair,2,6990,1000
+Godox,Lighting,2018,2025,7,For Parts,1,6990,500
+Rode,Audio,2022,2022,0,New (Open Box),6,34990,26500
+Rode,Audio,2022,2022,0,Like New,5,34990,24500
+Rode,Audio,2022,2022,0,Excellent,4,34990,22000
+Rode,Audio,2022,2022,0,Good,3,34990,17500
+Rode,Audio,2022,2022,0,Fair,2,34990,10500
+Rode,Audio,2022,2023,1,New (Open Box),6,34990,24000
+Rode,Audio,2022,2023,1,Like New,5,34990,19500
+Rode,Audio,2022,2023,1,Excellent,4,34990,19000
+Rode,Audio,2022,2023,1,Good,3,34990,15000
+Rode,Audio,2022,2023,1,Fair,2,34990,10000
+Rode,Audio,2022,2024,2,Excellent,4,34990,15000
+Rode,Audio,2022,2024,2,Good,3,34990,12000
+Rode,Audio,2022,2024,2,Fair,2,34990,8500
+Rode,Audio,2022,2024,2,For Parts,1,34990,4000
+Rode,Audio,2022,2025,3,Excellent,4,34990,13000
+Rode,Audio,2022,2025,3,Good,3,34990,11000
+Rode,Audio,2022,2025,3,Fair,2,34990,7000
+Rode,Audio,2022,2025,3,For Parts,1,34990,3500
+Rode,Audio,2023,2023,0,New (Open Box),6,44990,33000
+Rode,Audio,2023,2023,0,Like New,5,44990,29500
+Rode,Audio,2023,2023,0,Excellent,4,44990,24000
+Rode,Audio,2023,2023,0,Good,3,44990,22500
+Rode,Audio,2023,2023,0,Fair,2,44990,16500
+Rode,Audio,2023,2024,1,New (Open Box),6,44990,32500
+Rode,Audio,2023,2024,1,Like New,5,44990,24000
+Rode,Audio,2023,2024,1,Excellent,4,44990,23500
+Rode,Audio,2023,2024,1,Good,3,44990,20000
+Rode,Audio,2023,2024,1,Fair,2,44990,12500
+Rode,Audio,2023,2025,2,Excellent,4,44990,19500
+Rode,Audio,2023,2025,2,Good,3,44990,13500
+Rode,Audio,2023,2025,2,Fair,2,44990,11000
+Rode,Audio,2023,2025,2,For Parts,1,44990,5000
+Rode,Audio,2021,2021,0,New (Open Box),6,24990,20000
+Rode,Audio,2021,2021,0,Like New,5,24990,16000
+Rode,Audio,2021,2021,0,Excellent,4,24990,15500
+Rode,Audio,2021,2021,0,Good,3,24990,13000
+Rode,Audio,2021,2021,0,Fair,2,24990,8000
+Rode,Audio,2021,2022,1,New (Open Box),6,24990,15500
+Rode,Audio,2021,2022,1,Like New,5,24990,13000
+Rode,Audio,2021,2022,1,Excellent,4,24990,12500
+Rode,Audio,2021,2022,1,Good,3,24990,10000
+Rode,Audio,2021,2022,1,Fair,2,24990,6500
+Rode,Audio,2021,2023,2,Excellent,4,24990,11000
+Rode,Audio,2021,2023,2,Good,3,24990,8500
+Rode,Audio,2021,2023,2,Fair,2,24990,5500
+Rode,Audio,2021,2023,2,For Parts,1,24990,2500
+Rode,Audio,2021,2024,3,Excellent,4,24990,10000
+Rode,Audio,2021,2024,3,Good,3,24990,7500
+Rode,Audio,2021,2024,3,Fair,2,24990,5000
+Rode,Audio,2021,2024,3,For Parts,1,24990,2500
+Rode,Audio,2021,2025,4,Excellent,4,24990,7500
+Rode,Audio,2021,2025,4,Good,3,24990,6500
+Rode,Audio,2021,2025,4,Fair,2,24990,4500
+Rode,Audio,2021,2025,4,For Parts,1,24990,2000
+Rode,Audio,2020,2021,1,New (Open Box),6,14990,10000
+Rode,Audio,2020,2021,1,Like New,5,14990,8500
+Rode,Audio,2020,2021,1,Excellent,4,14990,8000
+Rode,Audio,2020,2021,1,Good,3,14990,6500
+Rode,Audio,2020,2021,1,Fair,2,14990,3500
+Rode,Audio,2020,2022,2,Excellent,4,14990,7000
+Rode,Audio,2020,2022,2,Good,3,14990,4000
+Rode,Audio,2020,2022,2,Fair,2,14990,3500
+Rode,Audio,2020,2022,2,For Parts,1,14990,2000
+Rode,Audio,2020,2023,3,Excellent,4,14990,5500
+Rode,Audio,2020,2023,3,Good,3,14990,4000
+Rode,Audio,2020,2023,3,Fair,2,14990,3000
+Rode,Audio,2020,2023,3,For Parts,1,14990,1500
+Rode,Audio,2020,2024,4,Excellent,4,14990,4000
+Rode,Audio,2020,2024,4,Good,3,14990,4000
+Rode,Audio,2020,2024,4,Fair,2,14990,2500
+Rode,Audio,2020,2024,4,For Parts,1,14990,1000
+Rode,Audio,2020,2025,5,Excellent,4,14990,4000
+Rode,Audio,2020,2025,5,Good,3,14990,3000
+Rode,Audio,2020,2025,5,Fair,2,14990,2500
+Rode,Audio,2020,2025,5,For Parts,1,14990,1000
+Rode,Audio,2019,2021,2,Excellent,4,9990,4000
+Rode,Audio,2019,2021,2,Good,3,9990,3500
+Rode,Audio,2019,2021,2,Fair,2,9990,2500
+Rode,Audio,2019,2021,2,For Parts,1,9990,1000
+Rode,Audio,2019,2022,3,Excellent,4,9990,3500
+Rode,Audio,2019,2022,3,Good,3,9990,3500
+Rode,Audio,2019,2022,3,Fair,2,9990,2000
+Rode,Audio,2019,2022,3,For Parts,1,9990,1000
+Rode,Audio,2019,2023,4,Excellent,4,9990,3000
+Rode,Audio,2019,2023,4,Good,3,9990,2500
+Rode,Audio,2019,2023,4,Fair,2,9990,1500
+Rode,Audio,2019,2023,4,For Parts,1,9990,1000
+Rode,Audio,2019,2024,5,Excellent,4,9990,2500
+Rode,Audio,2019,2024,5,Good,3,9990,2000
+Rode,Audio,2019,2024,5,Fair,2,9990,1500
+Rode,Audio,2019,2024,5,For Parts,1,9990,500
+Rode,Audio,2019,2025,6,Excellent,4,9990,2000
+Rode,Audio,2019,2025,6,Good,3,9990,1500
+Rode,Audio,2019,2025,6,Fair,2,9990,1000
+Rode,Audio,2019,2025,6,For Parts,1,9990,500
+Rode,Audio,2022,2022,0,New (Open Box),6,19990,16000
+Rode,Audio,2022,2022,0,Like New,5,19990,14500
+Rode,Audio,2022,2022,0,Excellent,4,19990,10500
+Rode,Audio,2022,2022,0,Good,3,19990,9500
+Rode,Audio,2022,2022,0,Fair,2,19990,7000
+Rode,Audio,2022,2023,1,New (Open Box),6,19990,12500
+Rode,Audio,2022,2023,1,Like New,5,19990,12500
+Rode,Audio,2022,2023,1,Excellent,4,19990,9500
+Rode,Audio,2022,2023,1,Good,3,19990,8000
+Rode,Audio,2022,2023,1,Fair,2,19990,5500
+Rode,Audio,2022,2024,2,Excellent,4,19990,8500
+Rode,Audio,2022,2024,2,Good,3,19990,6500
+Rode,Audio,2022,2024,2,Fair,2,19990,4500
+Rode,Audio,2022,2024,2,For Parts,1,19990,2000
+Rode,Audio,2022,2025,3,Excellent,4,19990,7000
+Rode,Audio,2022,2025,3,Good,3,19990,6000
+Rode,Audio,2022,2025,3,Fair,2,19990,4000
+Rode,Audio,2022,2025,3,For Parts,1,19990,2000
+Rode,Audio,2020,2021,1,New (Open Box),6,29990,19500
+Rode,Audio,2020,2021,1,Like New,5,29990,18500
+Rode,Audio,2020,2021,1,Excellent,4,29990,15000
+Rode,Audio,2020,2021,1,Good,3,29990,12000
+Rode,Audio,2020,2021,1,Fair,2,29990,8500
+Rode,Audio,2020,2022,2,Excellent,4,29990,14000
+Rode,Audio,2020,2022,2,Good,3,29990,9500
+Rode,Audio,2020,2022,2,Fair,2,29990,7500
+Rode,Audio,2020,2022,2,For Parts,1,29990,3000
+Rode,Audio,2020,2023,3,Excellent,4,29990,11000
+Rode,Audio,2020,2023,3,Good,3,29990,9500
+Rode,Audio,2020,2023,3,Fair,2,29990,6500
+Rode,Audio,2020,2023,3,For Parts,1,29990,3000
+Rode,Audio,2020,2024,4,Excellent,4,29990,9000
+Rode,Audio,2020,2024,4,Good,3,29990,7500
+Rode,Audio,2020,2024,4,Fair,2,29990,5000
+Rode,Audio,2020,2024,4,For Parts,1,29990,2500
+Rode,Audio,2020,2025,5,Excellent,4,29990,8000
+Rode,Audio,2020,2025,5,Good,3,29990,6500
+Rode,Audio,2020,2025,5,Fair,2,29990,4000
+Rode,Audio,2020,2025,5,For Parts,1,29990,2000
+Rode,Audio,2018,2021,3,Excellent,4,12990,4500
+Rode,Audio,2018,2021,3,Good,3,12990,4000
+Rode,Audio,2018,2021,3,Fair,2,12990,3000
+Rode,Audio,2018,2021,3,For Parts,1,12990,1500
+Rode,Audio,2018,2022,4,Excellent,4,12990,4500
+Rode,Audio,2018,2022,4,Good,3,12990,3500
+Rode,Audio,2018,2022,4,Fair,2,12990,2500
+Rode,Audio,2018,2022,4,For Parts,1,12990,1000
+Rode,Audio,2018,2023,5,Excellent,4,12990,3500
+Rode,Audio,2018,2023,5,Good,3,12990,2500
+Rode,Audio,2018,2023,5,Fair,2,12990,2000
+Rode,Audio,2018,2023,5,For Parts,1,12990,1000
+Rode,Audio,2018,2024,6,Excellent,4,12990,3000
+Rode,Audio,2018,2024,6,Good,3,12990,2500
+Rode,Audio,2018,2024,6,Fair,2,12990,1500
+Rode,Audio,2018,2024,6,For Parts,1,12990,500
+Rode,Audio,2018,2025,7,Excellent,4,12990,2500
+Rode,Audio,2018,2025,7,Good,3,12990,2000
+Rode,Audio,2018,2025,7,Fair,2,12990,1500
+Rode,Audio,2018,2025,7,For Parts,1,12990,500
+Rode,Audio,2017,2021,4,Excellent,4,7990,2500
+Rode,Audio,2017,2021,4,Good,3,7990,2000
+Rode,Audio,2017,2021,4,Fair,2,7990,1500
+Rode,Audio,2017,2021,4,For Parts,1,7990,500
+Rode,Audio,2017,2022,5,Excellent,4,7990,2000
+Rode,Audio,2017,2022,5,Good,3,7990,2000
+Rode,Audio,2017,2022,5,Fair,2,7990,1000
+Rode,Audio,2017,2022,5,For Parts,1,7990,500
+Rode,Audio,2017,2023,6,Excellent,4,7990,1500
+Rode,Audio,2017,2023,6,Good,3,7990,1500
+Rode,Audio,2017,2023,6,Fair,2,7990,1000
+Rode,Audio,2017,2023,6,For Parts,1,7990,500
+Rode,Audio,2017,2024,7,Excellent,4,7990,1500
+Rode,Audio,2017,2024,7,Good,3,7990,1000
+Rode,Audio,2017,2024,7,Fair,2,7990,1000
+Rode,Audio,2017,2024,7,For Parts,1,7990,500
+Rode,Audio,2017,2025,8,Excellent,4,7990,1000
+Rode,Audio,2017,2025,8,Good,3,7990,1000
+Rode,Audio,2017,2025,8,Fair,2,7990,500
+Rode,Audio,2017,2025,8,For Parts,1,7990,500
+Rode,Audio,2021,2021,0,New (Open Box),6,8990,7000
+Rode,Audio,2021,2021,0,Like New,5,8990,7000
+Rode,Audio,2021,2021,0,Excellent,4,8990,5000
+Rode,Audio,2021,2021,0,Good,3,8990,4500
+Rode,Audio,2021,2021,0,Fair,2,8990,3000
+Rode,Audio,2021,2022,1,New (Open Box),6,8990,6000
+Rode,Audio,2021,2022,1,Like New,5,8990,5500
+Rode,Audio,2021,2022,1,Excellent,4,8990,4500
+Rode,Audio,2021,2022,1,Good,3,8990,4000
+Rode,Audio,2021,2022,1,Fair,2,8990,2500
+Rode,Audio,2021,2023,2,Excellent,4,8990,4000
+Rode,Audio,2021,2023,2,Good,3,8990,3500
+Rode,Audio,2021,2023,2,Fair,2,8990,2000
+Rode,Audio,2021,2023,2,For Parts,1,8990,1000
+Rode,Audio,2021,2024,3,Excellent,4,8990,3000
+Rode,Audio,2021,2024,3,Good,3,8990,2500
+Rode,Audio,2021,2024,3,Fair,2,8990,1500
+Rode,Audio,2021,2024,3,For Parts,1,8990,1000
+Rode,Audio,2021,2025,4,Excellent,4,8990,3000
+Rode,Audio,2021,2025,4,Good,3,8990,2500
+Rode,Audio,2021,2025,4,Fair,2,8990,1500
+Rode,Audio,2021,2025,4,For Parts,1,8990,1000
+DJI,Stabilizer,2022,2022,0,New (Open Box),6,39990,29500
+DJI,Stabilizer,2022,2022,0,Like New,5,39990,30000
+DJI,Stabilizer,2022,2022,0,Excellent,4,39990,28000
+DJI,Stabilizer,2022,2022,0,Good,3,39990,20000
+DJI,Stabilizer,2022,2022,0,Fair,2,39990,14000
+DJI,Stabilizer,2022,2023,1,New (Open Box),6,39990,26000
+DJI,Stabilizer,2022,2023,1,Like New,5,39990,21000
+DJI,Stabilizer,2022,2023,1,Excellent,4,39990,19500
+DJI,Stabilizer,2022,2023,1,Good,3,39990,15000
+DJI,Stabilizer,2022,2023,1,Fair,2,39990,10500
+DJI,Stabilizer,2022,2024,2,Excellent,4,39990,19000
+DJI,Stabilizer,2022,2024,2,Good,3,39990,14000
+DJI,Stabilizer,2022,2024,2,Fair,2,39990,10000
+DJI,Stabilizer,2022,2024,2,For Parts,1,39990,4500
+DJI,Stabilizer,2022,2025,3,Excellent,4,39990,14500
+DJI,Stabilizer,2022,2025,3,Good,3,39990,12500
+DJI,Stabilizer,2022,2025,3,Fair,2,39990,8000
+DJI,Stabilizer,2022,2025,3,For Parts,1,39990,4000
+DJI,Stabilizer,2023,2023,0,New (Open Box),6,29990,23500
+DJI,Stabilizer,2023,2023,0,Like New,5,29990,20500
+DJI,Stabilizer,2023,2023,0,Excellent,4,29990,16500
+DJI,Stabilizer,2023,2023,0,Good,3,29990,13000
+DJI,Stabilizer,2023,2023,0,Fair,2,29990,10000
+DJI,Stabilizer,2023,2024,1,New (Open Box),6,29990,20000
+DJI,Stabilizer,2023,2024,1,Like New,5,29990,16500
+DJI,Stabilizer,2023,2024,1,Excellent,4,29990,15000
+DJI,Stabilizer,2023,2024,1,Good,3,29990,12000
+DJI,Stabilizer,2023,2024,1,Fair,2,29990,7500
+DJI,Stabilizer,2023,2025,2,Excellent,4,29990,12000
+DJI,Stabilizer,2023,2025,2,Good,3,29990,10500
+DJI,Stabilizer,2023,2025,2,Fair,2,29990,7500
+DJI,Stabilizer,2023,2025,2,For Parts,1,29990,3000
+DJI,Stabilizer,2021,2021,0,New (Open Box),6,24990,20000
+DJI,Stabilizer,2021,2021,0,Like New,5,24990,18500
+DJI,Stabilizer,2021,2021,0,Excellent,4,24990,15500
+DJI,Stabilizer,2021,2021,0,Good,3,24990,12000
+DJI,Stabilizer,2021,2021,0,Fair,2,24990,8000
+DJI,Stabilizer,2021,2022,1,New (Open Box),6,24990,16000
+DJI,Stabilizer,2021,2022,1,Like New,5,24990,15000
+DJI,Stabilizer,2021,2022,1,Excellent,4,24990,12500
+DJI,Stabilizer,2021,2022,1,Good,3,24990,10500
+DJI,Stabilizer,2021,2022,1,Fair,2,24990,7000
+DJI,Stabilizer,2021,2023,2,Excellent,4,24990,11000
+DJI,Stabilizer,2021,2023,2,Good,3,24990,8500
+DJI,Stabilizer,2021,2023,2,Fair,2,24990,6500
+DJI,Stabilizer,2021,2023,2,For Parts,1,24990,3000
+DJI,Stabilizer,2021,2024,3,Excellent,4,24990,8500
+DJI,Stabilizer,2021,2024,3,Good,3,24990,6500
+DJI,Stabilizer,2021,2024,3,Fair,2,24990,5500
+DJI,Stabilizer,2021,2024,3,For Parts,1,24990,2500
+DJI,Stabilizer,2021,2025,4,Excellent,4,24990,7000
+DJI,Stabilizer,2021,2025,4,Good,3,24990,6000
+DJI,Stabilizer,2021,2025,4,Fair,2,24990,4500
+DJI,Stabilizer,2021,2025,4,For Parts,1,24990,2000
+DJI,Stabilizer,2023,2023,0,New (Open Box),6,19990,15500
+DJI,Stabilizer,2023,2023,0,Like New,5,19990,15500
+DJI,Stabilizer,2023,2023,0,Excellent,4,19990,11000
+DJI,Stabilizer,2023,2023,0,Good,3,19990,9000
+DJI,Stabilizer,2023,2023,0,Fair,2,19990,7000
+DJI,Stabilizer,2023,2024,1,New (Open Box),6,19990,13500
+DJI,Stabilizer,2023,2024,1,Like New,5,19990,12000
+DJI,Stabilizer,2023,2024,1,Excellent,4,19990,10500
+DJI,Stabilizer,2023,2024,1,Good,3,19990,8000
+DJI,Stabilizer,2023,2024,1,Fair,2,19990,6000
+DJI,Stabilizer,2023,2025,2,Excellent,4,19990,8500
+DJI,Stabilizer,2023,2025,2,Good,3,19990,7000
+DJI,Stabilizer,2023,2025,2,Fair,2,19990,5000
+DJI,Stabilizer,2023,2025,2,For Parts,1,19990,2500
+DJI,Stabilizer,2020,2021,1,New (Open Box),6,34990,24500
+DJI,Stabilizer,2020,2021,1,Like New,5,34990,21500
+DJI,Stabilizer,2020,2021,1,Excellent,4,34990,17500
+DJI,Stabilizer,2020,2021,1,Good,3,34990,13500
+DJI,Stabilizer,2020,2021,1,Fair,2,34990,10000
+DJI,Stabilizer,2020,2022,2,Excellent,4,34990,15000
+DJI,Stabilizer,2020,2022,2,Good,3,34990,12500
+DJI,Stabilizer,2020,2022,2,Fair,2,34990,9500
+DJI,Stabilizer,2020,2022,2,For Parts,1,34990,4000
+DJI,Stabilizer,2020,2023,3,Excellent,4,34990,13000
+DJI,Stabilizer,2020,2023,3,Good,3,34990,11000
+DJI,Stabilizer,2020,2023,3,Fair,2,34990,7000
+DJI,Stabilizer,2020,2023,3,For Parts,1,34990,4000
+DJI,Stabilizer,2020,2024,4,Excellent,4,34990,10500
+DJI,Stabilizer,2020,2024,4,Good,3,34990,9000
+DJI,Stabilizer,2020,2024,4,Fair,2,34990,6000
+DJI,Stabilizer,2020,2024,4,For Parts,1,34990,3000
+DJI,Stabilizer,2020,2025,5,Excellent,4,34990,9500
+DJI,Stabilizer,2020,2025,5,Good,3,34990,8000
+DJI,Stabilizer,2020,2025,5,Fair,2,34990,5500
+DJI,Stabilizer,2020,2025,5,For Parts,1,34990,2500
+DJI,Stabilizer,2019,2021,2,Excellent,4,29990,13000
+DJI,Stabilizer,2019,2021,2,Good,3,29990,10000
+DJI,Stabilizer,2019,2021,2,Fair,2,29990,8500
+DJI,Stabilizer,2019,2021,2,For Parts,1,29990,3500
+DJI,Stabilizer,2019,2022,3,Excellent,4,29990,10500
+DJI,Stabilizer,2019,2022,3,Good,3,29990,8500
+DJI,Stabilizer,2019,2022,3,Fair,2,29990,6000
+DJI,Stabilizer,2019,2022,3,For Parts,1,29990,3000
+DJI,Stabilizer,2019,2023,4,Excellent,4,29990,9000
+DJI,Stabilizer,2019,2023,4,Good,3,29990,7500
+DJI,Stabilizer,2019,2023,4,Fair,2,29990,5000
+DJI,Stabilizer,2019,2023,4,For Parts,1,29990,2500
+DJI,Stabilizer,2019,2024,5,Excellent,4,29990,7500
+DJI,Stabilizer,2019,2024,5,Good,3,29990,6000
+DJI,Stabilizer,2019,2024,5,Fair,2,29990,4500
+DJI,Stabilizer,2019,2024,5,For Parts,1,29990,2000
+DJI,Stabilizer,2019,2025,6,Excellent,4,29990,7000
+DJI,Stabilizer,2019,2025,6,Good,3,29990,5000
+DJI,Stabilizer,2019,2025,6,Fair,2,29990,4000
+DJI,Stabilizer,2019,2025,6,For Parts,1,29990,1500
+DJI,Stabilizer,2018,2021,3,Excellent,4,24990,9000
+DJI,Stabilizer,2018,2021,3,Good,3,24990,7000
+DJI,Stabilizer,2018,2021,3,Fair,2,24990,5500
+DJI,Stabilizer,2018,2021,3,For Parts,1,24990,2500
+DJI,Stabilizer,2018,2022,4,Excellent,4,24990,8000
+DJI,Stabilizer,2018,2022,4,Good,3,24990,7000
+DJI,Stabilizer,2018,2022,4,Fair,2,24990,5000
+DJI,Stabilizer,2018,2022,4,For Parts,1,24990,2000
+DJI,Stabilizer,2018,2023,5,Excellent,4,24990,6500
+DJI,Stabilizer,2018,2023,5,Good,3,24990,5000
+DJI,Stabilizer,2018,2023,5,Fair,2,24990,3500
+DJI,Stabilizer,2018,2023,5,For Parts,1,24990,1500
+DJI,Stabilizer,2018,2024,6,Excellent,4,24990,5500
+DJI,Stabilizer,2018,2024,6,Good,3,24990,4000
+DJI,Stabilizer,2018,2024,6,Fair,2,24990,3000
+DJI,Stabilizer,2018,2024,6,For Parts,1,24990,1500
+DJI,Stabilizer,2018,2025,7,Excellent,4,24990,5000
+DJI,Stabilizer,2018,2025,7,Good,3,24990,4000
+DJI,Stabilizer,2018,2025,7,Fair,2,24990,3000
+DJI,Stabilizer,2018,2025,7,For Parts,1,24990,1000
+Godox,Stabilizer,2021,2021,0,New (Open Box),6,14990,13500
+Godox,Stabilizer,2021,2021,0,Like New,5,14990,10500
+Godox,Stabilizer,2021,2021,0,Excellent,4,14990,8000
+Godox,Stabilizer,2021,2021,0,Good,3,14990,7000
+Godox,Stabilizer,2021,2021,0,Fair,2,14990,4500
+Godox,Stabilizer,2021,2022,1,New (Open Box),6,14990,10000
+Godox,Stabilizer,2021,2022,1,Like New,5,14990,9000
+Godox,Stabilizer,2021,2022,1,Excellent,4,14990,7500
+Godox,Stabilizer,2021,2022,1,Good,3,14990,7000
+Godox,Stabilizer,2021,2022,1,Fair,2,14990,4500
+Godox,Stabilizer,2021,2023,2,Excellent,4,14990,6500
+Godox,Stabilizer,2021,2023,2,Good,3,14990,5000
+Godox,Stabilizer,2021,2023,2,Fair,2,14990,3500
+Godox,Stabilizer,2021,2023,2,For Parts,1,14990,1500
+Godox,Stabilizer,2021,2024,3,Excellent,4,14990,5500
+Godox,Stabilizer,2021,2024,3,Good,3,14990,4000
+Godox,Stabilizer,2021,2024,3,Fair,2,14990,3000
+Godox,Stabilizer,2021,2024,3,For Parts,1,14990,1500
+Godox,Stabilizer,2021,2025,4,Excellent,4,14990,4500
+Godox,Stabilizer,2021,2025,4,Good,3,14990,3500
+Godox,Stabilizer,2021,2025,4,Fair,2,14990,2500
+Godox,Stabilizer,2021,2025,4,For Parts,1,14990,1000
+DJI,Stabilizer,2022,2022,0,New (Open Box),6,44990,36000
+DJI,Stabilizer,2022,2022,0,Like New,5,44990,33000
+DJI,Stabilizer,2022,2022,0,Excellent,4,44990,28500
+DJI,Stabilizer,2022,2022,0,Good,3,44990,21500
+DJI,Stabilizer,2022,2022,0,Fair,2,44990,14500
+DJI,Stabilizer,2022,2023,1,New (Open Box),6,44990,31000
+DJI,Stabilizer,2022,2023,1,Like New,5,44990,27500
+DJI,Stabilizer,2022,2023,1,Excellent,4,44990,22000
+DJI,Stabilizer,2022,2023,1,Good,3,44990,19000
+DJI,Stabilizer,2022,2023,1,Fair,2,44990,13500
+DJI,Stabilizer,2022,2024,2,Excellent,4,44990,21000
+DJI,Stabilizer,2022,2024,2,Good,3,44990,17500
+DJI,Stabilizer,2022,2024,2,Fair,2,44990,10000
+DJI,Stabilizer,2022,2024,2,For Parts,1,44990,5000
+DJI,Stabilizer,2022,2025,3,Excellent,4,44990,16500
+DJI,Stabilizer,2022,2025,3,Good,3,44990,13500
+DJI,Stabilizer,2022,2025,3,Fair,2,44990,9000
+DJI,Stabilizer,2022,2025,3,For Parts,1,44990,4000
+DJI,Stabilizer,2021,2021,0,New (Open Box),6,17990,14500
+DJI,Stabilizer,2021,2021,0,Like New,5,17990,12000
+DJI,Stabilizer,2021,2021,0,Excellent,4,17990,11000
+DJI,Stabilizer,2021,2021,0,Good,3,17990,8500
+DJI,Stabilizer,2021,2021,0,Fair,2,17990,5500
+DJI,Stabilizer,2021,2022,1,New (Open Box),6,17990,12000
+DJI,Stabilizer,2021,2022,1,Like New,5,17990,10500
+DJI,Stabilizer,2021,2022,1,Excellent,4,17990,9500
+DJI,Stabilizer,2021,2022,1,Good,3,17990,8500
+DJI,Stabilizer,2021,2022,1,Fair,2,17990,5000
+DJI,Stabilizer,2021,2023,2,Excellent,4,17990,8000
+DJI,Stabilizer,2021,2023,2,Good,3,17990,6000
+DJI,Stabilizer,2021,2023,2,Fair,2,17990,4000
+DJI,Stabilizer,2021,2023,2,For Parts,1,17990,2000
+DJI,Stabilizer,2021,2024,3,Excellent,4,17990,6000
+DJI,Stabilizer,2021,2024,3,Good,3,17990,5000
+DJI,Stabilizer,2021,2024,3,Fair,2,17990,3500
+DJI,Stabilizer,2021,2024,3,For Parts,1,17990,1500
+DJI,Stabilizer,2021,2025,4,Excellent,4,17990,5500
+DJI,Stabilizer,2021,2025,4,Good,3,17990,4500
+DJI,Stabilizer,2021,2025,4,Fair,2,17990,3500
+DJI,Stabilizer,2021,2025,4,For Parts,1,17990,1500
+Sony,Accessory,2022,2022,0,New (Open Box),6,9990,7500
+Sony,Accessory,2022,2022,0,Like New,5,9990,7500
+Sony,Accessory,2022,2022,0,Excellent,4,9990,6000
+Sony,Accessory,2022,2022,0,Good,3,9990,4500
+Sony,Accessory,2022,2022,0,Fair,2,9990,3000
+Sony,Accessory,2022,2023,1,New (Open Box),6,9990,6500
+Sony,Accessory,2022,2023,1,Like New,5,9990,6000
+Sony,Accessory,2022,2023,1,Excellent,4,9990,5500
+Sony,Accessory,2022,2023,1,Good,3,9990,4000
+Sony,Accessory,2022,2023,1,Fair,2,9990,3000
+Sony,Accessory,2022,2024,2,Excellent,4,9990,4500
+Sony,Accessory,2022,2024,2,Good,3,9990,3000
+Sony,Accessory,2022,2024,2,Fair,2,9990,2500
+Sony,Accessory,2022,2024,2,For Parts,1,9990,1000
+Sony,Accessory,2022,2025,3,Excellent,4,9990,3500
+Sony,Accessory,2022,2025,3,Good,3,9990,3000
+Sony,Accessory,2022,2025,3,Fair,2,9990,2000
+Sony,Accessory,2022,2025,3,For Parts,1,9990,1000
+Sony,Accessory,2021,2021,0,New (Open Box),6,7990,5500
+Sony,Accessory,2021,2021,0,Like New,5,7990,5500
+Sony,Accessory,2021,2021,0,Excellent,4,7990,5000
+Sony,Accessory,2021,2021,0,Good,3,7990,4000
+Sony,Accessory,2021,2021,0,Fair,2,7990,2500
+Sony,Accessory,2021,2022,1,New (Open Box),6,7990,5500
+Sony,Accessory,2021,2022,1,Like New,5,7990,5000
+Sony,Accessory,2021,2022,1,Excellent,4,7990,4000
+Sony,Accessory,2021,2022,1,Good,3,7990,3000
+Sony,Accessory,2021,2022,1,Fair,2,7990,2000
+Sony,Accessory,2021,2023,2,Excellent,4,7990,3500
+Sony,Accessory,2021,2023,2,Good,3,7990,2500
+Sony,Accessory,2021,2023,2,Fair,2,7990,2000
+Sony,Accessory,2021,2023,2,For Parts,1,7990,1000
+Sony,Accessory,2021,2024,3,Excellent,4,7990,3000
+Sony,Accessory,2021,2024,3,Good,3,7990,2000
+Sony,Accessory,2021,2024,3,Fair,2,7990,1500
+Sony,Accessory,2021,2024,3,For Parts,1,7990,1000
+Sony,Accessory,2021,2025,4,Excellent,4,7990,2500
+Sony,Accessory,2021,2025,4,Good,3,7990,2000
+Sony,Accessory,2021,2025,4,Fair,2,7990,1500
+Sony,Accessory,2021,2025,4,For Parts,1,7990,500
+Canon,Accessory,2022,2022,0,New (Open Box),6,7990,6500
+Canon,Accessory,2022,2022,0,Like New,5,7990,5500
+Canon,Accessory,2022,2022,0,Excellent,4,7990,5000
+Canon,Accessory,2022,2022,0,Good,3,7990,4000
+Canon,Accessory,2022,2022,0,Fair,2,7990,3000
+Canon,Accessory,2022,2023,1,New (Open Box),6,7990,6000
+Canon,Accessory,2022,2023,1,Like New,5,7990,5000
+Canon,Accessory,2022,2023,1,Excellent,4,7990,3500
+Canon,Accessory,2022,2023,1,Good,3,7990,3500
+Canon,Accessory,2022,2023,1,Fair,2,7990,2500
+Canon,Accessory,2022,2024,2,Excellent,4,7990,3500
+Canon,Accessory,2022,2024,2,Good,3,7990,2500
+Canon,Accessory,2022,2024,2,Fair,2,7990,2000
+Canon,Accessory,2022,2024,2,For Parts,1,7990,1000
+Canon,Accessory,2022,2025,3,Excellent,4,7990,3500
+Canon,Accessory,2022,2025,3,Good,3,7990,2500
+Canon,Accessory,2022,2025,3,Fair,2,7990,1500
+Canon,Accessory,2022,2025,3,For Parts,1,7990,1000
+Canon,Accessory,2021,2021,0,New (Open Box),6,5990,4500
+Canon,Accessory,2021,2021,0,Like New,5,5990,4000
+Canon,Accessory,2021,2021,0,Excellent,4,5990,3000
+Canon,Accessory,2021,2021,0,Good,3,5990,3000
+Canon,Accessory,2021,2021,0,Fair,2,5990,2000
+Canon,Accessory,2021,2022,1,New (Open Box),6,5990,4000
+Canon,Accessory,2021,2022,1,Like New,5,5990,4000
+Canon,Accessory,2021,2022,1,Excellent,4,5990,3000
+Canon,Accessory,2021,2022,1,Good,3,5990,2500
+Canon,Accessory,2021,2022,1,Fair,2,5990,1500
+Canon,Accessory,2021,2023,2,Excellent,4,5990,2500
+Canon,Accessory,2021,2023,2,Good,3,5990,2000
+Canon,Accessory,2021,2023,2,Fair,2,5990,1500
+Canon,Accessory,2021,2023,2,For Parts,1,5990,500
+Canon,Accessory,2021,2024,3,Excellent,4,5990,2500
+Canon,Accessory,2021,2024,3,Good,3,5990,2000
+Canon,Accessory,2021,2024,3,Fair,2,5990,1000
+Canon,Accessory,2021,2024,3,For Parts,1,5990,500
+Canon,Accessory,2021,2025,4,Excellent,4,5990,2000
+Canon,Accessory,2021,2025,4,Good,3,5990,1500
+Canon,Accessory,2021,2025,4,Fair,2,5990,1000
+Canon,Accessory,2021,2025,4,For Parts,1,5990,500
+Nikon,Accessory,2021,2021,0,New (Open Box),6,6990,6000
+Nikon,Accessory,2021,2021,0,Like New,5,6990,5000
+Nikon,Accessory,2021,2021,0,Excellent,4,6990,3500
+Nikon,Accessory,2021,2021,0,Good,3,6990,3500
+Nikon,Accessory,2021,2021,0,Fair,2,6990,2000
+Nikon,Accessory,2021,2022,1,New (Open Box),6,6990,5000
+Nikon,Accessory,2021,2022,1,Like New,5,6990,4000
+Nikon,Accessory,2021,2022,1,Excellent,4,6990,3500
+Nikon,Accessory,2021,2022,1,Good,3,6990,2500
+Nikon,Accessory,2021,2022,1,Fair,2,6990,2000
+Nikon,Accessory,2021,2023,2,Excellent,4,6990,3000
+Nikon,Accessory,2021,2023,2,Good,3,6990,2500
+Nikon,Accessory,2021,2023,2,Fair,2,6990,1500
+Nikon,Accessory,2021,2023,2,For Parts,1,6990,1000
+Nikon,Accessory,2021,2024,3,Excellent,4,6990,3000
+Nikon,Accessory,2021,2024,3,Good,3,6990,2000
+Nikon,Accessory,2021,2024,3,Fair,2,6990,1500
+Nikon,Accessory,2021,2024,3,For Parts,1,6990,500
+Nikon,Accessory,2021,2025,4,Excellent,4,6990,2500
+Nikon,Accessory,2021,2025,4,Good,3,6990,1500
+Nikon,Accessory,2021,2025,4,Fair,2,6990,1000
+Nikon,Accessory,2021,2025,4,For Parts,1,6990,500
+Nikon,Accessory,2020,2021,1,New (Open Box),6,4990,3500
+Nikon,Accessory,2020,2021,1,Like New,5,4990,3000
+Nikon,Accessory,2020,2021,1,Excellent,4,4990,2500
+Nikon,Accessory,2020,2021,1,Good,3,4990,2000
+Nikon,Accessory,2020,2021,1,Fair,2,4990,1500
+Nikon,Accessory,2020,2022,2,Excellent,4,4990,2000
+Nikon,Accessory,2020,2022,2,Good,3,4990,2000
+Nikon,Accessory,2020,2022,2,Fair,2,4990,1000
+Nikon,Accessory,2020,2022,2,For Parts,1,4990,500
+Nikon,Accessory,2020,2023,3,Excellent,4,4990,2000
+Nikon,Accessory,2020,2023,3,Good,3,4990,1500
+Nikon,Accessory,2020,2023,3,Fair,2,4990,1000
+Nikon,Accessory,2020,2023,3,For Parts,1,4990,500
+Nikon,Accessory,2020,2024,4,Excellent,4,4990,1500
+Nikon,Accessory,2020,2024,4,Good,3,4990,1500
+Nikon,Accessory,2020,2024,4,Fair,2,4990,1000
+Nikon,Accessory,2020,2024,4,For Parts,1,4990,500
+Nikon,Accessory,2020,2025,5,Excellent,4,4990,1000
+Nikon,Accessory,2020,2025,5,Good,3,4990,1000
+Nikon,Accessory,2020,2025,5,Fair,2,4990,1000
+Nikon,Accessory,2020,2025,5,For Parts,1,4990,500
+GoPro,Accessory,2022,2022,0,New (Open Box),6,4990,4500
+GoPro,Accessory,2022,2022,0,Like New,5,4990,3500
+GoPro,Accessory,2022,2022,0,Excellent,4,4990,3000
+GoPro,Accessory,2022,2022,0,Good,3,4990,2500
+GoPro,Accessory,2022,2022,0,Fair,2,4990,1500
+GoPro,Accessory,2022,2023,1,New (Open Box),6,4990,3000
+GoPro,Accessory,2022,2023,1,Like New,5,4990,3000
+GoPro,Accessory,2022,2023,1,Excellent,4,4990,2500
+GoPro,Accessory,2022,2023,1,Good,3,4990,2000
+GoPro,Accessory,2022,2023,1,Fair,2,4990,1500
+GoPro,Accessory,2022,2024,2,Excellent,4,4990,2000
+GoPro,Accessory,2022,2024,2,Good,3,4990,2000
+GoPro,Accessory,2022,2024,2,Fair,2,4990,1000
+GoPro,Accessory,2022,2024,2,For Parts,1,4990,500
+GoPro,Accessory,2022,2025,3,Excellent,4,4990,2000
+GoPro,Accessory,2022,2025,3,Good,3,4990,1500
+GoPro,Accessory,2022,2025,3,Fair,2,4990,1000
+GoPro,Accessory,2022,2025,3,For Parts,1,4990,500
+GoPro,Accessory,2021,2021,0,New (Open Box),6,5990,4500
+GoPro,Accessory,2021,2021,0,Like New,5,5990,4500
+GoPro,Accessory,2021,2021,0,Excellent,4,5990,3500
+GoPro,Accessory,2021,2021,0,Good,3,5990,2500
+GoPro,Accessory,2021,2021,0,Fair,2,5990,2000
+GoPro,Accessory,2021,2022,1,New (Open Box),6,5990,4500
+GoPro,Accessory,2021,2022,1,Like New,5,5990,3500
+GoPro,Accessory,2021,2022,1,Excellent,4,5990,2500
+GoPro,Accessory,2021,2022,1,Good,3,5990,2500
+GoPro,Accessory,2021,2022,1,Fair,2,5990,1500
+GoPro,Accessory,2021,2023,2,Excellent,4,5990,2500
+GoPro,Accessory,2021,2023,2,Good,3,5990,2000
+GoPro,Accessory,2021,2023,2,Fair,2,5990,1500
+GoPro,Accessory,2021,2023,2,For Parts,1,5990,500
+GoPro,Accessory,2021,2024,3,Excellent,4,5990,2000
+GoPro,Accessory,2021,2024,3,Good,3,5990,1500
+GoPro,Accessory,2021,2024,3,Fair,2,5990,1500
+GoPro,Accessory,2021,2024,3,For Parts,1,5990,500
+GoPro,Accessory,2021,2025,4,Excellent,4,5990,2000
+GoPro,Accessory,2021,2025,4,Good,3,5990,1500
+GoPro,Accessory,2021,2025,4,Fair,2,5990,1000
+GoPro,Accessory,2021,2025,4,For Parts,1,5990,500
+DJI,Accessory,2022,2022,0,New (Open Box),6,8990,6500
+DJI,Accessory,2022,2022,0,Like New,5,8990,6500
+DJI,Accessory,2022,2022,0,Excellent,4,8990,5500
+DJI,Accessory,2022,2022,0,Good,3,8990,3500
+DJI,Accessory,2022,2022,0,Fair,2,8990,3000
+DJI,Accessory,2022,2023,1,New (Open Box),6,8990,5500
+DJI,Accessory,2022,2023,1,Like New,5,8990,6000
+DJI,Accessory,2022,2023,1,Excellent,4,8990,4000
+DJI,Accessory,2022,2023,1,Good,3,8990,3500
+DJI,Accessory,2022,2023,1,Fair,2,8990,2500
+DJI,Accessory,2022,2024,2,Excellent,4,8990,4000
+DJI,Accessory,2022,2024,2,Good,3,8990,3000
+DJI,Accessory,2022,2024,2,Fair,2,8990,2000
+DJI,Accessory,2022,2024,2,For Parts,1,8990,1000
+DJI,Accessory,2022,2025,3,Excellent,4,8990,3000
+DJI,Accessory,2022,2025,3,Good,3,8990,2500
+DJI,Accessory,2022,2025,3,Fair,2,8990,2000
+DJI,Accessory,2022,2025,3,For Parts,1,8990,1000
+DJI,Accessory,2021,2021,0,New (Open Box),6,6990,5500
+DJI,Accessory,2021,2021,0,Like New,5,6990,5000
+DJI,Accessory,2021,2021,0,Excellent,4,6990,4500
+DJI,Accessory,2021,2021,0,Good,3,6990,4000
+DJI,Accessory,2021,2021,0,Fair,2,6990,2500
+DJI,Accessory,2021,2022,1,New (Open Box),6,6990,4500
+DJI,Accessory,2021,2022,1,Like New,5,6990,4500
+DJI,Accessory,2021,2022,1,Excellent,4,6990,3000
+DJI,Accessory,2021,2022,1,Good,3,6990,3000
+DJI,Accessory,2021,2022,1,Fair,2,6990,2000
+DJI,Accessory,2021,2023,2,Excellent,4,6990,3000
+DJI,Accessory,2021,2023,2,Good,3,6990,2500
+DJI,Accessory,2021,2023,2,Fair,2,6990,1500
+DJI,Accessory,2021,2023,2,For Parts,1,6990,500
+DJI,Accessory,2021,2024,3,Excellent,4,6990,2500
+DJI,Accessory,2021,2024,3,Good,3,6990,2000
+DJI,Accessory,2021,2024,3,Fair,2,6990,1500
+DJI,Accessory,2021,2024,3,For Parts,1,6990,500
+DJI,Accessory,2021,2025,4,Excellent,4,6990,2500
+DJI,Accessory,2021,2025,4,Good,3,6990,1500
+DJI,Accessory,2021,2025,4,Fair,2,6990,1500
+DJI,Accessory,2021,2025,4,For Parts,1,6990,500
+Rode,Accessory,2021,2021,0,New (Open Box),6,3990,3500
+Rode,Accessory,2021,2021,0,Like New,5,3990,2500
+Rode,Accessory,2021,2021,0,Excellent,4,3990,2500
+Rode,Accessory,2021,2021,0,Good,3,3990,2000
+Rode,Accessory,2021,2021,0,Fair,2,3990,1500
+Rode,Accessory,2021,2022,1,New (Open Box),6,3990,2500
+Rode,Accessory,2021,2022,1,Like New,5,3990,2500
+Rode,Accessory,2021,2022,1,Excellent,4,3990,2000
+Rode,Accessory,2021,2022,1,Good,3,3990,1500
+Rode,Accessory,2021,2022,1,Fair,2,3990,1000
+Rode,Accessory,2021,2023,2,Excellent,4,3990,1500
+Rode,Accessory,2021,2023,2,Good,3,3990,1500
+Rode,Accessory,2021,2023,2,Fair,2,3990,1000
+Rode,Accessory,2021,2023,2,For Parts,1,3990,500
+Rode,Accessory,2021,2024,3,Excellent,4,3990,1500
+Rode,Accessory,2021,2024,3,Good,3,3990,1000
+Rode,Accessory,2021,2024,3,Fair,2,3990,1000
+Rode,Accessory,2021,2024,3,For Parts,1,3990,500
+Rode,Accessory,2021,2025,4,Excellent,4,3990,1000
+Rode,Accessory,2021,2025,4,Good,3,3990,1000
+Rode,Accessory,2021,2025,4,Fair,2,3990,500
+Rode,Accessory,2021,2025,4,For Parts,1,3990,500
+Godox,Accessory,2021,2021,0,New (Open Box),6,4990,4500
+Godox,Accessory,2021,2021,0,Like New,5,4990,3500
+Godox,Accessory,2021,2021,0,Excellent,4,4990,3000
+Godox,Accessory,2021,2021,0,Good,3,4990,2500
+Godox,Accessory,2021,2021,0,Fair,2,4990,1500
+Godox,Accessory,2021,2022,1,New (Open Box),6,4990,3500
+Godox,Accessory,2021,2022,1,Like New,5,4990,3000
+Godox,Accessory,2021,2022,1,Excellent,4,4990,2500
+Godox,Accessory,2021,2022,1,Good,3,4990,2000
+Godox,Accessory,2021,2022,1,Fair,2,4990,1000
+Godox,Accessory,2021,2023,2,Excellent,4,4990,2000
+Godox,Accessory,2021,2023,2,Good,3,4990,2000
+Godox,Accessory,2021,2023,2,Fair,2,4990,1000
+Godox,Accessory,2021,2023,2,For Parts,1,4990,500
+Godox,Accessory,2021,2024,3,Excellent,4,4990,1500
+Godox,Accessory,2021,2024,3,Good,3,4990,1500
+Godox,Accessory,2021,2024,3,Fair,2,4990,1000
+Godox,Accessory,2021,2024,3,For Parts,1,4990,500
+Godox,Accessory,2021,2025,4,Excellent,4,4990,1500
+Godox,Accessory,2021,2025,4,Good,3,4990,1500
+Godox,Accessory,2021,2025,4,Fair,2,4990,1000
+Godox,Accessory,2021,2025,4,For Parts,1,4990,500
+Profoto,Accessory,2020,2021,1,New (Open Box),6,12990,8500
+Profoto,Accessory,2020,2021,1,Like New,5,12990,8000
+Profoto,Accessory,2020,2021,1,Excellent,4,12990,6500
+Profoto,Accessory,2020,2021,1,Good,3,12990,5500
+Profoto,Accessory,2020,2021,1,Fair,2,12990,3500
+Profoto,Accessory,2020,2022,2,Excellent,4,12990,6000
+Profoto,Accessory,2020,2022,2,Good,3,12990,5000
+Profoto,Accessory,2020,2022,2,Fair,2,12990,3000
+Profoto,Accessory,2020,2022,2,For Parts,1,12990,1500
+Profoto,Accessory,2020,2023,3,Excellent,4,12990,4500
+Profoto,Accessory,2020,2023,3,Good,3,12990,4000
+Profoto,Accessory,2020,2023,3,Fair,2,12990,3000
+Profoto,Accessory,2020,2023,3,For Parts,1,12990,1500
+Profoto,Accessory,2020,2024,4,Excellent,4,12990,4500
+Profoto,Accessory,2020,2024,4,Good,3,12990,3500
+Profoto,Accessory,2020,2024,4,Fair,2,12990,2500
+Profoto,Accessory,2020,2024,4,For Parts,1,12990,1000
+Profoto,Accessory,2020,2025,5,Excellent,4,12990,4000
+Profoto,Accessory,2020,2025,5,Good,3,12990,3000
+Profoto,Accessory,2020,2025,5,Fair,2,12990,2000
+Profoto,Accessory,2020,2025,5,For Parts,1,12990,1000
+Fujifilm,Accessory,2021,2021,0,New (Open Box),6,5990,4500
+Fujifilm,Accessory,2021,2021,0,Like New,5,5990,4500
+Fujifilm,Accessory,2021,2021,0,Excellent,4,5990,3500
+Fujifilm,Accessory,2021,2021,0,Good,3,5990,3000
+Fujifilm,Accessory,2021,2021,0,Fair,2,5990,2000
+Fujifilm,Accessory,2021,2022,1,New (Open Box),6,5990,4000
+Fujifilm,Accessory,2021,2022,1,Like New,5,5990,3500
+Fujifilm,Accessory,2021,2022,1,Excellent,4,5990,3500
+Fujifilm,Accessory,2021,2022,1,Good,3,5990,2500
+Fujifilm,Accessory,2021,2022,1,Fair,2,5990,1500
+Fujifilm,Accessory,2021,2023,2,Excellent,4,5990,2500
+Fujifilm,Accessory,2021,2023,2,Good,3,5990,2500
+Fujifilm,Accessory,2021,2023,2,Fair,2,5990,1500
+Fujifilm,Accessory,2021,2023,2,For Parts,1,5990,500
+Fujifilm,Accessory,2021,2024,3,Excellent,4,5990,2500
+Fujifilm,Accessory,2021,2024,3,Good,3,5990,2000
+Fujifilm,Accessory,2021,2024,3,Fair,2,5990,1000
+Fujifilm,Accessory,2021,2024,3,For Parts,1,5990,500
+Fujifilm,Accessory,2021,2025,4,Excellent,4,5990,2000
+Fujifilm,Accessory,2021,2025,4,Good,3,5990,1500
+Fujifilm,Accessory,2021,2025,4,Fair,2,5990,1000
+Fujifilm,Accessory,2021,2025,4,For Parts,1,5990,500

@@ -103,14 +103,33 @@ router.post('/login', async (req, res) => {
             .single();
 
         if (profileError || !profileData) {
-            console.error("Profile Fetch Error:", profileError);
-            // Fallback: If no profile exists yet, we don't block login, but return null for name
+            console.log("No profile found! Auto-creating default profile for legacy/dashboard user...");
+            
+            const defaultName = loginData.user.email.split('@')[0];
+            const defaultType = 'client';
+
+            const { error: insertError } = await supabase
+                .from('profiles')
+                .insert([{ 
+                    user_id: userId, 
+                    user_type: defaultType, 
+                    email: loginData.user.email,
+                    full_name: defaultName
+                }]);
+                
+            if (insertError) {
+                console.error("Failed to auto-create profile:", insertError.message);
+            } else {
+                console.log(`[SUCCESS] Auto-created profile for legacy user: ${userId}`);
+            }
+
             return res.status(200).json({
-                message: 'Login successful (Profile missing)',
+                message: 'Login successful (Profile auto-created)',
                 user: { 
                     id: userId, 
                     email: loginData.user.email,
-                    fullName: "User", // Default fallback
+                    fullName: defaultName, 
+                    userType: defaultType,
                     token: loginData.session.access_token 
                 },
             });

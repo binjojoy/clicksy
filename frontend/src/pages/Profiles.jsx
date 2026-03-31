@@ -7,6 +7,9 @@ import {
     Edit3, MapPin, Link as LinkIcon, Heart, ShieldCheck, 
     Bookmark, Sparkles, ArrowRight, Loader2, UserPlus, Check
 } from 'lucide-react'; // Added UserPlus, Check icons
+import { supabase } from '../services/supabaseClient';
+import AvatarFallback from '../components/AvatarFallback.jsx';
+import ClientProfile from './ClientProfile';
 import '../styles/Profiles.css';
 
 const SignatureProfile = () => {
@@ -25,6 +28,10 @@ const SignatureProfile = () => {
     const [isFollowing, setIsFollowing] = useState(false);
     const [followStats, setFollowStats] = useState({ followers: 0, following: 0 });
 
+    // --- APPRECIATION STATE ---
+    const [appreciationCount, setAppreciationCount] = useState(0);
+    const [loadingAppreciation, setLoadingAppreciation] = useState(true);
+
     useEffect(() => {
         window.scrollTo(0, 0); 
         const fetchData = async () => {
@@ -38,29 +45,32 @@ const SignatureProfile = () => {
                     return;
                 }
 
-                // Parallel Fetch: Profile + Portfolio + Recs + FOLLOW STATS
-                const [profileRes, portfolioRes, recRes, followRes] = await Promise.all([
-                    api.get(`/profile/${targetId}`),
-                    api.get(`/profile/${targetId}/portfolio`),
-                    api.get(`/recommendations/peers?userId=${targetId}`),
-                    // New Route Call
-                    api.get(`/profile/${targetId}/follow-stats?currentUserId=${currentUserId}`)
-                ]);
-
+                // 1. Critical Fetch: Core Profile Data
+                const profileRes = await api.get(`/profile/${targetId}`);
                 setProfile(profileRes.data);
-                setPortfolioData(portfolioRes.data.portfolio);
-                setPortfolioStats(portfolioRes.data.stats);
-                setRecommendations(recRes.data);
                 
-                // Set Follow Data
-                setIsFollowing(followRes.data.isFollowing);
-                setFollowStats({
-                    followers: followRes.data.followersCount,
-                    following: followRes.data.followingCount
-                });
+                // 2. Asynchronous Secondary Fetches
+                api.get(`/profile/${targetId}/portfolio`)
+                    .then(res => {
+                        setPortfolioData(res.data.portfolio || []);
+                        setPortfolioStats(res.data.stats || { shots: 0, likes: 0 });
+                    }).catch(err => console.warn("Portfolio unavailable"));
+
+                api.get(`/recommendations/peers?userId=${targetId}`)
+                    .then(res => setRecommendations(res.data || []))
+                    .catch(err => console.warn("Recommendations unavailable"));
+
+                api.get(`/profile/${targetId}/follow-stats?currentUserId=${currentUserId}`)
+                    .then(res => {
+                        setIsFollowing(res.data.isFollowing);
+                        setFollowStats({
+                            followers: res.data.followersCount || 0,
+                            following: res.data.followingCount || 0
+                        });
+                    }).catch(err => console.warn("Follow stats unavailable"));
 
             } catch (error) {
-                console.error("Error loading profile:", error);
+                console.error("Error loading core profile data:", error);
             } finally {
                 setLoading(false);
             }
@@ -68,6 +78,42 @@ const SignatureProfile = () => {
 
         fetchData();
     }, [id, navigate]);
+
+    useEffect(() => {
+        const targetId = id || localStorage.getItem('user_id');
+        if (!targetId) return;
+
+        const fetchAppreciations = async () => {
+            setLoadingAppreciation(true);
+            try {
+                const res = await api.get(`/appreciations/count/${targetId}`);
+                setAppreciationCount(res.data.count);
+            } catch(err) {
+                console.error("Error fetching appreciations:", err);
+            } finally {
+                setLoadingAppreciation(false);
+            }
+        };
+
+        fetchAppreciations();
+
+        // Realtime Subscription
+        const channel = supabase
+            .channel('appreciations-count')
+            .on('postgres_changes', {
+                event: '*',
+                schema: 'public',
+                table: 'appreciations',
+                filter: `photographer_id=eq.${targetId}`
+            }, () => {
+                fetchAppreciations();
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+    }, [id]);
 
     // --- NEW: HANDLE FOLLOW ACTION ---
     const handleFollow = async () => {
@@ -99,17 +145,20 @@ const SignatureProfile = () => {
     if (loading) return <div className="min-h-screen bg-black flex items-center justify-center"><Loader2 className="animate-spin text-purple-500" size={40} /></div>;
     if (!profile) return <div className="text-white text-center pt-20">Profile not found.</div>;
 
-    const displayAvatar = profile.avatar_url || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80";
     const displayBanner = profile.banner_url || "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1600&q=80";
     const isOwnProfile = localStorage.getItem('user_id') === profile.user_id;
 
     // Helper for formatting stats
     const formatNumber = (num) => {
         if (!num) return 0;
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
         if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
         return num;
     };
 
+    // ==========================================
+    // 📸 THIS IS THE PHOTOGRAPHER PROFILE RENDER
+    // ==========================================
     return (
         <div className="sig-page-wrapper">
             <Navbar />
@@ -118,7 +167,7 @@ const SignatureProfile = () => {
             <div className="sig-container">
                 <div className="sig-card">
                     <div className="sig-avatar-wrapper">
-                        <img src={displayAvatar} alt="Profile" className="sig-avatar" />
+                        <AvatarFallback name={profile.full_name} imageUrl={profile.avatar_url} size="xl" className="sig-avatar" />
                         {profile.is_verified && <div className="sig-verified"><ShieldCheck size={20} /></div>}
                     </div>
 
@@ -180,7 +229,12 @@ const SignatureProfile = () => {
                                 <span className="sig-stat-lbl">Followers</span>
                             </div>
                             <div className="sig-stat-box">
-                                <span className="sig-stat-val">{formatNumber(portfolioStats.likes)}</span>
+                                {/* APPRECIATION COUNT */}
+                                {loadingAppreciation ? (
+                                    <div className="sig-stat-val" style={{ width: '40px', height: '24px', background: '#27272a', borderRadius: '4px', margin: '0 auto', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }}></div>
+                                ) : (
+                                    <span className="sig-stat-val">{formatNumber(appreciationCount)}</span>
+                                )}
                                 <span className="sig-stat-lbl">Appreciation</span>
                             </div>
                         </div>
@@ -200,7 +254,7 @@ const SignatureProfile = () => {
                     <div className="sig-rec-list">
                         {recommendations.slice(0, 5).map((rec) => (
                             <div key={rec.id} className="sig-rec-card">
-                                <img src={rec.avatar || `https://ui-avatars.com/api/?name=${rec.name}&background=random`} alt={rec.name} className="sig-rec-avatar" />
+                                <AvatarFallback name={rec.name} imageUrl={rec.avatar} size="lg" className="sig-rec-avatar" />
                                 <h4 className="sig-rec-name">{rec.name}</h4>
                                 <span className="sig-rec-role">{rec.role}</span>
                                 <button className="sig-btn-follow" onClick={() => navigate(`/profile/${rec.id}`)}>View</button>
@@ -241,4 +295,57 @@ const SignatureProfile = () => {
     );
 };
 
-export default SignatureProfile;
+// ==========================================
+// 🚀 PROFILE ROUTER (DISPATCHER)
+// ==========================================
+// Intercepts the route to render Client vs Photographer profile
+const ProfileRouter = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [userType, setUserType] = useState(null);
+
+    useEffect(() => {
+        const fetchUserType = async () => {
+             const targetId = id || localStorage.getItem('user_id');
+             if (!targetId) { 
+                 navigate('/login'); 
+                 return; 
+             }
+             
+             // ⚡ FAST-TRACK: If viewing own profile, we already know the role!
+             if (!id || id === localStorage.getItem('user_id')) {
+                 setUserType(localStorage.getItem('userRole'));
+                 setLoading(false);
+                 return;
+             }
+
+             try {
+                 const res = await api.get(`/profile/${targetId}`);
+                 // Profile is returned as res.data
+                 setUserType(res.data.user_type);
+             } catch (err) {
+                 console.error("Error determining user type:", err);
+             } finally {
+                 setLoading(false);
+             }
+        };
+
+        fetchUserType();
+    }, [id, navigate]);
+
+    if (loading) return (
+        <div className="min-h-screen bg-black flex items-center justify-center">
+            <Loader2 className="animate-spin text-purple-500" size={40} />
+        </div>
+    );
+
+    // Render ClientProfile if client, else default to standard SignatureProfile (Photographer)
+    if (userType === 'client') {
+        return <ClientProfile profileId={id} />;
+    }
+
+    return <SignatureProfile />;
+};
+
+export default ProfileRouter;

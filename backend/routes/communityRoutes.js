@@ -2,12 +2,11 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase'); 
 
-// --- 1. GET ALL POSTS (With "Has Liked" Check) ---
+// --- 1. GET ALL POSTS ---
+// [Unchanged - keeping your existing logic]
 router.get('/posts', async (req, res) => {
     try {
-        const currentUserId = req.query.userId; // Frontend will send this now
-
-        // A. Fetch Posts
+        const currentUserId = req.query.userId;
         const { data: posts, error: postError } = await supabase
             .from('forum_posts')
             .select('*')
@@ -15,11 +14,9 @@ router.get('/posts', async (req, res) => {
 
         if (postError) throw postError;
 
-        // B. Fetch Profiles & Comments (Same as before)
         const { data: profiles } = await supabase.from('profiles').select('user_id, full_name');
         const { data: comments } = await supabase.from('forum_comments').select('*');
         
-        // C. Fetch YOUR Votes (To see what is red)
         let myVotes = [];
         if (currentUserId) {
             const { data: votes } = await supabase
@@ -29,20 +26,17 @@ router.get('/posts', async (req, res) => {
             myVotes = votes ? votes.map(v => v.post_id) : [];
         }
 
-        // D. Create Maps
         const profileMap = {};
         if (profiles) profiles.forEach(p => profileMap[p.user_id] = p.full_name);
 
-        // E. Format Data
         const formattedPosts = posts.map(post => {
             const postComments = comments ? comments.filter(c => c.post_id === post.id) : [];
-            
             return {
                 id: post.id,
                 title: post.title,
                 author: profileMap[post.user_id] || "Unknown Photographer",
                 likes: post.upvotes || 0,
-                hasLiked: myVotes.includes(post.id), // True if you voted!
+                hasLiked: myVotes.includes(post.id),
                 category: post.category,
                 time: new Date(post.created_at).toLocaleDateString(),
                 comments: postComments.map(c => ({
@@ -52,19 +46,15 @@ router.get('/posts', async (req, res) => {
                 }))
             };
         });
-
         res.status(200).json(formattedPosts);
-
     } catch (err) {
         console.error('Error fetching feed:', err.message);
         res.status(500).json({ error: 'Server Error' });
     }
 });
 
-// --- 2. CREATE POST (Unchanged) ---
+// --- 2. CREATE POST ---
 router.post('/posts', async (req, res) => {
-    /* ... Keep your existing CREATE POST code here ... */
-    // (If you lost it, let me know, but it should be the same as before)
     try {
         const { user_id, title, content, category } = req.body;
         const { data, error } = await supabase.from('forum_posts').insert([{ user_id, title, content, category }]).select().single();
@@ -73,23 +63,54 @@ router.post('/posts', async (req, res) => {
     } catch (err) { res.status(500).json({ error: 'Failed' }); }
 });
 
-// --- 3. COMMENT (Unchanged) ---
+// --- 3. COMMENT (WITH NOTIFICATION TRIGGER) ---
 router.post('/posts/:postId/comment', async (req, res) => {
-    /* ... Keep existing COMMENT code ... */
     try {
         const { postId } = req.params;
         const { user_id, content } = req.body;
-        const { data, error } = await supabase.from('forum_comments').insert([{ post_id: postId, user_id, content }]).select().single();
+
+        // 1. Insert the comment
+        const { data: comment, error } = await supabase
+            .from('forum_comments')
+            .insert([{ post_id: postId, user_id, content }])
+            .select()
+            .single();
+
         if (error) throw error;
-        res.status(201).json(data);
-    } catch (err) { res.status(500).json({ error: 'Failed' }); }
+
+        // ⚡ TRIGGER: Notify Post Owner
+        // Fetch post info and commenter name
+        const [postRes, userRes] = await Promise.all([
+            supabase.from('forum_posts').select('user_id, title').eq('id', postId).single(),
+            supabase.from('profiles').select('full_name').eq('user_id', user_id).single()
+        ]);
+
+        const postOwnerId = postRes.data?.user_id;
+        const commenterName = userRes.data?.full_name || "Someone";
+
+        // Don't notify if I comment on my own post
+        if (postOwnerId && postOwnerId !== user_id) {
+            await supabase.from('notifications').insert({
+                user_id: postOwnerId,
+                type: 'comment',
+                title: 'New Comment',
+                content: `${commenterName} commented on your post: "${postRes.data.title}"`,
+                related_id: postId
+            });
+        }
+
+        res.status(201).json(comment);
+    } catch (err) { 
+        console.error(err);
+        res.status(500).json({ error: 'Failed' }); 
+    }
 });
 
-// --- 4. TOGGLE LIKE (New Logic) ---
+// --- 4. TOGGLE LIKE (WITH NOTIFICATION TRIGGER) ---
 router.put('/posts/:postId/like', async (req, res) => {
     try {
         const { postId } = req.params;
-        const { user_id } = req.body; // We need to know WHO is liking
+        const { user_id } = req.body;
 
         if (!user_id) return res.status(400).json({ error: "User ID required" });
 
@@ -104,20 +125,33 @@ router.put('/posts/:postId/like', async (req, res) => {
         let newCount;
         let isLiked;
 
-        // 2. Get current post count
-        const { data: post } = await supabase.from('forum_posts').select('upvotes').eq('id', postId).single();
+        // 2. Get current post data
+        const { data: post } = await supabase.from('forum_posts').select('upvotes, user_id, title').eq('id', postId).single();
         let currentUpvotes = post.upvotes || 0;
 
         if (existingVote) {
-            // A. UNLIKE: Delete vote, Decrement count
+            // A. UNLIKE
             await supabase.from('forum_votes').delete().eq('user_id', user_id).eq('post_id', postId);
             newCount = Math.max(0, currentUpvotes - 1);
             isLiked = false;
         } else {
-            // B. LIKE: Insert vote, Increment count
+            // B. LIKE
             await supabase.from('forum_votes').insert([{ user_id, post_id: postId }]);
             newCount = currentUpvotes + 1;
             isLiked = true;
+
+            // ⚡ TRIGGER: Notify Post Owner (Only on new Likes)
+            const { data: LikerProfile } = await supabase.from('profiles').select('full_name').eq('user_id', user_id).single();
+            
+            if (post.user_id !== user_id) {
+                await supabase.from('notifications').insert({
+                    user_id: post.user_id,
+                    type: 'vote',
+                    title: 'New Like',
+                    content: `${LikerProfile?.full_name || 'Someone'} liked your post: "${post.title}"`,
+                    related_id: postId
+                });
+            }
         }
 
         // 3. Update Post Table
